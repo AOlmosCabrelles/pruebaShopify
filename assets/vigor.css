@@ -120,3 +120,42 @@
 .vigor-chip { flex: none; padding: 10px 18px; border-radius: 99px; border: 1px solid rgb(0 0 0 / 0.15); text-decoration: none; color: inherit; font-weight: 600; font-size: 0.9rem; transition: background 0.2s, color 0.2s, border-color 0.2s; }
 .vigor-chip:hover { border-color: var(--vigor-acento); color: var(--vigor-acento); }
 .vigor-chip--activa, .vigor-chip--activa:hover { background: #111; border-color: #111; color: #fff; }
+
+/* --- Pie de página --- */
+.vigor-footer { background: #111; color: rgb(255 255 255 / 0.8); font-size: 0.95rem; }
+.vigor-footer a { color: inherit; text-decoration: none; }
+.vigor-footer a:hover { color: var(--vigor-acento); }
+.vigor-footer__wrap { max-width: var(--page-width, 1200px); margin-inline: auto; padding-inline: var(--page-margin, 20px); }
+.vigor-footer__beneficios { background: var(--vigor-acento); color: #fff; }
+.vigor-footer__beneficios-grid { display: grid; gap: 16px 24px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); padding-block: 22px; }
+.vigor-footer__beneficio { display: flex; gap: 12px; align-items: center; }
+.vigor-footer__beneficio svg { flex: none; }
+.vigor-footer__beneficio strong { display: block; color: #fff; }
+.vigor-footer__beneficio span { font-size: 0.85rem; opacity: 0.9; }
+.vigor-footer__principal { padding-block: 56px 40px; }
+.vigor-footer__grid { display: grid; gap: 36px 24px; grid-template-columns: 1fr 1fr; }
+.vigor-footer__marca, .vigor-footer__contacto { grid-column: 1 / -1; }
+@media (min-width: 750px) {
+  .vigor-footer__grid { grid-template-columns: 1.4fr 1fr 1fr 1.3fr; }
+  .vigor-footer__marca, .vigor-footer__contacto { grid-column: auto; }
+}
+.vigor-footer__marca p { max-width: 34ch; margin: 16px 0 20px; }
+.vigor-footer__redes { display: flex; gap: 10px; }
+.vigor-footer__redes a { display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; border-radius: 50%; background: rgb(255 255 255 / 0.08); transition: background 0.2s; }
+.vigor-footer__redes a:hover { background: var(--vigor-acento); color: #fff; }
+.vigor-footer__col h2 { color: #fff; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 16px; }
+.vigor-footer__col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.vigor-footer__horario { opacity: 0.7; font-size: 0.85rem; }
+.vigor-footer__news-titulo { color: #fff; font-weight: 700; margin: 24px 0 10px; }
+.vigor-footer__news { display: flex; border-radius: 10px; overflow: hidden; background: rgb(255 255 255 / 0.08); flex-wrap: wrap; }
+.vigor-footer__news input[type="email"] { flex: 1; min-width: 0; padding: 12px 14px; background: transparent; border: 0; color: #fff; font: inherit; }
+.vigor-footer__news input::placeholder { color: rgb(255 255 255 / 0.5); }
+.vigor-footer__news button { padding: 0 18px; border: 0; background: var(--vigor-acento); color: #fff; font-size: 1.2rem; font-weight: 700; cursor: pointer; }
+.vigor-footer__ok { width: 100%; margin: 0; padding: 8px 14px; color: #9be29b; }
+.vigor-footer__legal { border-top: 1px solid rgb(255 255 255 / 0.1); padding-block: 24px; font-size: 0.8rem; }
+.vigor-footer__aviso { margin: 0 0 16px; opacity: 0.6; max-width: 90ch; }
+.vigor-footer__fila { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; }
+.vigor-footer__fila p { margin: 0; }
+.vigor-footer__politicas, .vigor-footer__pagos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.vigor-footer__pagos { gap: 6px; }
+.vigor-footer__pago { height: 24px; width: auto; display: block; }

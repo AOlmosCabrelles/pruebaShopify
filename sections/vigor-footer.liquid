@@ -1,0 +1,200 @@
+{%- comment -%}
+  Vigor Sport Nutrition · pie de página.
+  - Columna "Tienda": enlaces automáticos a las colecciones que existan.
+  - Columna "Ayuda": el menú elegido (por defecto "footer"); si está vacío, enlaces por defecto.
+  - Políticas legales y métodos de pago: se leen de la configuración de la tienda.
+{%- endcomment -%}
+{%- liquid
+  assign colecciones = 'proteinas,rendimiento,recuperacion,salud,snacks,accesorios' | split: ','
+  assign menu_ayuda = linklists[section.settings.menu_ayuda]
+-%}
+
+<footer class="vigor-footer">
+  {%- if section.settings.mostrar_beneficios -%}
+    <div class="vigor-footer__beneficios">
+      <div class="vigor-footer__wrap vigor-footer__beneficios-grid">
+        {%- for b in (1..4) -%}
+          {%- liquid
+            case b
+              when 1
+                assign icono = 'truck'
+                assign titulo = section.settings.beneficio_1
+                assign sub = section.settings.beneficio_1_sub
+              when 2
+                assign icono = 'return'
+                assign titulo = section.settings.beneficio_2
+                assign sub = section.settings.beneficio_2_sub
+              when 3
+                assign icono = 'lock'
+                assign titulo = section.settings.beneficio_3
+                assign sub = section.settings.beneficio_3_sub
+              when 4
+                assign icono = 'chat_bubble'
+                assign titulo = section.settings.beneficio_4
+                assign sub = section.settings.beneficio_4_sub
+            endcase
+          -%}
+          {%- if titulo != blank -%}
+            <div class="vigor-footer__beneficio">
+              <svg aria-hidden="true" focusable="false" width="26" height="26" viewBox="0 0 20 20">{%- render 'icon', icon: icono -%}</svg>
+              <div><strong>{{ titulo }}</strong><span>{{ sub }}</span></div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="vigor-footer__principal">
+    <div class="vigor-footer__wrap vigor-footer__grid">
+      <div class="vigor-footer__marca">
+        <a href="{{ routes.root_url }}" class="vigor-footer__logo">
+          {%- if settings.logo_inverse != blank -%}
+            {{ settings.logo_inverse | image_url: width: 400 | image_tag: alt: shop.name, height: 40, style: 'height:40px;width:auto' }}
+          {%- else -%}
+            <img src="{{ 'vigor-logo-blanco.png' | asset_url }}" alt="{{ shop.name | escape }}" width="620" height="160" style="height:40px;width:auto" loading="lazy">
+          {%- endif -%}
+        </a>
+        <p>{{ section.settings.texto_marca }}</p>
+        <div class="vigor-footer__redes">
+          {%- for red in (1..4) -%}
+            {%- liquid
+              case red
+                when 1
+                  assign url = section.settings.instagram
+                  assign icono = 'instagram'
+                  assign nombre = 'Instagram'
+                when 2
+                  assign url = section.settings.tiktok
+                  assign icono = 'tiktok'
+                  assign nombre = 'TikTok'
+                when 3
+                  assign url = section.settings.youtube
+                  assign icono = 'youtube'
+                  assign nombre = 'YouTube'
+                when 4
+                  assign url = section.settings.facebook
+                  assign icono = 'facebook'
+                  assign nombre = 'Facebook'
+              endcase
+            -%}
+            {%- if url != blank -%}
+              <a href="{{ url }}" target="_blank" rel="noopener" aria-label="{{ nombre }}">
+                <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 20 20">{%- render 'icon', icon: icono -%}</svg>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <nav class="vigor-footer__col" aria-label="Tienda">
+        <h2>Tienda</h2>
+        <ul>
+          {%- for handle in colecciones -%}
+            {%- assign col = collections[handle] -%}
+            {%- if col.products_count > 0 -%}
+              <li><a href="{{ col.url }}">{{ col.title }}</a></li>
+            {%- endif -%}
+          {%- endfor -%}
+          <li><a href="{{ routes.all_products_collection_url }}">Todos los productos</a></li>
+        </ul>
+      </nav>
+
+      <nav class="vigor-footer__col" aria-label="Ayuda">
+        <h2>Ayuda</h2>
+        <ul>
+          {%- if menu_ayuda.links.size > 0 -%}
+            {%- for link in menu_ayuda.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="{{ routes.root_url }}#preguntas-frecuentes">Preguntas frecuentes</a></li>
+            {%- if shop.shipping_policy -%}<li><a href="{{ shop.shipping_policy.url }}">Envíos</a></li>{%- endif -%}
+            {%- if shop.refund_policy -%}<li><a href="{{ shop.refund_policy.url }}">Devoluciones</a></li>{%- endif -%}
+            <li><a href="{{ routes.account_url }}">Mi cuenta</a></li>
+            <li><a href="/pages/contact">Contacto</a></li>
+          {%- endif -%}
+        </ul>
+      </nav>
+
+      <div class="vigor-footer__col vigor-footer__contacto">
+        <h2>Contacto</h2>
+        <ul>
+          {%- if section.settings.email != blank -%}<li><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></li>{%- endif -%}
+          {%- if section.settings.telefono != blank -%}<li><a href="tel:{{ section.settings.telefono | remove: ' ' }}">{{ section.settings.telefono }}</a></li>{%- endif -%}
+          {%- if section.settings.horario != blank -%}<li class="vigor-footer__horario">{{ section.settings.horario }}</li>{%- endif -%}
+        </ul>
+        {%- if section.settings.mostrar_newsletter -%}
+          <p class="vigor-footer__news-titulo">{{ section.settings.newsletter_titulo }}</p>
+          {%- form 'customer', id: 'VigorFooterNewsletter', class: 'vigor-footer__news' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <label class="visually-hidden" for="VigorFooterEmail">Email</label>
+            <input id="VigorFooterEmail" type="email" name="contact[email]" placeholder="Tu email" autocomplete="email" required>
+            <button type="submit" aria-label="Suscribirme">→</button>
+            {%- if form.posted_successfully? -%}<p class="vigor-footer__ok" role="status">¡Gracias por suscribirte!</p>{%- endif -%}
+          {%- endform -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="vigor-footer__legal">
+    <div class="vigor-footer__wrap">
+      {%- if section.settings.aviso != blank -%}
+        <p class="vigor-footer__aviso">{{ section.settings.aviso }}</p>
+      {%- endif -%}
+      <div class="vigor-footer__fila">
+        <p>© {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
+        <ul class="vigor-footer__politicas">
+          {%- for policy in shop.policies -%}
+            <li><a href="{{ policy.url }}">{{ policy.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+        {%- if shop.enabled_payment_types.size > 0 -%}
+          <ul class="vigor-footer__pagos" aria-label="Métodos de pago">
+            {%- for type in shop.enabled_payment_types -%}
+              <li>{{ type | payment_type_svg_tag: class: 'vigor-footer__pago' }}</li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Vigor · Pie de página",
+  "tag": "section",
+  "class": "vigor-footer-section",
+  "enabled_on": { "groups": ["footer"] },
+  "settings": [
+    { "type": "header", "content": "Franja de beneficios" },
+    { "type": "checkbox", "id": "mostrar_beneficios", "label": "Mostrar franja de beneficios", "default": true },
+    { "type": "text", "id": "beneficio_1", "label": "Beneficio 1", "default": "Envío gratis desde 50 €" },
+    { "type": "text", "id": "beneficio_1_sub", "label": "Detalle 1", "default": "Entrega en 48-72 h" },
+    { "type": "text", "id": "beneficio_2", "label": "Beneficio 2", "default": "Devoluciones en 14 días" },
+    { "type": "text", "id": "beneficio_2_sub", "label": "Detalle 2", "default": "Con el envase precintado" },
+    { "type": "text", "id": "beneficio_3", "label": "Beneficio 3", "default": "Pago 100 % seguro" },
+    { "type": "text", "id": "beneficio_3_sub", "label": "Detalle 3", "default": "Tarjeta, Bizum, Apple Pay" },
+    { "type": "text", "id": "beneficio_4", "label": "Beneficio 4", "default": "Te asesoramos" },
+    { "type": "text", "id": "beneficio_4_sub", "label": "Detalle 4", "default": "Escríbenos sin compromiso" },
+    { "type": "header", "content": "Marca" },
+    { "type": "textarea", "id": "texto_marca", "label": "Texto de la marca", "default": "Suplementación deportiva con fórmulas claras, dosis útiles y sin rellenos. Hecho para quien entrena de verdad." },
+    { "type": "url", "id": "instagram", "label": "Instagram" },
+    { "type": "url", "id": "tiktok", "label": "TikTok" },
+    { "type": "url", "id": "youtube", "label": "YouTube" },
+    { "type": "url", "id": "facebook", "label": "Facebook" },
+    { "type": "header", "content": "Ayuda y contacto" },
+    { "type": "link_list", "id": "menu_ayuda", "label": "Menú de ayuda", "default": "footer", "info": "Si el menú está vacío se muestran enlaces por defecto." },
+    { "type": "text", "id": "email", "label": "Email", "default": "hola@vigorsport.example" },
+    { "type": "text", "id": "telefono", "label": "Teléfono" },
+    { "type": "text", "id": "horario", "label": "Horario", "default": "Lunes a viernes, de 9:00 a 18:00" },
+    { "type": "checkbox", "id": "mostrar_newsletter", "label": "Mostrar suscripción", "default": true },
+    { "type": "text", "id": "newsletter_titulo", "label": "Título de la suscripción", "default": "10 % en tu primer pedido" },
+    { "type": "header", "content": "Legal" },
+    { "type": "textarea", "id": "aviso", "label": "Aviso legal de complementos", "default": "Los complementos alimenticios no deben utilizarse como sustituto de una dieta equilibrada y variada ni de un estilo de vida saludable. No superar la dosis diaria recomendada." }
+  ],
+  "presets": [{ "name": "Vigor · Pie de página" }]
+}
+{% endschema %}
