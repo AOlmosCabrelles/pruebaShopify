@@ -100,23 +100,38 @@ se rellenan solas según el **tipo de producto** que trae el CSV.
 5. En **Tipo de colección**, elige **Automatizada**.
 6. En **Condiciones**:
    - *Los productos deben cumplir:* **todas las condiciones**
-   - Primer desplegable: **Tipo de producto**
+   - Primer desplegable: **Etiqueta del producto** (no "Categoría del producto")
    - Segundo desplegable: **es igual a**
-   - Texto: `Proteínas` (con tilde, igual que en el CSV)
-7. Pulsa **Guardar**. Abajo aparecerán los 4 productos de proteína.
+   - Texto: `cat-proteinas`
+7. Pulsa **Guardar**. Abajo aparecerán los 4 productos de proteína (puede tardar unos segundos).
 8. **Comprueba el identificador:** al final de la página, en *Vista previa del listado del motor de
    búsqueda* → **Editar**, la URL debe terminar en `/collections/proteinas`. El tema usa ese
-   identificador para la tarjeta de categoría y el botón *Ver proteínas*.
+   identificador para la tarjeta de categoría y la cabecera de color.
+
+> **¿Por qué la etiqueta y no el tipo de producto?** Cada producto del CSV lleva una etiqueta de
+> categoría sin tildes ni mayúsculas (`cat-proteinas`, `cat-rendimiento`...), así no hay errores
+> al escribir la condición. La condición *Tipo de producto es igual a* `Proteínas` también
+> funciona, pero hay que escribir el tipo exactamente igual, con tilde.
 
 ### 4.2 Repetir con el resto
-| Título | Condición: Tipo de producto es igual a | Identificador (URL) | Productos |
+| Título | Condición: Etiqueta del producto es igual a | Identificador (URL) | Productos |
 |---|---|---|---|
-| Proteínas | `Proteínas` | `proteinas` | 4 |
-| Rendimiento | `Rendimiento` | `rendimiento` | 6 |
-| Recuperación | `Recuperación` | `recuperacion` | 3 |
-| Salud | `Salud` | `salud` | 4 |
-| Snacks | `Snacks` | `snacks` | 3 |
-| Accesorios | `Accesorios` | `accesorios` | 1 |
+| Proteínas | `cat-proteinas` | `proteinas` | 4 |
+| Rendimiento | `cat-rendimiento` | `rendimiento` | 6 |
+| Recuperación | `cat-recuperacion` | `recuperacion` | 3 |
+| Salud | `cat-salud` | `salud` | 4 |
+| Snacks | `cat-snacks` | `snacks` | 3 |
+| Accesorios | `cat-accesorios` | `accesorios` | 1 |
+
+### Si una colección sale vacía
+| Comprueba | Cómo |
+|---|---|
+| ¿Se importaron los productos? | **Productos** debe mostrar 21. Si hay menos, revisa el email de Shopify sobre la importación |
+| ¿Es **Automatizada**? | Si al crearla elegiste *Manual*, no se rellena sola. Bórrala y créala de nuevo como Automatizada |
+| ¿El primer desplegable es el correcto? | Debe ser **Etiqueta del producto** (o **Tipo de producto**). *Categoría del producto* es otra cosa (la clasificación estándar de Shopify) y el CSV no la rellena |
+| ¿El producto tiene la etiqueta? | Abre un producto → panel derecho **Organización del producto → Etiquetas**: debe aparecer `cat-proteinas`. Si no está, vuelve a importar el CSV actualizado marcando *Sobrescribir* |
+| ¿El texto tiene acentos raros? (`ProteÃ­nas`) | El CSV se abrió y guardó con Excel. Descárgalo de nuevo de GitHub e impórtalo sin abrirlo |
+| ¿Sobra un espacio en la condición? | Borra el texto de la condición y escríbelo de nuevo |
 
 No hace falta crear "Todos los productos": Shopify ya la tiene en `/collections/all`.
 

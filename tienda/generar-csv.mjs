@@ -3,7 +3,7 @@
 import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { PRODUCTOS, combinar, archivoImagen, descripcionHtml } from "./catalogo.mjs";
+import { PRODUCTOS, combinar, archivoImagen, descripcionHtml, slugValor } from "./catalogo.mjs";
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const URL_IMAGENES = "https://raw.githubusercontent.com/AOlmosCabrelles/pruebaShopify/main/tienda/imagenes/productos/";
@@ -39,7 +39,7 @@ for (const p of PRODUCTOS) {
     });
     if (i === 0) {
       Object.assign(f, {
-        Title: p.titulo, "Body (HTML)": descripcionHtml(p), Vendor: "Vigor Sport Nutrition", Type: p.tipo, Tags: p.tags,
+        Title: p.titulo, "Body (HTML)": descripcionHtml(p), Vendor: "Vigor Sport Nutrition", Type: p.tipo, Tags: `cat-${slugValor(p.tipo)}, ${p.tags}`,
         Published: "TRUE", "Gift Card": "FALSE", "SEO Title": `${p.seo} | Vigor Sport Nutrition`,
         "SEO Description": p.descripcion.slice(0, 155), Status: "active",
       });
