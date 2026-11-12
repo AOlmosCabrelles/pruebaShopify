@@ -16,7 +16,7 @@
           assign enlace = coleccion.url | default: routes.collections_url
           assign clave = coleccion.handle | default: titulo | handleize
           assign imagen_ejemplo = 'vigor-cat-' | append: clave | append: '.jpg'
-          assign ejemplos = 'vigor-cat-proteinas.jpg,vigor-cat-rendimiento.jpg,vigor-cat-recuperacion.jpg,vigor-cat-salud.jpg,vigor-cat-snacks.jpg' | split: ','
+          assign ejemplos = 'vigor-cat-proteinas.jpg,vigor-cat-rendimiento.jpg,vigor-cat-recuperacion.jpg,vigor-cat-salud.jpg,vigor-cat-snacks.jpg,vigor-cat-accesorios.jpg' | split: ','
           assign hay_ejemplo = false
           if ejemplos contains imagen_ejemplo
             assign hay_ejemplo = true

@@ -69,6 +69,14 @@
             "title": "Snacks",
             "cta": "Ver productos"
           }
+        },
+        "cat_accesorios": {
+          "type": "categoria",
+          "settings": {
+            "collection": "accesorios",
+            "title": "Accesorios",
+            "cta": "Ver productos"
+          }
         }
       },
       "block_order": [
@@ -76,7 +84,8 @@
         "cat_rendimiento",
         "cat_recuperacion",
         "cat_salud",
-        "cat_snacks"
+        "cat_snacks",
+        "cat_accesorios"
       ]
     },
     "product_list_fa6P9H": {

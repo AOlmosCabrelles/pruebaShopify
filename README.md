@@ -33,7 +33,7 @@ mientras no subas imágenes propias:
 | Imagen | Dónde se ve |
 |---|---|
 | `assets/vigor-hero.jpg` | Banner principal de la página de inicio |
-| `assets/vigor-cat-*.jpg` | Tarjetas de categorías (Proteínas, Rendimiento, Recuperación, Salud, Snacks) |
+| `assets/vigor-cat-*.jpg` | Tarjetas de categorías (Proteínas, Rendimiento, Recuperación, Salud, Snacks, Accesorios) |
 | `assets/vigor-nosotros.jpg` | Sección *Hecho para quien entrena de verdad* |
 | `assets/vigor-logo.png` | Logo de la cabecera, si no has subido uno en *Configuración del tema → Logo* |
 | `assets/vigor-favicon.png` | Icono de la pestaña del navegador, si no has subido uno |
@@ -64,8 +64,8 @@ El tema usa contenido que vive en la tienda, no en el tema:
 - **Productos:** importa `tienda/productos-vigor.csv` (rama `main`). La calculadora usa el
   **peso de la variante** (1 kg, 2 kg) para calcular cuántos días dura el envase.
 - **Colecciones** con estos identificadores (*handles*): `proteinas`, `rendimiento`,
-  `recuperacion`, `salud` y `snacks`. Shopify los crea solos si las colecciones se llaman
-  *Proteínas*, *Rendimiento*... Si usas otros nombres, elígelas en la sección *Vigor · Categorías*.
+  `recuperacion`, `salud`, `snacks` y `accesorios`. Shopify los crea solos si las colecciones se llaman
+  *Proteínas*, *Rendimiento*, *Accesorios*... Si usas otros nombres, elígelas en la sección *Vigor · Categorías*.
 - **Menú principal** (`main-menu`) y menú del pie, en *Tienda online → Menús*.
 - **Imágenes:** no hace falta subir nada para empezar; el tema trae imágenes de ejemplo. Cuando tengas las tuyas, cámbialas desde el editor.
 
