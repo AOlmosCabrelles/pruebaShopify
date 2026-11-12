@@ -7,9 +7,10 @@ lista para vender. **No hace falta ninguna app ni escribir código.**
 Archivos de esta carpeta:
 | Archivo | Para qué |
 |---|---|
-| `productos-vigor.csv` | Catálogo de ejemplo: 6 productos, 15 variantes, precios, stock, SKU, peso, información nutricional y SEO |
+| `productos-vigor.csv` | Catálogo de ejemplo: **21 productos, 41 variantes**, con precios, stock, SKU, peso, información nutricional, imágenes y SEO |
+| `catalogo.mjs` | Los datos del catálogo. Si cambias algo aquí, regenera el CSV con `node tienda/generar-csv.mjs` |
 | `GUIA-TIENDA.md` | Esta guía, con los textos listos para copiar y pegar |
-| `imagenes/productos/` | 15 imágenes de envases, una por variante (ya enlazadas en el CSV) |
+| `imagenes/productos/` | 41 imágenes de envases, una por variante (ya enlazadas en el CSV) |
 | `imagenes/marca/` | Logo (oscuro y blanco), favicon, imagen de *Sobre nosotros* e imagen para redes sociales |
 | `imagenes/generar-imagenes.mjs` | Script que genera todas las imágenes (por si quieres cambiar colores o textos) |
 
@@ -41,47 +42,96 @@ Todo esto está en **Configuración** (abajo a la izquierda del admin):
 
 ## Paso 3 · Importar el catálogo y el inventario
 
-1. Descarga `productos-vigor.csv` desde GitHub: abre el archivo → botón **Download raw file**.
-2. En el admin: **Productos → Importar**.
-3. Selecciona el archivo → **Vista previa** → **Importar productos**.
-4. En un minuto tendrás esto:
+### 3.1 Descargar el CSV
+1. Abre https://github.com/AOlmosCabrelles/pruebaShopify/blob/main/tienda/productos-vigor.csv
+2. Arriba a la derecha del archivo, pulsa el botón de descarga (**Download raw file**, icono ⬇).
+3. Se guarda `productos-vigor.csv` en tu carpeta de Descargas. **No lo abras ni lo guardes con
+   Excel**, porque puede estropear los acentos y las comas.
 
-| Producto | Tipo | Variantes | Precio | Stock |
-|---|---|---|---|---|
-| Whey Protein Isolate | Proteínas | Chocolate / Vainilla / Fresa × 1 kg / 2 kg | 34,90 € / 59,90 € | 3 – 42 uds |
-| Creatina Monohidrato | Rendimiento | 300 g / 500 g | 19,90 € / 27,90 € | 60 / 6 |
-| Pre-Entreno Explosive | Rendimiento | Limón / Frutos rojos | 29,90 € | 30 / 2 |
-| BCAA 2:1:1 | Recuperación | Mango / Neutro | 22,90 € | 22 / 14 |
-| Multivitamínico Sport | Salud | 90 cápsulas | 14,90 € | 75 |
-| Barritas proteicas (caja de 12) | Snacks | Cookies / Cacahuete | 24,90 € | 9 / 40 |
+### 3.2 Importarlo en Shopify
+1. En el admin, ve a **Productos** (menú de la izquierda).
+2. Arriba a la derecha, pulsa **Importar**.
+3. **Añadir archivo** → elige `productos-vigor.csv`.
+4. Marca **"Sobrescribir los productos que tengan el mismo identificador"**. Así, si lo importas
+   dos veces, actualiza los productos en lugar de duplicarlos.
+5. Pulsa **Cargar y obtener vista previa**. Verás el primer producto (Whey Protein Isolate) con su
+   descripción y su imagen. Si la vista previa muestra un error, copia el mensaje y pásamelo.
+6. Pulsa **Importar productos**.
+7. Espera 2 o 3 minutos. Shopify descarga las 41 imágenes y te envía un email cuando termina.
+   Recarga **Productos**: deberían aparecer **21 productos**.
 
-Cada producto incluye en la descripción la **tabla nutricional**, los **alérgenos en negrita**,
-el **modo de empleo** y las advertencias obligatorias.
+### 3.3 Qué se importa
 
-**Revisa el inventario** en **Productos → Inventario**. Algunas variantes tienen muy poco stock a
-propósito (Vainilla 2 kg: 3 uds, Frutos rojos: 2 uds) para que practiques reponer existencias.
+| Tipo | Productos | Variantes |
+|---|---|---|
+| **Proteínas** | Whey Protein Isolate · Whey Protein Concentrada · Proteína Vegana · Caseína Micelar | sabores × 1 kg / 2 kg |
+| **Rendimiento** | Creatina Monohidrato · Pre-Entreno Explosive · Beta-Alanina · Citrulina Malato · Cafeína 200 mg · Bebida Isotónica | tamaños y sabores |
+| **Recuperación** | BCAA 2:1:1 · L-Glutamina · Colágeno + Magnesio | sabores |
+| **Salud** | Multivitamínico Sport · Omega-3 · Vitamina D3 + K2 · Magnesio Bisglicinato | cápsulas y perlas |
+| **Snacks** | Barritas proteicas · Galletas proteicas · Crema de cacahuete | sabores y texturas |
+| **Accesorios** | Shaker Vigor 700 ml | Negro / Naranja |
+
+Precios de 7,90 € a 59,90 €. Cada producto incluye en la descripción la **tabla nutricional**,
+los **alérgenos en negrita**, el **modo de empleo**, las advertencias obligatorias (cafeína,
+complementos alimenticios) y una imagen por variante.
+
+### 3.4 Comprobar el inventario
+Ve a **Productos → Inventario**. Algunas variantes tienen muy poco stock a propósito, para que
+practiques reponer: Whey Isolate Vainilla 2 kg (3 uds), Pre-Entreno Frutos rojos (2 uds),
+Whey Concentrada Cookies 2 kg (4 uds) y Magnesio (5 uds).
 La política es *"no vender sin stock"*, así que cuando una variante llega a 0 aparece como **Agotado**.
+Para reponer, haz clic en la cantidad de la columna **Disponible**, escribe la nueva y pulsa **Guardar**.
 
-**Imágenes:** el CSV ya enlaza una foto por variante (carpeta `imagenes/productos/`). Shopify
-las descarga solas al importar y, al cambiar de sabor o de tamaño en la tienda, se ve el envase
-correspondiente. Son **ilustraciones de ejemplo** creadas para este simulacro. Cuando tengas
-fotos reales, cámbialas en cada producto (**Medios**). Formato cuadrado, 2048 × 2048 px.
+**Imágenes:** son **ilustraciones de ejemplo** creadas para este simulacro. Cuando tengas fotos
+reales, cámbialas en cada producto (**Medios**). Formato cuadrado, 2048 × 2048 px.
 
 ## Paso 4 · Colecciones (las categorías de la web)
 
-**Productos → Colecciones → Crear colección.** Elige **Automatizada** con la condición
-*"Tipo de producto es igual a…"*:
+Una colección es una categoría de la tienda. Vamos a crear colecciones **automatizadas**, que
+se rellenan solas según el **tipo de producto** que trae el CSV.
 
-| Colección | Condición |
-|---|---|
-| Proteínas | Tipo = `Proteínas` |
-| Rendimiento | Tipo = `Rendimiento` |
-| Recuperación | Tipo = `Recuperación` |
-| Salud | Tipo = `Salud` |
-| Snacks | Tipo = `Snacks` |
-| Todos los productos | Precio > 0 |
+**Haz el paso 3 antes que este**, así verás cómo se llenan.
 
-Las colecciones automáticas se rellenan solas cuando añades productos nuevos de ese tipo.
+### 4.1 Crear la primera colección (Proteínas)
+1. En el admin, ve a **Productos → Colecciones**.
+2. Pulsa **Crear colección**.
+3. **Título:** `Proteínas`.
+4. **Descripción** (opcional): `Proteína de suero, vegana y caseína para ganar músculo y recuperarte mejor.`
+5. En **Tipo de colección**, elige **Automatizada**.
+6. En **Condiciones**:
+   - *Los productos deben cumplir:* **todas las condiciones**
+   - Primer desplegable: **Tipo de producto**
+   - Segundo desplegable: **es igual a**
+   - Texto: `Proteínas` (con tilde, igual que en el CSV)
+7. Pulsa **Guardar**. Abajo aparecerán los 4 productos de proteína.
+8. **Comprueba el identificador:** al final de la página, en *Vista previa del listado del motor de
+   búsqueda* → **Editar**, la URL debe terminar en `/collections/proteinas`. El tema usa ese
+   identificador para la tarjeta de categoría y el botón *Ver proteínas*.
+
+### 4.2 Repetir con el resto
+| Título | Condición: Tipo de producto es igual a | Identificador (URL) | Productos |
+|---|---|---|---|
+| Proteínas | `Proteínas` | `proteinas` | 4 |
+| Rendimiento | `Rendimiento` | `rendimiento` | 6 |
+| Recuperación | `Recuperación` | `recuperacion` | 3 |
+| Salud | `Salud` | `salud` | 4 |
+| Snacks | `Snacks` | `snacks` | 3 |
+| Accesorios | `Accesorios` | `accesorios` | 1 |
+
+No hace falta crear "Todos los productos": Shopify ya la tiene en `/collections/all`.
+
+### 4.3 Extras opcionales
+- **Imagen de la colección:** en cada colección, en el apartado *Imagen de colección*, puedes
+  subir la ilustración de su categoría. Están en la rama del tema, en
+  [`assets/`](https://github.com/AOlmosCabrelles/pruebaShopify/tree/tema-horizon/assets)
+  (`vigor-cat-proteinas.jpg`, etc.). Si usas el tema Vigor no hace falta: ya las muestra solo.
+- **Colección "Más vendidos":** Automatizada con la condición *Precio del producto es mayor que 0*
+  y ordenada por **Más vendidos**.
+- **Colección "Veganos":** Automatizada con la condición *Etiqueta del producto es igual a* `vegana`.
+
+### 4.4 Añadirlas al menú
+**Tienda online → Menús → Menú principal** → **Añadir elemento de menú** → escribe el nombre y,
+en *Enlace*, elige **Colecciones →** la colección correspondiente. Arrástralas para ordenarlas.
 
 ## Paso 5 · Elegir el tema (el diseño)
 
@@ -196,7 +246,8 @@ activa el **banner de cookies**.
 | Recuperación | Política de envío |
 | Salud | Política de reembolso |
 | Snacks | Aviso legal |
-| Contacto | Política de privacidad |
+| Accesorios | Política de privacidad |
+| Contacto | |
 
 ## Paso 8 · Probar como si fueras un cliente
 

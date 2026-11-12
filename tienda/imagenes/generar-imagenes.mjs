@@ -6,6 +6,7 @@ const { chromium } = createRequire(import.meta.url)("playwright");
 import { mkdirSync, writeFileSync, unlinkSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
+import { PRODUCTOS, combinar, archivoImagen } from "../catalogo.mjs";
 
 const OUT = path.resolve(process.argv[2] ?? "imagenes-generadas");
 const ACENTO = "#E4572E";
@@ -50,7 +51,8 @@ function tarro({ id, color, color2 = color, tapa = TINTA, nombre, sabor, peso, d
   </g>`;
 }
 
-function bote({ id, color, nombre, sabor, peso, dato, escala = 1 }) {
+function bote({ id, color, capsula, nombre, sabor, peso, dato, escala = 1 }) {
+  const cap = capsula ?? color;
   return `
   <g transform="translate(${300 - 300 * escala} ${700 - 700 * escala}) scale(${escala})">
     <defs>
@@ -69,10 +71,17 @@ function bote({ id, color, nombre, sabor, peso, dato, escala = 1 }) {
     <text x="300" y="630" text-anchor="middle" font-family="Inter" font-weight="800" font-size="28" fill="${TINTA}">${peso}</text>
     <path d="M190 175 L190 665" stroke="#fff" stroke-opacity=".5" stroke-width="22"/>
   </g>
-  ${[[95, 640, 20], [125, 668, -30], [500, 655, 35], [470, 675, -10]].map(([x, y, r]) => `<g transform="translate(${x} ${y}) rotate(${r})"><rect x="-26" y="-11" width="52" height="22" rx="11" fill="${color}"/><rect x="0" y="-11" width="26" height="22" rx="0" fill="#fff" opacity=".55"/><rect x="-26" y="-11" width="52" height="22" rx="11" fill="none" stroke="#000" stroke-opacity=".1"/></g>`).join("")}`;
+  ${[[95, 640, 20], [125, 668, -30], [500, 655, 35], [470, 675, -10]].map(([x, y, r]) => `<g transform="translate(${x} ${y}) rotate(${r})"><rect x="-26" y="-11" width="52" height="22" rx="11" fill="${cap}"/><rect x="0" y="-11" width="26" height="22" rx="0" fill="#fff" opacity="${capsula ? ".25" : ".55"}"/><rect x="-26" y="-11" width="52" height="22" rx="11" fill="none" stroke="#000" stroke-opacity=".1"/></g>`).join("")}`;
 }
 
-function caja({ id, color, sabor }) {
+function caja({ id, color, sabor, producto = "barra" }) {
+  const galleta = (x, y) => `
+    <g transform="translate(${x} ${y})">
+      <ellipse cx="0" cy="6" rx="92" ry="30" fill="#000" opacity=".15"/>
+      <ellipse cx="0" cy="0" rx="92" ry="30" fill="${color}"/>
+      <ellipse cx="0" cy="-4" rx="84" ry="24" fill="#fff" opacity=".12"/>
+      ${[[-40, -6], [10, -12], [45, 2], [-10, 8], [30, -4]].map(([a, b]) => `<ellipse cx="${a}" cy="${b}" rx="9" ry="5" fill="#000" opacity=".35"/>`).join("")}
+    </g>`;
   const barra = (x, y, r) => `
     <g transform="translate(${x} ${y}) rotate(${r})">
       <rect x="-150" y="-34" width="300" height="68" rx="12" fill="${color}"/>
@@ -90,33 +99,38 @@ function caja({ id, color, sabor }) {
     <defs><linearGradient id="cajabrillo" x1="0" x2="1"><stop offset="0" stop-color="#000"/><stop offset=".4" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient></defs>
     <text x="290" y="340" text-anchor="middle" font-family="Inter" font-weight="900" font-size="64" fill="#fff" letter-spacing="5">VIGOR</text>
     <text x="290" y="366" text-anchor="middle" font-family="Inter" font-weight="600" font-size="13" fill="#fff" letter-spacing="6">SPORT NUTRITION</text>
-    <text x="290" y="425" text-anchor="middle" font-family="Inter" font-weight="900" font-size="34" fill="#fff">PROTEIN BAR</text>
+    <text x="290" y="425" text-anchor="middle" font-family="Inter" font-weight="900" font-size="34" fill="#fff">${producto === "galleta" ? "PROTEIN COOKIE" : "PROTEIN BAR"}</text>
     <rect x="${290 - (sabor.length * 11 + 40) / 2}" y="445" width="${sabor.length * 11 + 40}" height="36" rx="18" fill="#fff"/>
     <text x="290" y="470" text-anchor="middle" font-family="Inter" font-weight="800" font-size="17" fill="${color}">${sabor.toUpperCase()}</text>
     <rect x="110" y="505" width="360" height="10" fill="${ACENTO}"/>
-    <text x="290" y="560" text-anchor="middle" font-family="Inter" font-weight="800" font-size="24" fill="#fff">12 × 55 g · 20 g proteína</text>
-    ${barra(200, 640, -8)}${barra(420, 660, 6)}`;
+    <text x="290" y="560" text-anchor="middle" font-family="Inter" font-weight="800" font-size="24" fill="#fff">${producto === "galleta" ? "12 × 75 g · 15 g proteína" : "12 × 55 g · 20 g proteína"}</text>
+    ${producto === "galleta" ? galleta(190, 655) + galleta(410, 668) : barra(200, 640, -8) + barra(420, 660, 6)}`;
+}
+
+function shaker({ id, color }) {
+  const marcas = [200, 300, 400, 500, 600].map((ml, i) => `<rect x="388" y="${600 - i * 80}" width="26" height="4" fill="#fff" opacity=".8"/><text x="380" y="${606 - i * 80}" text-anchor="end" font-family="Inter" font-weight="700" font-size="16" fill="#fff" opacity=".8">${ml}</text>`).join("");
+  return `
+    <defs><linearGradient id="sh-${id}" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset=".3" stop-color="#fff" stop-opacity=".18"/><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient></defs>
+    <ellipse cx="300" cy="690" rx="170" ry="18" fill="#000" opacity=".18"/>
+    <path d="M168 200 H432 L414 660 Q413 680 393 680 H207 Q187 680 186 660 Z" fill="${color}"/>
+    <path d="M168 200 H432 L414 660 Q413 680 393 680 H207 Q187 680 186 660 Z" fill="url(#sh-${id})"/>
+    ${marcas}
+    <g transform="translate(300 450) rotate(-90)"><text x="0" y="22" text-anchor="middle" font-family="Inter" font-weight="900" font-size="72" fill="#fff" letter-spacing="10">VIGOR</text></g>
+    <rect x="186" y="608" width="228" height="10" fill="${color === ACENTO ? "#111" : ACENTO}"/>
+    <rect x="156" y="120" width="288" height="86" rx="18" fill="#111"/>
+    <rect x="230" y="70" width="140" height="60" rx="16" fill="#111"/>
+    <rect x="262" y="52" width="76" height="26" rx="10" fill="${color === ACENTO ? "#111" : ACENTO}"/>
+    <path d="M200 215 L210 650" stroke="#fff" stroke-opacity=".3" stroke-width="18"/>`;
 }
 
 // ---------- Catálogo ----------
+const FORMAS = { tarro, bote, caja, shaker };
 const P = [];
-const whey = { Chocolate: ["#5B3A29", "#3d2619"], Vainilla: ["#E9D8A6", "#cdb87f"], Fresa: ["#E86A92", "#c94a74"] };
-for (const [sabor, [c1, c2]] of Object.entries(whey))
-  for (const peso of ["1 kg", "2 kg"])
-    P.push({ archivo: `whey-protein-isolate-${sabor.toLowerCase()}-${peso.replace(" ", "")}`, fondo: c1,
-      svg: tarro({ id: "w", color: c1, color2: c2, nombre: ["WHEY PROTEIN", "ISOLATE"], sabor, peso, dato: "27 g de proteína por dosis", escala: peso === "1 kg" ? 0.84 : 1, claro: sabor === "Vainilla" }) });
-for (const peso of ["300 g", "500 g"])
-  P.push({ archivo: `creatina-monohidrato-${peso.replace(" ", "")}`, fondo: "#2D6CDF",
-    svg: tarro({ id: "c", color: "#2D6CDF", color2: "#1d4fa8", tapa: "#2D6CDF", nombre: ["CREATINA", "MONOHIDRATO"], sabor: "100 % pura", peso, dato: "3 g por dosis · micronizada", escala: peso === "300 g" ? 0.72 : 0.84 }) });
-for (const [sabor, c1, c2] of [["Limón", "#F2D649", "#d6b923"], ["Frutos rojos", "#8E2C6E", "#651c4e"]])
-  P.push({ archivo: `pre-entreno-explosive-${sabor === "Limón" ? "limon" : "frutos-rojos"}`, fondo: c1,
-    svg: tarro({ id: "p", color: c1, color2: c2, tapa: ACENTO, nombre: ["PRE-ENTRENO", "EXPLOSIVE"], sabor, peso: "300 g", dato: "200 mg cafeína · citrulina", escala: 0.78, claro: sabor === "Limón" }) });
-for (const [sabor, c1, c2] of [["Mango", "#F39237", "#d1731c"], ["Neutro", "#7D8A99", "#5d6977"]])
-  P.push({ archivo: `bcaa-2-1-1-${sabor.toLowerCase()}`, fondo: c1,
-    svg: tarro({ id: "b", color: c1, color2: c2, nombre: ["BCAA", "2:1:1"], sabor, peso: "400 g", dato: "10 g aminoácidos por dosis", escala: 0.8 }) });
-P.push({ archivo: "multivitaminico-sport-90-capsulas", fondo: "#3BA55D", svg: bote({ id: "m", color: "#3BA55D", nombre: ["MULTI", "VITAMÍNICO"], sabor: "Sport", peso: "90 cápsulas", dato: "Vitaminas C, D, zinc y magnesio", escala: 0.92 }) });
-for (const [sabor, c] of [["Cookies", "#8A5A3B"], ["Cacahuete", "#C68B3C"]])
-  P.push({ archivo: `barritas-proteicas-${sabor.toLowerCase()}`, fondo: c, svg: caja({ id: "bar", color: c, sabor }) });
+for (const prod of PRODUCTOS)
+  for (const valores of combinar(prod.opciones)) {
+    const { forma, ...datos } = prod.imagen(valores);
+    P.push({ archivo: archivoImagen(prod, valores), fondo: datos.color, svg: FORMAS[forma]({ id: P.length, ...datos }) });
+  }
 
 // ---------- Plantillas HTML ----------
 const pagina = (w, h, cuerpo) => `<!doctype html><html><head><meta charset="utf-8"><style>
@@ -174,6 +188,7 @@ const salidas = [
   { dir: "tema", nombre: "vigor-cat-recuperacion", html: categoria([buscar("bcaa-2-1-1-mango")], "#F39237", "RECOVERY"), w: 1000, h: 1250 },
   { dir: "tema", nombre: "vigor-cat-salud", html: categoria([buscar("multivitaminico-sport-90-capsulas")], "#3BA55D", "SALUD"), w: 1000, h: 1250 },
   { dir: "tema", nombre: "vigor-cat-snacks", html: categoria([buscar("barritas-proteicas-cacahuete")], "#C68B3C", "SNACK"), w: 1000, h: 1250 },
+  { dir: "tema", nombre: "vigor-cat-accesorios", html: categoria([buscar("shaker-vigor-700-negro"), buscar("shaker-vigor-700-naranja")], "#333333", "SHAKER"), w: 1000, h: 1250 },
   { dir: "tienda", nombre: "sobre-nosotros", html: nosotros, w: 1800, h: 1100 },
   { dir: "tienda", nombre: "compartir-redes", html: social, w: 1200, h: 630 },
 ];
