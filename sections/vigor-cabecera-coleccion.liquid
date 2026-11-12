@@ -1,0 +1,108 @@
+{%- comment -%}
+  Vigor Sport Nutrition · cabecera visual de colección.
+  Cada categoría tiene su color, su ilustración y un texto por defecto.
+  - Color: según el identificador de la colección (proteinas, rendimiento...).
+  - Imagen: la de la colección si la tiene; si no, la ilustración de ejemplo del tema.
+  - Texto: la descripción de la colección; si está vacía, un texto por defecto.
+{%- endcomment -%}
+{%- liquid
+  assign c = collection
+  assign h = c.handle
+
+  case h
+    when 'proteinas'
+      assign color = '#5B3A29'
+      assign palabra = 'PROTEÍNA'
+      assign texto = 'Proteína de suero, vegana y caseína para ganar músculo y recuperarte mejor.'
+    when 'rendimiento'
+      assign color = '#2D6CDF'
+      assign palabra = 'FUERZA'
+      assign texto = 'Creatina, pre-entrenos y todo lo que necesitas para dar el máximo en cada sesión.'
+    when 'recuperacion'
+      assign color = '#E07A1F'
+      assign palabra = 'RECOVERY'
+      assign texto = 'Aminoácidos, glutamina y colágeno para volver a entrenar en las mejores condiciones.'
+    when 'salud'
+      assign color = '#3BA55D'
+      assign palabra = 'SALUD'
+      assign texto = 'Vitaminas, minerales y omega-3 para cuidar tu cuerpo dentro y fuera del gimnasio.'
+    when 'snacks'
+      assign color = '#B5762F'
+      assign palabra = 'SNACK'
+      assign texto = 'Barritas, galletas y cremas con proteína para comer bien también entre horas.'
+    when 'accesorios'
+      assign color = '#333333'
+      assign palabra = 'GEAR'
+      assign texto = 'Shakers y accesorios para llevar tu suplementación a cualquier parte.'
+    else
+      assign color = settings.color_palette.color1 | default: '#E4572E'
+      assign palabra = 'VIGOR'
+      assign texto = 'Suplementación deportiva con fórmulas claras, dosis útiles y sin rellenos.'
+  endcase
+
+  assign ejemplos = 'proteinas,rendimiento,recuperacion,salud,snacks,accesorios' | split: ','
+  if c.image != blank
+    assign src = c.image | image_url: width: 900
+  elsif ejemplos contains h
+    assign src = 'vigor-cat-' | append: h | append: '.jpg' | asset_url
+  elsif c.products.first.featured_image != blank
+    assign src = c.products.first.featured_image | image_url: width: 900
+  else
+    assign src = 'vigor-nosotros.jpg' | asset_url
+  endif
+
+  if c.description != blank
+    assign texto = c.description | strip_html | truncatewords: 40
+  endif
+-%}
+
+<div class="vigor-cabecera" style="--vigor-cat: {{ color }};">
+  <div class="vigor-cabecera__palabra" aria-hidden="true">{{ palabra }}</div>
+  <div class="vigor-cabecera__inner">
+    <div class="vigor-cabecera__texto">
+      <nav class="vigor-cabecera__migas" aria-label="Ruta de navegación">
+        <a href="{{ routes.root_url }}">Inicio</a>
+        <span aria-hidden="true">/</span>
+        <a href="{{ routes.collections_url }}">Categorías</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{{ c.title | default: 'Todos los productos' }}</span>
+      </nav>
+      <h1 class="vigor-cabecera__titulo">{{ c.title | default: 'Todos los productos' }}</h1>
+      <p class="vigor-cabecera__descripcion">{{ texto }}</p>
+      <span class="vigor-cabecera__contador">
+        {{ c.products_count }}
+        {% if c.products_count == 1 %}producto{% else %}productos{% endif %}
+      </span>
+    </div>
+    <div class="vigor-cabecera__imagen">
+      <img src="{{ src }}" alt="{{ c.title | escape }}" width="900" height="1125" fetchpriority="high">
+    </div>
+  </div>
+</div>
+
+{%- if section.settings.show_chips -%}
+  {%- assign actual = h -%}
+  <nav class="vigor-chips" aria-label="Categorías">
+    <a class="vigor-chip{% if actual == 'all' or actual == blank %} vigor-chip--activa{% endif %}" href="{{ routes.all_products_collection_url }}">Todo</a>
+    {%- for handle in ejemplos -%}
+      {%- assign col = collections[handle] -%}
+      {%- if col.products_count > 0 -%}
+        <a class="vigor-chip{% if actual == handle %} vigor-chip--activa{% endif %}" href="{{ col.url }}">{{ col.title }}</a>
+      {%- endif -%}
+    {%- endfor -%}
+  </nav>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Vigor · Cabecera",
+  "tag": "section",
+  "class": "vigor-cabecera-section",
+  "enabled_on": { "templates": ["collection"] },
+  "settings": [
+    { "type": "checkbox", "id": "show_chips", "label": "Mostrar accesos rápidos a otras categorías", "default": true },
+    { "type": "paragraph", "content": "El color, la ilustración y el texto por defecto dependen de la colección. Para cambiar el texto, escribe una descripción en la colección (Productos → Colecciones). Para cambiar la imagen, sube una imagen de colección." }
+  ],
+  "presets": [{ "name": "Vigor · Cabecera" }]
+}
+{% endschema %}

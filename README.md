@@ -24,6 +24,7 @@ Desde ese momento **funciona en las dos direcciones**:
 | **Barra de anuncios** (`sections/header-group.json`) | Tres mensajes rotativos: envío gratis desde 50 €, envíos el mismo día y pago seguro |
 | **Inicio** (`templates/index.json`) | Banner principal *"Rinde más. Recupera mejor."* → categorías → *Los imprescindibles* → *¿Por qué Vigor?* → Proteínas → calculadora de proteína → *Hecho para quien entrena de verdad* → preguntas frecuentes → newsletter |
 | **Ficha de producto** (`templates/product.json`) | Aviso de **pocas unidades** (por debajo de 10), desplegables de envío, devoluciones, pago y asesoramiento, **calculadora "¿Cuánto te dura este bote?"** (solo en Proteínas), *Combínalo con* y franja de beneficios |
+| **Páginas de colección** (`templates/collection.json`) | Cabecera visual por categoría: color propio, ilustración, ruta de navegación, contador de productos y accesos rápidos al resto de categorías. Debajo, franja de beneficios |
 | **Tabla nutricional** (`assets/vigor.css`) | Las tablas de la descripción se ven como una tabla nutricional |
 
 ### Imágenes de ejemplo incluidas en el tema
@@ -48,6 +49,7 @@ Todas se pueden añadir, mover y editar desde el editor de temas (**Añadir secc
 |---|---|
 | Vigor · Banner | `sections/vigor-hero.liquid` (banner principal con imagen de ejemplo) |
 | Vigor · Imagen y texto | `sections/vigor-imagen-texto.liquid` |
+| Vigor · Cabecera | `sections/vigor-cabecera-coleccion.liquid` (cabecera de las páginas de colección) |
 | Vigor · Beneficios | `sections/vigor-beneficios.liquid` |
 | Vigor · Categorías | `sections/vigor-categorias.liquid` |
 | Vigor · Calculadora | `sections/vigor-calculadora.liquid` |
