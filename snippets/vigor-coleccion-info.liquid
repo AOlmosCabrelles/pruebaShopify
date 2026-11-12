@@ -1,0 +1,47 @@
+{%- doc -%}
+  Devuelve un dato de estilo de una colección de Vigor según su identificador (handle).
+  Uso: {% capture color %}{% render 'vigor-coleccion-info', handle: c.handle, dato: 'color' %}{% endcapture %}
+
+  @param {string} handle - Identificador de la colección (proteinas, rendimiento...)
+  @param {string} dato - 'color', 'palabra' o 'texto'
+{%- enddoc -%}
+{%- liquid
+  case handle
+    when 'proteinas'
+      assign color = '#5B3A29'
+      assign palabra = 'PROTEÍNA'
+      assign texto = 'Proteína de suero, vegana y caseína para ganar músculo y recuperarte mejor.'
+    when 'rendimiento'
+      assign color = '#2D6CDF'
+      assign palabra = 'FUERZA'
+      assign texto = 'Creatina, pre-entrenos y todo lo que necesitas para dar el máximo en cada sesión.'
+    when 'recuperacion'
+      assign color = '#E07A1F'
+      assign palabra = 'RECOVERY'
+      assign texto = 'Aminoácidos, glutamina y colágeno para volver a entrenar en las mejores condiciones.'
+    when 'salud'
+      assign color = '#3BA55D'
+      assign palabra = 'SALUD'
+      assign texto = 'Vitaminas, minerales y omega-3 para cuidar tu cuerpo dentro y fuera del gimnasio.'
+    when 'snacks'
+      assign color = '#B5762F'
+      assign palabra = 'SNACK'
+      assign texto = 'Barritas, galletas y cremas con proteína para comer bien también entre horas.'
+    when 'accesorios'
+      assign color = '#333333'
+      assign palabra = 'GEAR'
+      assign texto = 'Shakers y accesorios para llevar tu suplementación a cualquier parte.'
+    else
+      assign color = settings.color_palette.color1 | default: '#E4572E'
+      assign palabra = 'VIGOR'
+      assign texto = 'Suplementación deportiva con fórmulas claras, dosis útiles y sin rellenos.'
+  endcase
+  case dato
+    when 'color'
+      echo color
+    when 'palabra'
+      echo palabra
+    else
+      echo texto
+  endcase
+-%}

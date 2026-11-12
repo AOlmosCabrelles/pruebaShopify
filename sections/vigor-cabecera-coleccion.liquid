@@ -5,40 +5,16 @@
   - Imagen: la de la colección si la tiene; si no, la ilustración de ejemplo del tema.
   - Texto: la descripción de la colección; si está vacía, un texto por defecto.
 {%- endcomment -%}
+{%- capture color -%}{%- render 'vigor-coleccion-info', handle: collection.handle, dato: 'color' -%}{%- endcapture -%}
+{%- capture palabra -%}{%- render 'vigor-coleccion-info', handle: collection.handle, dato: 'palabra' -%}{%- endcapture -%}
+{%- capture texto -%}{%- render 'vigor-coleccion-info', handle: collection.handle, dato: 'texto' -%}{%- endcapture -%}
 {%- liquid
+  assign color = color | strip
+  assign palabra = palabra | strip
+  assign texto = texto | strip
   assign c = collection
   assign h = c.handle
 
-  case h
-    when 'proteinas'
-      assign color = '#5B3A29'
-      assign palabra = 'PROTEÍNA'
-      assign texto = 'Proteína de suero, vegana y caseína para ganar músculo y recuperarte mejor.'
-    when 'rendimiento'
-      assign color = '#2D6CDF'
-      assign palabra = 'FUERZA'
-      assign texto = 'Creatina, pre-entrenos y todo lo que necesitas para dar el máximo en cada sesión.'
-    when 'recuperacion'
-      assign color = '#E07A1F'
-      assign palabra = 'RECOVERY'
-      assign texto = 'Aminoácidos, glutamina y colágeno para volver a entrenar en las mejores condiciones.'
-    when 'salud'
-      assign color = '#3BA55D'
-      assign palabra = 'SALUD'
-      assign texto = 'Vitaminas, minerales y omega-3 para cuidar tu cuerpo dentro y fuera del gimnasio.'
-    when 'snacks'
-      assign color = '#B5762F'
-      assign palabra = 'SNACK'
-      assign texto = 'Barritas, galletas y cremas con proteína para comer bien también entre horas.'
-    when 'accesorios'
-      assign color = '#333333'
-      assign palabra = 'GEAR'
-      assign texto = 'Shakers y accesorios para llevar tu suplementación a cualquier parte.'
-    else
-      assign color = settings.color_palette.color1 | default: '#E4572E'
-      assign palabra = 'VIGOR'
-      assign texto = 'Suplementación deportiva con fórmulas claras, dosis útiles y sin rellenos.'
-  endcase
 
   assign ejemplos = 'proteinas,rendimiento,recuperacion,salud,snacks,accesorios' | split: ','
   if c.image != blank

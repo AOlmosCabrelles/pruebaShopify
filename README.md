@@ -27,6 +27,7 @@ Desde ese momento **funciona en las dos direcciones**:
 | **Inicio** (`templates/index.json`) | Banner principal *"Rinde más. Recupera mejor."* → categorías → *Los imprescindibles* → *¿Por qué Vigor?* → Proteínas → calculadora de proteína → *Hecho para quien entrena de verdad* → preguntas frecuentes → newsletter |
 | **Ficha de producto** (`templates/product.json`) | Aviso de **pocas unidades** (por debajo de 10), desplegables de envío, devoluciones, pago y asesoramiento, **calculadora "¿Cuánto te dura este bote?"** (solo en Proteínas), *Combínalo con* y franja de beneficios |
 | **Páginas de colección** (`templates/collection.json`) | Cabecera visual por categoría: color propio, ilustración, ruta de navegación, contador de productos y accesos rápidos al resto de categorías. Debajo, franja de beneficios |
+| **Página de categorías** (`templates/list-collections.json`, ruta `/collections`) | Cabecera *Elige tu objetivo* y tarjetas grandes por categoría con su color, ilustración, número de productos, descripción y enlace; Proteínas destacada en doble alto; tarjeta *Todo el catálogo*; otras colecciones como botones. Debajo, *¿Por qué Vigor?* |
 | **Tabla nutricional** (`assets/vigor.css`) | Las tablas de la descripción se ven como una tabla nutricional |
 
 ### Imágenes de ejemplo incluidas en el tema
@@ -52,6 +53,7 @@ Todas se pueden añadir, mover y editar desde el editor de temas (**Añadir secc
 | Vigor · Banner | `sections/vigor-hero.liquid` (banner principal con imagen de ejemplo) |
 | Vigor · Imagen y texto | `sections/vigor-imagen-texto.liquid` |
 | Vigor · Cabecera | `sections/vigor-cabecera-coleccion.liquid` (cabecera de las páginas de colección) |
+| Vigor · Todas categorías | `sections/vigor-lista-colecciones.liquid` (página `/collections`) |
 | Vigor · Pie de página | `sections/vigor-footer.liquid` |
 | Vigor · Beneficios | `sections/vigor-beneficios.liquid` |
 | Vigor · Categorías | `sections/vigor-categorias.liquid` |
