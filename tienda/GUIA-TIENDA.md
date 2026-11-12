@@ -80,6 +80,12 @@ Las colecciones automáticas se rellenan solas cuando añades productos nuevos d
 
 ## Paso 5 · Elegir el tema (el diseño)
 
+> ✨ **Atajo:** en la rama [`tema-horizon`](https://github.com/AOlmosCabrelles/pruebaShopify/tree/tema-horizon)
+> está Horizon ya adaptado a suplementos (colores, inicio, ficha de producto, calculadora, FAQ...).
+> Para usarlo: **Tienda online → Temas → Añadir tema → Conectar desde GitHub** → repositorio
+> `pruebaShopify`, rama `tema-horizon`. Los detalles están en el README de esa rama. Si lo usas,
+> puedes saltarte casi todo el paso 6.
+
 **Tienda online → Temas.** Ya tienes instalado el tema gratuito por defecto (Horizon).
 
 ### Qué necesita una tienda de suplementos
