@@ -1,0 +1,23 @@
+query CartInput {
+  cart {
+    lines {
+      id
+      quantity
+      merchandise {
+        __typename
+        ... on ProductVariant {
+          product {
+            productType
+          }
+        }
+      }
+    }
+  }
+  discount {
+    discountClasses
+    # Configuración guardada por la app (porcentaje), ver app/routes/app.promociones.tsx
+    metafield(namespace: "$app", key: "config") {
+      jsonValue
+    }
+  }
+}
