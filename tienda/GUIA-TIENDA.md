@@ -254,16 +254,48 @@ con tus datos fiscales (obligatoria en España). En **Configuración → Privaci
 activa el **banner de cookies**.
 
 ### Menús (**Tienda online → Menús**)
-| Menú principal | Menú del pie |
+
+**Menú principal** (`main-menu`): la cabecera del tema Vigor muestra un panel con imágenes en los
+elementos que tienen subelementos.
+
+```
+Tienda                → Colecciones › Todos los productos
+  ├─ Proteínas        → Colecciones › Proteínas
+  ├─ Rendimiento      → Colecciones › Rendimiento
+  ├─ Recuperación     → Colecciones › Recuperación
+  ├─ Salud            → Colecciones › Salud
+  ├─ Snacks           → Colecciones › Snacks
+  └─ Accesorios       → Colecciones › Accesorios
+Proteínas             → Colecciones › Proteínas
+Rendimiento           → Colecciones › Rendimiento
+Salud                 → Colecciones › Salud
+Contacto              → Páginas › Contacto
+```
+
+Pasos:
+1. **Tienda online → Menús → Menú principal**. Borra *Catálogo* (icono de papelera). Si dejas
+   *Inicio*, no pasa nada, aunque el logo ya lleva al inicio.
+2. **Agregar elemento de menú** → *Etiqueta* `Tienda` → *Enlace*: **Colecciones → Todos los productos** → **Agregar**.
+3. Repite para cada categoría (`Proteínas`, `Rendimiento`...) con su colección.
+4. **Anidar:** arrastra cada categoría desde el icono ⋮⋮ y suéltala **un poco a la derecha y debajo
+   de "Tienda"**. Queda sangrada, lo que significa que es un subelemento.
+5. Añade de nuevo `Proteínas`, `Rendimiento` y `Salud` sin anidar, como accesos directos, y `Contacto`
+   (**Páginas → Contacto**).
+6. **Guardar menú**.
+
+**Menú del pie** (`footer`, se muestra en la columna *Ayuda* del pie Vigor):
+
+| Etiqueta | Enlace |
 |---|---|
-| Inicio | Sobre nosotros |
-| Proteínas | Preguntas frecuentes |
-| Rendimiento | Contacto |
-| Recuperación | Política de envío |
-| Salud | Política de reembolso |
-| Snacks | Aviso legal |
-| Accesorios | Política de privacidad |
-| Contacto | |
+| Sobre nosotros | Páginas › Sobre nosotros |
+| Preguntas frecuentes | Páginas › Preguntas frecuentes |
+| Envíos | Políticas › Política de envío |
+| Devoluciones | Políticas › Política de reembolso |
+| Contacto | Páginas › Contacto |
+| Aviso legal | Páginas › Aviso legal |
+
+Las políticas legales ya aparecen solas en la franja inferior del pie, así que no hace falta
+repetirlas todas aquí.
 
 ## Paso 8 · Probar como si fueras un cliente
 
