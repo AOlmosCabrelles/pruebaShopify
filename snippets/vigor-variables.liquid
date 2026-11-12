@@ -1,0 +1,11 @@
+{%- doc -%}
+  Variables de color de Vigor Sport Nutrition, tomadas de la paleta del tema
+  (Configuración del tema → Colores). color1 = acento, color2 = fondo suave.
+{%- enddoc -%}
+<style>
+  :root {
+    --vigor-acento: {{ settings.color_palette.color1 | default: '#E4572E' }};
+    --vigor-suave: {{ settings.color_palette.color2 | default: '#F4F1EC' }};
+  }
+</style>
+{{ 'vigor.css' | asset_url | stylesheet_tag }}

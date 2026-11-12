@@ -14,14 +14,40 @@
     "header_announcements_9jGBFp": {
       "type": "header-announcements",
       "blocks": {
-        "announcement_BxgCk9": {
+        "anuncio_1": {
           "type": "_announcement",
           "settings": {
-            "text": "Welcome to our store",
+            "text": "🚚 Envío GRATIS en pedidos de más de 50 €",
+            "link": "shopify://collections/all",
+            "font": "var(--font-subheading--family)",
+            "font_size": "0.75rem",
+            "weight": "600",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
+        },
+        "anuncio_2": {
+          "type": "_announcement",
+          "settings": {
+            "text": "⚡ Pedidos antes de las 14:00 salen el mismo día",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "0.75rem",
-            "weight": "",
+            "weight": "600",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
+        },
+        "anuncio_3": {
+          "type": "_announcement",
+          "settings": {
+            "text": "🔒 Pago 100 % seguro con tarjeta y Bizum",
+            "link": "",
+            "font": "var(--font-subheading--family)",
+            "font_size": "0.75rem",
+            "weight": "600",
             "letter_spacing": "normal",
             "case": "none"
           },
@@ -29,7 +55,9 @@
         }
       },
       "block_order": [
-        "announcement_BxgCk9"
+        "anuncio_1",
+        "anuncio_2",
+        "anuncio_3"
       ],
       "name": "t:names.announcement_bar",
       "settings": {

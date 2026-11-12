@@ -1,0 +1,135 @@
+{%- comment -%}
+  Vigor Sport Nutrition · Calculadora de proteína
+  - En la página de inicio: calcula la proteína diaria orientativa.
+  - En la ficha de producto: además calcula cuántos días dura el envase,
+    usando el peso de la variante seleccionada (Peso del producto en gramos).
+    Solo se muestra si el tipo de producto está en la lista de "Tipos de producto".
+{%- endcomment -%}
+{%- liquid
+  assign mostrar = true
+  assign en_producto = false
+  if template.name == 'product' and product
+    assign en_producto = true
+    assign tipos = section.settings.product_types | split: ','
+    assign mostrar = false
+    for t in tipos
+      assign t_limpio = t | strip
+      if product.type == t_limpio
+        assign mostrar = true
+      endif
+    endfor
+  endif
+-%}
+
+{%- if mostrar or request.design_mode -%}
+  <div class="vigor-section" style="--vigor-pad: {{ section.settings.padding }}px;">
+    <div class="vigor-section__inner">
+      <div
+        class="vigor-calc"
+        data-vigor-calc
+        data-proteina="{{ section.settings.proteina_por_dosis }}"
+        data-dosis-g="{{ section.settings.dosis_g }}"
+        data-porcentaje="{{ section.settings.porcentaje }}"
+      >
+        <div>
+          <h2 class="h3">{{ section.settings.heading }}</h2>
+          <p>{{ section.settings.text }}</p>
+          <div class="vigor-calc__campos">
+            <label>
+              Tu peso (kg)
+              <input type="number" inputmode="numeric" min="30" max="250" value="75" data-vigor-peso>
+            </label>
+            <label>
+              Objetivo
+              <select data-vigor-objetivo>
+                <option value="1.4">Salud / actividad moderada</option>
+                <option value="1.6">Rendimiento</option>
+                <option value="2.0" selected>Ganar masa muscular</option>
+                <option value="2.2">Definición</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="vigor-calc__resultado" aria-live="polite">
+          <span class="vigor-calc__cifra"><span data-vigor-total>150</span> g</span>
+          <span>de proteína al día</span>
+          <p class="vigor-calc__detalle" data-vigor-detalle></p>
+          <p class="vigor-calc__aviso">{{ section.settings.aviso }}</p>
+        </div>
+
+        {%- if en_producto -%}
+          <script type="application/json" data-vigor-variantes>
+            {
+              {%- for v in product.variants -%}
+                "{{ v.id }}": {{ v.weight | default: 0 }}{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+            }
+          </script>
+          <script type="application/json" data-vigor-variante-inicial>{{ product.selected_or_first_available_variant.id | json }}</script>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const raiz = document.querySelector('#shopify-section-{{ section.id }} [data-vigor-calc]');
+      if (!raiz) return;
+      const proteina = Number(raiz.dataset.proteina);
+      const dosisG = Number(raiz.dataset.dosisG);
+      const porcentaje = Number(raiz.dataset.porcentaje) / 100;
+      const jsonVariantes = raiz.querySelector('[data-vigor-variantes]');
+      const variantes = jsonVariantes ? JSON.parse(jsonVariantes.textContent) : null;
+      const inicial = raiz.querySelector('[data-vigor-variante-inicial]');
+      const varianteInicial = inicial ? JSON.parse(inicial.textContent) : null;
+
+      const varianteActual = () => {
+        const url = new URL(window.location.href).searchParams.get('variant');
+        const input = document.querySelector('form[action*="/cart/add"] [name="id"]');
+        return url || (input && input.value) || varianteInicial;
+      };
+
+      const pintar = () => {
+        const peso = Number(raiz.querySelector('[data-vigor-peso]').value);
+        const factor = Number(raiz.querySelector('[data-vigor-objetivo]').value);
+        if (!(peso > 0)) return;
+        const total = Math.round(peso * factor);
+        const dosis = Math.max(1, Math.round((total * porcentaje) / proteina));
+        raiz.querySelector('[data-vigor-total]').textContent = total;
+
+        let texto = `Si el ${Math.round(porcentaje * 100)} % viene de la proteína en polvo, son unas ${dosis} dosis al día (${dosis * proteina} g). El resto, con la alimentación.`;
+        if (variantes) {
+          const gramos = Number(variantes[String(varianteActual())] || 0);
+          const dias = gramos ? Math.floor(gramos / (dosis * dosisG)) : 0;
+          if (dias) texto += ` Este envase te dura unos ${dias} días.`;
+        }
+        raiz.querySelector('[data-vigor-detalle]').textContent = texto;
+      };
+
+      raiz.addEventListener('input', pintar);
+      document.addEventListener('change', () => setTimeout(pintar, 50));
+      pintar();
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Vigor · Calculadora",
+  "tag": "section",
+  "class": "vigor-calculadora-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "¿Cuánta proteína necesitas?" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Calcula tu necesidad diaria orientativa según tu peso y tu objetivo." },
+    { "type": "header", "content": "Datos del producto" },
+    { "type": "range", "id": "proteina_por_dosis", "label": "Proteína por dosis", "min": 10, "max": 40, "step": 1, "unit": "g", "default": 27 },
+    { "type": "range", "id": "dosis_g", "label": "Tamaño de la dosis", "min": 10, "max": 60, "step": 1, "unit": "g", "default": 30 },
+    { "type": "range", "id": "porcentaje", "label": "% de la proteína diaria que aporta el suplemento", "min": 10, "max": 60, "step": 5, "unit": "%", "default": 30 },
+    { "type": "text", "id": "product_types", "label": "Tipos de producto donde se muestra", "default": "Proteínas", "info": "Solo en la ficha de producto. Separa varios tipos con comas." },
+    { "type": "text", "id": "aviso", "label": "Aviso legal", "default": "Cálculo orientativo. No sustituye el consejo de un profesional sanitario." },
+    { "type": "range", "id": "padding", "label": "Espaciado vertical", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 48 }
+  ],
+  "presets": [{ "name": "Vigor · Calculadora" }]
+}
+{% endschema %}

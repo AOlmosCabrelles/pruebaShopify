@@ -1,92 +1,58 @@
-# Horizon
+# Tema Vigor Sport Nutrition (basado en Horizon)
 
-[Getting started](#getting-started) |
-[Staying up to date with Horizon changes](#staying-up-to-date-with-horizon-changes) |
-[Developer tools](#developer-tools) |
-[Contributing](#contributing) |
-[License](#license)
+Esta rama (`tema-horizon`) contiene el **tema de la tienda**: el tema gratuito **Horizon 4.5.0**
+de Shopify ([código original](https://github.com/Shopify/horizon), ver `README-HORIZON.md` y
+`LICENSE.md`) adaptado a una tienda de suplementación deportiva.
 
-Horizon is the flagship of a new generation of first party Shopify themes. It incorporates the latest Liquid Storefronts features, including [theme blocks](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/quick-start?framework=liquid).
+## Cómo conectarlo a tu tienda (una sola vez)
 
-- **Web-native in its purest form:** Themes run on the [evergreen web](https://www.w3.org/2001/tag/doc/evergreen-web/). We leverage the latest web browsers to their fullest, while maintaining support for the older ones through progressive enhancement—not polyfills.
-- **Lean, fast, and reliable:** Functionality and design defaults to "no" until it meets this requirement. Code ships on quality. Themes must be built with purpose. They shouldn't support each and every feature in Shopify.
-- **Server-rendered:** HTML must be rendered by Shopify servers using Liquid. Business logic and platform primitives such as translations and money formatting don't belong on the client. Async and on-demand rendering of parts of the page is OK, but we do it sparingly as a progressive enhancement.
-- **Functional, not pixel-perfect:** The Web doesn't require each page to be rendered pixel-perfect by each browser engine. Using semantic markup, progressive enhancement, and clever design, we ensure that themes remain functional regardless of the browser.
+1. Admin de Shopify → **Tienda online → Temas**.
+2. En *Biblioteca de temas*: **Añadir tema → Conectar desde GitHub**.
+3. Inicia sesión con GitHub y autoriza a Shopify (elige el repositorio `pruebaShopify`).
+4. Selecciona el repositorio **pruebaShopify** y la rama **`tema-horizon`** → **Conectar**.
+5. El tema aparece en la biblioteca → **⋯ → Vista previa**. Cuando te guste: **Publicar**.
 
-## Getting started
+Desde ese momento **funciona en las dos direcciones**:
+- Cada cambio que se sube a esta rama en GitHub aparece solo en el tema de la tienda.
+- Cada cambio que haces en el editor de temas de Shopify se guarda como un commit en esta rama.
 
-We recommend using the Skeleton Theme as a starting point for a theme development project. [Learn more on Shopify.dev](https://shopify.dev/themes/getting-started/create).
+## Qué se ha cambiado respecto a Horizon
 
-To create a new theme project based on Horizon:
+| Zona | Cambios |
+|---|---|
+| **Estilo global** (`config/settings_data.json`) | Paleta: fondo blanco, texto `#111111`, **acento naranja `#E4572E`** (botones), fondo suave `#F4F1EC`. Títulos en **Montserrat** en mayúsculas, texto en Inter de 16 px. Bordes redondeados y tarjetas que se elevan al pasar el ratón |
+| **Barra de anuncios** (`sections/header-group.json`) | Tres mensajes rotativos: envío gratis desde 50 €, envíos el mismo día y pago seguro |
+| **Inicio** (`templates/index.json`) | Banner principal *"Rinde más. Recupera mejor."* → categorías → *Los imprescindibles* → *¿Por qué Vigor?* → Proteínas → calculadora de proteína → preguntas frecuentes → newsletter |
+| **Ficha de producto** (`templates/product.json`) | Aviso de **pocas unidades** (por debajo de 10), desplegables de envío, devoluciones, pago y asesoramiento, **calculadora "¿Cuánto te dura este bote?"** (solo en Proteínas), *Combínalo con* y franja de beneficios |
+| **Tabla nutricional** (`assets/vigor.css`) | Las tablas de la descripción se ven como una tabla nutricional |
 
-```sh
-git clone https://github.com/Shopify/horizon.git
-```
+### Secciones nuevas
+Todas se pueden añadir, mover y editar desde el editor de temas (**Añadir sección → Vigor · …**):
 
-Install the [Shopify CLI](https://shopify.dev/docs/storefronts/themes/tools/cli) to connect your local project to a Shopify store. Learn about the [theme developer tools](https://shopify.dev/docs/storefronts/themes/tools) available, and the suggested [developer tools](#developer-tools) below.
+| Sección | Archivo |
+|---|---|
+| Vigor · Beneficios | `sections/vigor-beneficios.liquid` |
+| Vigor · Categorías | `sections/vigor-categorias.liquid` |
+| Vigor · Calculadora | `sections/vigor-calculadora.liquid` |
+| Vigor · FAQ | `sections/vigor-faq.liquid` (incluye datos estructurados para Google) |
+| Vigor · Newsletter | `sections/vigor-newsletter.liquid` |
 
-Please note that the `main` branch may include code for features not yet released. You may encounter Liquid API properties that are not publicly documented, but will be when the feature is officially rolled out.
+Los estilos están en `assets/vigor.css` y se cargan desde `snippets/vigor-variables.liquid`
+(una línea añadida en `layout/theme.liquid`).
 
-### Shopify Theme Store development
+## Qué tienes que hacer tú en la tienda
 
-If you're building a theme for the Shopify Theme Store, then do not use Horizon as a starting point. Themes based on, derived from, or incorporating Horizon are not eligible for submission to to the Shopify Theme Store. Use the [Skeleton Theme](https://github.com/Shopify/skeleton-theme) instead.
+El tema usa contenido que vive en la tienda, no en el tema:
 
-## Staying up to date with Horizon changes
+- **Productos:** importa `tienda/productos-vigor.csv` (rama `main`). La calculadora usa el
+  **peso de la variante** (1 kg, 2 kg) para calcular cuántos días dura el envase.
+- **Colecciones** con estos identificadores (*handles*): `proteinas`, `rendimiento`,
+  `recuperacion`, `salud` y `snacks`. Shopify los crea solos si las colecciones se llaman
+  *Proteínas*, *Rendimiento*... Si usas otros nombres, elígelas en la sección *Vigor · Categorías*.
+- **Menú principal** (`main-menu`) y menú del pie, en *Tienda online → Menús*.
+- **Imágenes:** el logo, el banner principal (sección *Hero*) y las fotos de los productos.
 
-Say you're building a new theme off Horizon but you still want to be able to pull in the latest changes, you can add a remote `upstream` pointing to this Horizon repository.
+## Comprobado
 
-1. Navigate to your local theme folder.
-2. Verify the list of remotes and validate that you have both an `origin` and `upstream`:
-
-```sh
-git remote -v
-```
-
-3. If you don't see an `upstream`, you can add one that points to Shopify's Horizon repository:
-
-```sh
-git remote add upstream https://github.com/Shopify/horizon.git
-```
-
-4. Pull in the latest Horizon changes into your repository:
-
-```sh
-git fetch upstream
-git pull upstream main
-```
-
-## Developer tools
-
-There are a number of really useful tools that the Shopify Themes team uses during development. Horizon is already set up to work with these tools.
-
-### Shopify CLI
-
-[Shopify CLI](https://shopify.dev/docs/storefronts/themes/tools/cli) helps you build Shopify themes faster and is used to automate and enhance your local development workflow. It comes bundled with a suite of commands for developing Shopify themes—everything from working with themes on a Shopify store (e.g. creating, publishing, deleting themes) or launching a development server for local theme development.
-
-You can follow this [quick start guide for theme developers](https://shopify.dev/docs/themes/tools/cli) to get started.
-
-### Theme Check
-
-We recommend using [Theme Check](https://github.com/shopify/theme-check) as a way to validate and lint your Shopify themes.
-
-We've added Theme Check to Horizon's [list of VS Code extensions](/.vscode/extensions.json) so if you're using Visual Studio Code as your code editor of choice, you'll be prompted to install the [Theme Check VS Code](https://marketplace.visualstudio.com/items?itemName=Shopify.theme-check-vscode) extension upon opening VS Code after you've forked and cloned Horizon.
-
-You can also run it from a terminal with the following Shopify CLI command:
-
-```bash
-shopify theme check
-```
-
-You can follow the [theme check documentation](https://shopify.dev/docs/storefronts/themes/tools/theme-check) for more details.
-
-#### Shopify/theme-check-action
-
-Horizon runs [Theme Check](#Theme-Check) on every commit via [Shopify/theme-check-action](https://github.com/Shopify/theme-check-action).
-
-## Contributing
-
-We are not accepting contributions to Horizon at this time.
-
-## License
-
-Copyright (c) 2025-present Shopify Inc. See [LICENSE](/LICENSE.md) for further details.
+`shopify theme check`: **0 errores** en los archivos añadidos o modificados. Los avisos que
+quedan son del código original de Horizon.

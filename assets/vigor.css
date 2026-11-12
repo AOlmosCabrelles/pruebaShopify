@@ -1,0 +1,65 @@
+/* ==========================================================================
+   Vigor Sport Nutrition: estilos propios sobre el tema Horizon
+   ========================================================================== */
+
+.vigor-section { padding-block: var(--vigor-pad, 48px); }
+.vigor-section__inner { max-width: var(--page-width, 1200px); margin-inline: auto; padding-inline: var(--page-margin, 16px); }
+.vigor-section__heading { margin: 0 0 8px; text-align: center; }
+.vigor-section__subheading { margin: 0 auto 32px; text-align: center; max-width: 60ch; opacity: 0.8; }
+.vigor-accent { color: var(--vigor-acento); }
+
+/* --- Tabla nutricional dentro de la descripción del producto --- */
+.text-block table { width: 100%; border-collapse: collapse; margin: 12px 0 16px; font-size: 0.95em; }
+.text-block table td { padding: 8px 10px; border-bottom: 1px solid rgb(0 0 0 / 0.1); }
+.text-block table tr:first-child td { font-weight: 700; background: var(--vigor-suave, #f4f1ec); }
+.text-block table td:last-child { text-align: right; white-space: nowrap; }
+.text-block h3 { margin-top: 24px; }
+
+/* --- Beneficios --- */
+.vigor-beneficios__grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.vigor-beneficio { text-align: center; padding: 24px 16px; border-radius: 16px; background: var(--vigor-suave, #f4f1ec); }
+.vigor-beneficio__icono { display: inline-flex; width: 56px; height: 56px; align-items: center; justify-content: center; border-radius: 50%; background: var(--vigor-acento); color: #fff; margin-bottom: 12px; }
+.vigor-beneficio__icono svg { width: 28px; height: 28px; }
+.vigor-beneficio h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.vigor-beneficio p { margin: 0; opacity: 0.8; }
+
+/* --- Categorías --- */
+.vigor-categorias__grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.vigor-categoria { position: relative; display: flex; align-items: flex-end; aspect-ratio: 4 / 5; border-radius: 16px; overflow: hidden; text-decoration: none; color: #fff; background: #222; }
+.vigor-categoria img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.vigor-categoria:hover img { transform: scale(1.05); }
+.vigor-categoria::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgb(0 0 0 / 0.7), transparent 60%); }
+.vigor-categoria__texto { position: relative; z-index: 1; padding: 16px; }
+.vigor-categoria__titulo { display: block; font-weight: 800; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.02em; }
+.vigor-categoria__cta { font-size: 0.85rem; opacity: 0.9; }
+.vigor-categoria--sin-imagen { background: linear-gradient(135deg, var(--vigor-acento), #111); }
+
+/* --- Calculadora de proteína --- */
+.vigor-calc { border-radius: 20px; padding: 32px; background: var(--vigor-suave, #f4f1ec); display: grid; gap: 24px; grid-template-columns: 1fr; }
+@media (min-width: 750px) { .vigor-calc { grid-template-columns: 1fr 1fr; align-items: center; } }
+.vigor-calc h2 { margin: 0 0 8px; }
+.vigor-calc__campos { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+.vigor-calc__campos label { display: flex; flex-direction: column; gap: 6px; font-size: 0.9rem; font-weight: 600; }
+.vigor-calc__campos input, .vigor-calc__campos select { padding: 12px; border-radius: 10px; border: 1px solid rgb(0 0 0 / 0.2); font: inherit; background: #fff; }
+.vigor-calc__resultado { background: #fff; border-radius: 16px; padding: 24px; text-align: center; }
+.vigor-calc__cifra { display: block; font-size: 3rem; font-weight: 800; line-height: 1; color: var(--vigor-acento); }
+.vigor-calc__detalle { margin: 12px 0 0; }
+.vigor-calc__aviso { margin: 12px 0 0; font-size: 0.75rem; opacity: 0.65; }
+
+/* --- Preguntas frecuentes --- */
+.vigor-faq__lista { max-width: 800px; margin-inline: auto; }
+.vigor-faq details { border-bottom: 1px solid rgb(0 0 0 / 0.12); }
+.vigor-faq summary { cursor: pointer; list-style: none; padding: 18px 32px 18px 0; font-weight: 700; position: relative; }
+.vigor-faq summary::-webkit-details-marker { display: none; }
+.vigor-faq summary::after { content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); font-size: 1.4rem; color: var(--vigor-acento); }
+.vigor-faq details[open] summary::after { content: "–"; }
+.vigor-faq__respuesta { padding: 0 0 18px; opacity: 0.85; }
+
+/* --- Newsletter --- */
+.vigor-newsletter { text-align: center; border-radius: 20px; padding: 40px 24px; background: #111; color: #fff; }
+.vigor-newsletter h2 { color: #fff; margin: 0 0 8px; }
+.vigor-newsletter__form { display: flex; gap: 8px; max-width: 480px; margin: 20px auto 0; flex-wrap: wrap; }
+.vigor-newsletter__form input[type="email"] { flex: 1 1 220px; padding: 14px; border-radius: 10px; border: 0; font: inherit; }
+.vigor-newsletter__form button { padding: 14px 24px; border-radius: 10px; border: 0; background: var(--vigor-acento); color: #fff; font-weight: 700; cursor: pointer; }
+.vigor-newsletter__ok { margin-top: 16px; color: #9be29b; }
+.vigor-newsletter__legal { font-size: 0.75rem; opacity: 0.6; margin-top: 12px; }

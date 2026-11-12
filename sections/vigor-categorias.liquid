@@ -1,0 +1,71 @@
+{%- comment -%} Vigor Sport Nutrition · tarjetas de categorías (colecciones) {%- endcomment -%}
+<div class="vigor-section vigor-categorias" style="--vigor-pad: {{ section.settings.padding }}px;">
+  <div class="vigor-section__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="vigor-section__heading h3">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="vigor-section__subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+    <div class="vigor-categorias__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign coleccion = block.settings.collection
+          assign titulo = block.settings.title | default: coleccion.title | default: 'Categoría'
+          assign imagen = block.settings.image | default: coleccion.featured_image | default: coleccion.products.first.featured_image
+          assign enlace = coleccion.url | default: routes.collections_url
+        -%}
+        <a
+          href="{{ enlace }}"
+          class="vigor-categoria{% if imagen == blank %} vigor-categoria--sin-imagen{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          {%- if imagen != blank -%}
+            {{ imagen | image_url: width: 800 | image_tag: loading: 'lazy', alt: titulo, widths: '320, 480, 640, 800', sizes: '(min-width: 750px) 25vw, 50vw' }}
+          {%- endif -%}
+          <span class="vigor-categoria__texto">
+            <span class="vigor-categoria__titulo">{{ titulo }}</span>
+            <span class="vigor-categoria__cta">{{ block.settings.cta }} →</span>
+          </span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Vigor · Categorías",
+  "tag": "section",
+  "class": "vigor-categorias-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "Encuentra lo que necesitas" },
+    { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Elige tu objetivo y te enseñamos los productos adecuados." },
+    { "type": "range", "id": "padding", "label": "Espaciado vertical", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "categoria",
+      "name": "Categoría",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Colección" },
+        { "type": "text", "id": "title", "label": "Título (opcional)", "info": "Si lo dejas vacío se usa el nombre de la colección." },
+        { "type": "image_picker", "id": "image", "label": "Imagen (opcional)", "info": "Si no eliges una, se usa la imagen de la colección o de su primer producto." },
+        { "type": "text", "id": "cta", "label": "Texto del enlace", "default": "Ver productos" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Vigor · Categorías",
+      "blocks": [
+        { "type": "categoria", "settings": { "title": "Proteínas" } },
+        { "type": "categoria", "settings": { "title": "Rendimiento" } },
+        { "type": "categoria", "settings": { "title": "Recuperación" } },
+        { "type": "categoria", "settings": { "title": "Salud" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

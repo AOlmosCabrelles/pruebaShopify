@@ -240,14 +240,123 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "inventario": {
+              "type": "product-inventory",
+              "settings": {
+                "inventory_threshold": 10,
+                "show_inventory_quantity": true
+              }
+            },
+            "acordeon": {
+              "type": "accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "type_preset": "h6"
+              },
+              "blocks": {
+                "envio": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Envío",
+                    "icon": "truck",
+                    "open_by_default": false,
+                    "width": 20
+                  },
+                  "blocks": {
+                    "texto": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Envío en 48-72 h laborables a España peninsular. <strong>Gratis en pedidos de más de 50 €</strong>; si no, 4,95 €.</p>",
+                        "width": "100%"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "texto"
+                  ]
+                },
+                "devoluciones": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Devoluciones",
+                    "icon": "return",
+                    "open_by_default": false,
+                    "width": 20
+                  },
+                  "blocks": {
+                    "texto": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Tienes 14 días para devolver los productos con el envase cerrado y precintado.</p>",
+                        "width": "100%"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "texto"
+                  ]
+                },
+                "pago": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Pago seguro",
+                    "icon": "lock",
+                    "open_by_default": false,
+                    "width": 20
+                  },
+                  "blocks": {
+                    "texto": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Tarjeta, Bizum, Apple Pay y Google Pay. Tus datos viajan cifrados.</p>",
+                        "width": "100%"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "texto"
+                  ]
+                },
+                "consejo": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "¿Dudas sobre qué tomar?",
+                    "icon": "chat_bubble",
+                    "open_by_default": false,
+                    "width": 20
+                  },
+                  "blocks": {
+                    "texto": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Escríbenos desde la página de contacto y te ayudamos a elegir. Recuerda: los complementos alimenticios no sustituyen una dieta equilibrada.</p>",
+                        "width": "100%"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "texto"
+                  ]
+                }
+              },
+              "block_order": [
+                "envio",
+                "devoluciones",
+                "pago",
+                "consejo"
+              ]
             }
           },
           "block_order": [
             "group_icgrde",
             "divider_VJhene",
             "variant_picker_R3rGDr",
+            "inventario",
             "buy_buttons_eYQEYi",
-            "text_aEtTtq"
+            "text_aEtTtq",
+            "acordeon"
           ]
         },
         "disclosures": {
@@ -272,6 +381,19 @@
         "padding-block-end": 0
       }
     },
+    "vigor_calculadora": {
+      "type": "vigor-calculadora",
+      "settings": {
+        "heading": "¿Cuánto te dura este bote?",
+        "text": "Calcula tu proteína diaria y cuántos días te durará el envase que has elegido.",
+        "proteina_por_dosis": 27,
+        "dosis_g": 30,
+        "porcentaje": 30,
+        "product_types": "Proteínas",
+        "aviso": "Cálculo orientativo. No sustituye el consejo de un profesional sanitario.",
+        "padding": 48
+      }
+    },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
       "blocks": {
@@ -279,7 +401,7 @@
           "type": "text",
           "name": "t:names.header",
           "settings": {
-            "text": "<h2>You may also like </h2>",
+            "text": "<h3>Combínalo con</h3>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -406,10 +528,51 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "vigor_beneficios": {
+      "type": "vigor-beneficios",
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "padding": 24
+      },
+      "blocks": {
+        "b2": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "truck",
+            "title": "Envío en 48-72 h",
+            "text": "Gratis en pedidos de más de 50 €."
+          }
+        },
+        "b3": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "lock",
+            "title": "Pago seguro",
+            "text": "Tarjeta, Bizum, Apple Pay y Google Pay."
+          }
+        },
+        "b4": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "chat_bubble",
+            "title": "Te asesoramos",
+            "text": "¿Dudas sobre qué tomar? Escríbenos y te ayudamos."
+          }
+        }
+      },
+      "block_order": [
+        "b2",
+        "b3",
+        "b4"
+      ]
     }
   },
   "order": [
     "main",
-    "product_recommendations_qggXJq"
+    "vigor_calculadora",
+    "product_recommendations_qggXJq",
+    "vigor_beneficios"
   ]
 }

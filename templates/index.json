@@ -16,13 +16,13 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<p>Browse our latest products</p>",
+            "text": "<h1>Rinde más. Recupera mejor.</h1>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
+            "type_preset": "h1",
+            "font": "var(--font-heading--family)",
+            "font_size": "",
             "line_height": "normal",
             "letter_spacing": "normal",
             "case": "none",
@@ -42,23 +42,50 @@
           "type": "button",
           "name": "t:names.button",
           "settings": {
-            "label": "Shop all",
+            "label": "Ver productos",
             "link": "shopify://collections/all",
             "open_in_new_tab": false,
             "style_class": "button-custom",
-            "custom_button_background": "rgba(0, 0, 0, 0)",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
+            "custom_button_background": "{{ settings.color_palette.color1 }}",
+            "custom_button_text": "#ffffff",
+            "custom_button_border": "{{ settings.color_palette.color1 }}",
             "width": "fit-content",
             "custom_width": 100,
             "width_mobile": "fit-content",
             "custom_width_mobile": 100
           },
           "blocks": {}
+        },
+        "text_subtitulo": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>Suplementación deportiva con fórmulas claras, dosis útiles y sin rellenos.</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "paragraph",
+            "font": "var(--font-body--family)",
+            "font_size": "1.125rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "{{ settings.color_palette.background }}",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
         }
       },
       "block_order": [
         "text_YLPk4p",
+        "text_subtitulo",
         "button_H9gpTf"
       ],
       "name": "t:names.hero",
@@ -72,21 +99,78 @@
         "horizontal_alignment": "space-between",
         "vertical_alignment": "flex-end",
         "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
+        "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "flex-end",
         "gap": 24,
         "section_width": "page-width",
-        "section_height": "medium",
+        "section_height": "large",
         "section_height_custom": 50,
         "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
+        "overlay_color": "#00000080",
+        "overlay_style": "gradient",
+        "gradient_direction": "to top",
         "blurred_reflection": false,
         "reflection_opacity": 75,
         "padding-block-start": 100,
         "padding-block-end": 72
       }
+    },
+    "vigor_categorias": {
+      "type": "vigor-categorias",
+      "settings": {
+        "heading": "Encuentra lo que necesitas",
+        "subheading": "Elige tu objetivo y te enseñamos los productos adecuados.",
+        "padding": 48
+      },
+      "blocks": {
+        "cat_proteinas": {
+          "type": "categoria",
+          "settings": {
+            "collection": "proteinas",
+            "title": "Proteínas",
+            "cta": "Ver productos"
+          }
+        },
+        "cat_rendimiento": {
+          "type": "categoria",
+          "settings": {
+            "collection": "rendimiento",
+            "title": "Rendimiento",
+            "cta": "Ver productos"
+          }
+        },
+        "cat_recuperacion": {
+          "type": "categoria",
+          "settings": {
+            "collection": "recuperacion",
+            "title": "Recuperación",
+            "cta": "Ver productos"
+          }
+        },
+        "cat_salud": {
+          "type": "categoria",
+          "settings": {
+            "collection": "salud",
+            "title": "Salud",
+            "cta": "Ver productos"
+          }
+        },
+        "cat_snacks": {
+          "type": "categoria",
+          "settings": {
+            "collection": "snacks",
+            "title": "Snacks",
+            "cta": "Ver productos"
+          }
+        }
+      },
+      "block_order": [
+        "cat_proteinas",
+        "cat_rendimiento",
+        "cat_recuperacion",
+        "cat_salud",
+        "cat_snacks"
+      ]
     },
     "product_list_fa6P9H": {
       "type": "product-list",
@@ -127,7 +211,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "text": "<h3>Los imprescindibles</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -152,7 +236,7 @@
               "type": "_product-list-button",
               "name": "t:names.product_list_button",
               "settings": {
-                "label": "View all",
+                "label": "Ver todo",
                 "open_in_new_tab": false,
                 "style_class": "button-unstyled",
                 "width": "fit-content",
@@ -273,10 +357,325 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "vigor_beneficios": {
+      "type": "vigor-beneficios",
+      "settings": {
+        "heading": "¿Por qué Vigor?",
+        "subheading": "",
+        "padding": 48
+      },
+      "blocks": {
+        "b1": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "clipboard",
+            "title": "Fórmulas transparentes",
+            "text": "Sabes exactamente lo que tomas y en qué cantidad."
+          }
+        },
+        "b2": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "truck",
+            "title": "Envío en 48-72 h",
+            "text": "Gratis en pedidos de más de 50 €."
+          }
+        },
+        "b3": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "lock",
+            "title": "Pago seguro",
+            "text": "Tarjeta, Bizum, Apple Pay y Google Pay."
+          }
+        },
+        "b4": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "chat_bubble",
+            "title": "Te asesoramos",
+            "text": "¿Dudas sobre qué tomar? Escríbenos y te ayudamos."
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
+    "product_list_proteinas": {
+      "type": "product-list",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_list_text_YFtzcL": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h3>Proteínas</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h4",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_list_button_MWeP9V": {
+              "type": "_product-list-button",
+              "name": "t:names.product_list_button",
+              "settings": {
+                "label": "Ver todas las proteínas",
+                "open_in_new_tab": false,
+                "style_class": "button-unstyled",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_list_text_YFtzcL",
+            "product_list_button_MWeP9V"
+          ]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 4,
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_card_gallery_677WP3": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_title_YXxMTj": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price_JQzVV4": {
+              "type": "price",
+              "name": "t:names.product_price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_card_gallery_677WP3",
+            "product_title_YXxMTj",
+            "price_JQzVV4"
+          ]
+        }
+      },
+      "name": "t:names.featured_collection",
+      "settings": {
+        "collection": "proteinas",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "max_products": 4,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 28,
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "vigor_calculadora": {
+      "type": "vigor-calculadora",
+      "settings": {
+        "heading": "¿Cuánta proteína necesitas?",
+        "text": "Calcula tu necesidad diaria orientativa según tu peso y tu objetivo.",
+        "proteina_por_dosis": 27,
+        "dosis_g": 30,
+        "porcentaje": 30,
+        "product_types": "Proteínas",
+        "aviso": "Cálculo orientativo. No sustituye el consejo de un profesional sanitario.",
+        "padding": 48
+      }
+    },
+    "vigor_faq": {
+      "type": "vigor-faq",
+      "settings": {
+        "heading": "Preguntas frecuentes",
+        "open_first": false,
+        "padding": 48
+      },
+      "blocks": {
+        "q1": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿Cuánto tarda el envío?",
+            "answer": "<p>Entre 48 y 72 horas laborables en España peninsular. <strong>Gratis en pedidos de más de 50 €.</strong></p>"
+          }
+        },
+        "q2": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿Puedo devolver un producto?",
+            "answer": "<p>Sí, dispones de 14 días si el envase está cerrado y precintado.</p>"
+          }
+        },
+        "q3": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿Qué diferencia hay entre whey concentrada e isolate?",
+            "answer": "<p>La isolate tiene más proteína por dosis y menos lactosa, grasa e hidratos de carbono.</p>"
+          }
+        },
+        "q4": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿Cuándo tomo la creatina?",
+            "answer": "<p>A cualquier hora del día. Lo importante es tomar 3 g todos los días.</p>"
+          }
+        },
+        "q5": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿Los productos tienen alérgenos?",
+            "answer": "<p>Cada ficha indica los alérgenos en negrita. Si tienes alguna alergia, revísala antes de comprar.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ]
+    },
+    "vigor_newsletter": {
+      "type": "vigor-newsletter",
+      "settings": {
+        "heading": "Únete al equipo Vigor",
+        "text": "Consejos de entrenamiento, novedades y un 10 % de descuento en tu primer pedido.",
+        "button": "Suscribirme",
+        "legal": "Al suscribirte aceptas nuestra política de privacidad. Puedes darte de baja cuando quieras.",
+        "padding": 48
+      }
     }
   },
   "order": [
     "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "vigor_categorias",
+    "product_list_fa6P9H",
+    "vigor_beneficios",
+    "product_list_proteinas",
+    "vigor_calculadora",
+    "vigor_faq",
+    "vigor_newsletter"
   ]
 }
