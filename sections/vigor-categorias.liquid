@@ -12,16 +12,31 @@
         {%- liquid
           assign coleccion = block.settings.collection
           assign titulo = block.settings.title | default: coleccion.title | default: 'Categoría'
-          assign imagen = block.settings.image | default: coleccion.featured_image | default: coleccion.products.first.featured_image
+          assign imagen = block.settings.image | default: coleccion.image
           assign enlace = coleccion.url | default: routes.collections_url
+          assign clave = coleccion.handle | default: titulo | handleize
+          assign imagen_ejemplo = 'vigor-cat-' | append: clave | append: '.jpg'
+          assign ejemplos = 'vigor-cat-proteinas.jpg,vigor-cat-rendimiento.jpg,vigor-cat-recuperacion.jpg,vigor-cat-salud.jpg,vigor-cat-snacks.jpg' | split: ','
+          assign hay_ejemplo = false
+          if ejemplos contains imagen_ejemplo
+            assign hay_ejemplo = true
+          endif
+          assign sin_imagen = false
+          if imagen == blank and hay_ejemplo == false and coleccion.products.first.featured_image == blank
+            assign sin_imagen = true
+          endif
         -%}
         <a
           href="{{ enlace }}"
-          class="vigor-categoria{% if imagen == blank %} vigor-categoria--sin-imagen{% endif %}"
+          class="vigor-categoria{% if sin_imagen %} vigor-categoria--sin-imagen{% endif %}"
           {{ block.shopify_attributes }}
         >
           {%- if imagen != blank -%}
             {{ imagen | image_url: width: 800 | image_tag: loading: 'lazy', alt: titulo, widths: '320, 480, 640, 800', sizes: '(min-width: 750px) 25vw, 50vw' }}
+          {%- elsif hay_ejemplo -%}
+            <img src="{{ imagen_ejemplo | asset_url }}" alt="{{ titulo | escape }}" loading="lazy" width="1000" height="1250">
+          {%- elsif coleccion.products.first.featured_image -%}
+            {{ coleccion.products.first.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: titulo }}
           {%- endif -%}
           <span class="vigor-categoria__texto">
             <span class="vigor-categoria__titulo">{{ titulo }}</span>
@@ -50,7 +65,7 @@
       "settings": [
         { "type": "collection", "id": "collection", "label": "Colección" },
         { "type": "text", "id": "title", "label": "Título (opcional)", "info": "Si lo dejas vacío se usa el nombre de la colección." },
-        { "type": "image_picker", "id": "image", "label": "Imagen (opcional)", "info": "Si no eliges una, se usa la imagen de la colección o de su primer producto." },
+        { "type": "image_picker", "id": "image", "label": "Imagen (opcional)", "info": "Si no eliges una, se usa la imagen de la colección o la imagen de ejemplo del tema." },
         { "type": "text", "id": "cta", "label": "Texto del enlace", "default": "Ver productos" }
       ]
     }

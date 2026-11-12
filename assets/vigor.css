@@ -63,3 +63,35 @@
 .vigor-newsletter__form button { padding: 14px 24px; border-radius: 10px; border: 0; background: var(--vigor-acento); color: #fff; font-weight: 700; cursor: pointer; }
 .vigor-newsletter__ok { margin-top: 16px; color: #9be29b; }
 .vigor-newsletter__legal { font-size: 0.75rem; opacity: 0.6; margin-top: 12px; }
+
+/* --- Botones propios --- */
+.vigor-boton { display: inline-flex; align-items: center; justify-content: center; padding: 14px 28px; border-radius: 10px; font-weight: 700; text-decoration: none; transition: transform 0.15s ease, opacity 0.15s ease; }
+.vigor-boton:hover { transform: translateY(-2px); }
+.vigor-boton--primario { background: var(--vigor-acento); color: #fff; }
+.vigor-boton--secundario { background: transparent; color: #fff; box-shadow: inset 0 0 0 2px #fff; }
+
+/* --- Banner principal --- */
+.vigor-hero { position: relative; overflow: hidden; background: #111; color: #fff; display: flex; align-items: center; min-height: 560px; }
+.vigor-hero--grande { min-height: min(78vh, 760px); }
+.vigor-hero__imagen { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 75% 100%; }
+.vigor-hero__contenido { position: relative; z-index: 1; width: 100%; max-width: var(--page-width, 1200px); margin-inline: auto; padding: 48px var(--page-margin, 20px); }
+.vigor-hero__contenido > * { max-width: 480px; }
+.vigor-hero__antetitulo { display: inline-block; padding: 6px 14px; border-radius: 99px; background: rgb(255 255 255 / 0.12); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 16px; }
+.vigor-hero__titulo { color: #fff; margin: 0 0 16px; font-size: clamp(2.4rem, 6vw, 4.5rem); line-height: 0.95; text-transform: uppercase; }
+.vigor-hero__texto { font-size: 1.15rem; opacity: 0.9; margin: 0 0 28px; }
+.vigor-hero__botones { display: flex; gap: 12px; flex-wrap: wrap; }
+@media (max-width: 749px) {
+  .vigor-hero, .vigor-hero--grande { flex-direction: column; align-items: stretch; min-height: 0; }
+  .vigor-hero__imagen { position: static; height: 300px; object-position: 78% 100%; }
+  .vigor-hero__contenido { padding-top: 28px; padding-bottom: 40px; }
+}
+
+/* --- Imagen con texto --- */
+.vigor-imagen-texto { display: grid; gap: 32px; align-items: center; grid-template-columns: 1fr; }
+@media (min-width: 750px) {
+  .vigor-imagen-texto { grid-template-columns: 1.2fr 1fr; gap: 56px; }
+  .vigor-imagen-texto--derecha .vigor-imagen-texto__imagen { order: 2; }
+}
+.vigor-imagen-texto__imagen { width: 100%; height: auto; border-radius: 20px; display: block; }
+.vigor-imagen-texto__texto h2 { margin-top: 0; }
+.vigor-imagen-texto__texto .vigor-boton { margin-top: 16px; }

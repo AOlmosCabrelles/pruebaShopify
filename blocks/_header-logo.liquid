@@ -55,6 +55,17 @@
     {% endif %}
     data-testid="header-logo"
   >
+    {%- comment -%} Vigor: logo de ejemplo del tema mientras no se suba uno propio {%- endcomment -%}
+    {%- if settings.logo == blank -%}
+      <img
+        class="header-logo__image vigor-logo-ejemplo"
+        src="{{ 'vigor-logo.png' | asset_url }}"
+        alt="{{ alt_text_fallback | escape }}"
+        width="620"
+        height="160"
+        style="height: {{ settings.logo_height }}px; width: auto;"
+      >
+    {%- else -%}
     {% render 'image',
       image: settings.logo,
       class: 'header-logo__image',
@@ -63,6 +74,7 @@
       text_fallback: shop.name,
       style: logo_style
     %}
+    {%- endif -%}
   </span>
 
   {% if use_inverse_logo %}

@@ -1,0 +1,57 @@
+{%- comment -%}
+  Vigor Sport Nutrition · banner principal.
+  Si no eliges imagen en el editor, usa la imagen de ejemplo del tema (assets/vigor-hero.jpg).
+{%- endcomment -%}
+{%- liquid
+  assign imagen = section.settings.image
+  if imagen != blank
+    assign src = imagen | image_url: width: 2400
+  else
+    assign src = 'vigor-hero.jpg' | asset_url
+  endif
+-%}
+<div class="vigor-hero vigor-hero--{{ section.settings.height }}">
+  <img
+    class="vigor-hero__imagen"
+    src="{{ src }}"
+    alt="{{ imagen.alt | default: 'Productos de suplementación deportiva Vigor' | escape }}"
+    width="2400"
+    height="1200"
+    fetchpriority="high"
+  >
+  <div class="vigor-hero__contenido">
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="vigor-hero__antetitulo">{{ section.settings.eyebrow }}</span>
+    {%- endif -%}
+    <h1 class="vigor-hero__titulo">{{ section.settings.heading }}</h1>
+    <p class="vigor-hero__texto">{{ section.settings.text }}</p>
+    <div class="vigor-hero__botones">
+      {%- if section.settings.button_label != blank -%}
+        <a class="vigor-boton vigor-boton--primario" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+      {%- if section.settings.button2_label != blank -%}
+        <a class="vigor-boton vigor-boton--secundario" href="{{ section.settings.button2_link | default: routes.collections_url }}">{{ section.settings.button2_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Vigor · Banner",
+  "tag": "section",
+  "class": "vigor-hero-section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Imagen", "info": "Recomendado 2400 × 1200 px con los productos a la derecha. Si la dejas vacía se usa la imagen de ejemplo." },
+    { "type": "select", "id": "height", "label": "Altura", "default": "grande", "options": [ { "value": "media", "label": "Media" }, { "value": "grande", "label": "Grande" } ] },
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Nueva fórmula Whey Isolate" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Rinde más. Recupera mejor." },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Suplementación deportiva con fórmulas claras, dosis útiles y sin rellenos." },
+    { "type": "text", "id": "button_label", "label": "Botón principal", "default": "Ver productos" },
+    { "type": "url", "id": "button_link", "label": "Enlace del botón principal" },
+    { "type": "text", "id": "button2_label", "label": "Botón secundario", "default": "Ver proteínas" },
+    { "type": "url", "id": "button2_link", "label": "Enlace del botón secundario" }
+  ],
+  "presets": [{ "name": "Vigor · Banner" }]
+}
+{% endschema %}
