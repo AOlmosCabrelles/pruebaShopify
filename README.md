@@ -1,4 +1,14 @@
-# Vigor Manager · simulacro de app de Shopify
+# Vigor Sport Nutrition · simulacro de tienda Shopify
+
+> 🛒 **¿Solo quieres montar la tienda, sin programar?** Empieza por
+> **[tienda/GUIA-TIENDA.md](tienda/GUIA-TIENDA.md)**: creación de la tienda, elección del tema,
+> catálogo e inventario de ejemplo (`tienda/productos-vigor.csv`) y textos listos para copiar.
+>
+> El resto del repositorio es una app opcional (*Vigor Manager*) para más adelante.
+
+---
+
+## Vigor Manager (app opcional)
 
 App de Shopify de ejemplo para una tienda **ficticia** de suplementación deportiva,
 *Vigor Sport Nutrition*. Es un proyecto de práctica (simulacro) para aprender el flujo
