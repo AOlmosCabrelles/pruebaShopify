@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Depurar Shopify app dev",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Depurar tests de la Function",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm test --workspace extensions/pack-proteina-creatina",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

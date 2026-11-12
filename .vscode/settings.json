@@ -1,0 +1,26 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "[liquid]": {
+    "editor.formatOnSave": false
+  },
+  "files.exclude": {
+    "**/node_modules": true,
+    "build": true,
+    ".react-router": true
+  },
+  "search.exclude": {
+    "app/types": true,
+    "**/schema.graphql": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "githubPullRequests.pullBranch": "never",
+  "git.branchProtection": ["main"],
+  "git.branchProtectionPrompt": "alwaysCommitToNewBranch"
+}

@@ -1,0 +1,73 @@
+name: Deploy
+
+# Se ejecuta al fusionar en main (o a mano desde la pestaña Actions).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency: production
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  # 1) Imagen Docker del backend → GitHub Container Registry (ghcr.io).
+  #    Tu hosting (Render, Fly.io, Railway, un VPS...) despliega esta imagen.
+  imagen:
+    name: Imagen Docker del backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latest
+            type=sha
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  # 2) Configuración y extensiones (calculadora, Function del pack) → Shopify.
+  #    Se activa creando la variable de repositorio SHOPIFY_DEPLOY = true
+  #    (Settings → Secrets and variables → Actions → Variables) y el secreto
+  #    con el token de la CLI. Ver docs/GUIA-SIMULACRO.md, fase 8.
+  shopify:
+    name: shopify app deploy
+    if: vars.SHOPIFY_DEPLOY == 'true'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Desplegar en Shopify
+        run: >
+          npx --yes @shopify/cli@5 app deploy
+          --allow-updates
+          --message "Deploy ${{ github.sha }}"
+          --source-control-url "${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}"
+        env:
+          # Usa el que te dé tu panel de Shopify (solo hace falta uno de los dos)
+          SHOPIFY_CLI_PARTNERS_TOKEN: ${{ secrets.SHOPIFY_CLI_PARTNERS_TOKEN }}
+          SHOPIFY_APP_AUTOMATION_TOKEN: ${{ secrets.SHOPIFY_APP_AUTOMATION_TOKEN }}
