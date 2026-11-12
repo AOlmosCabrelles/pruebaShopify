@@ -97,14 +97,15 @@ se rellenan solas según el **tipo de producto** que trae el CSV.
 2. Pulsa **Crear colección**.
 3. **Título:** `Proteínas`.
 4. **Descripción** (opcional): `Proteína de suero, vegana y caseína para ganar músculo y recuperarte mejor.`
-5. En **Tipo de colección**, elige **Automatizada**.
-6. En **Condiciones**:
-   - *Los productos deben cumplir:* **todas las condiciones**
-   - Primer desplegable: **Etiqueta del producto** (no "Categoría del producto")
-   - Segundo desplegable: **es igual a**
-   - Texto: `cat-proteinas`
-7. Pulsa **Guardar**. Abajo aparecerán los 4 productos de proteína (puede tardar unos segundos).
-8. **Comprueba el identificador:** al final de la página, en *Vista previa del listado del motor de
+5. En el panel de la derecha (**Productos**) pulsa **+ Agregar condición**. Al añadir una
+   condición, la colección pasa a ser automática. (En versiones anteriores del admin, primero
+   había que elegir *Tipo de colección → Automatizada*.)
+   - Campo: **Etiqueta del producto** (no "Categoría del producto")
+   - Operador: **es igual a**
+   - Valor: `cat-proteinas`
+   - **No** uses *Agregar productos*: eso crea una colección manual que no se rellena sola.
+6. Pulsa **Guardar** (barra superior). Abajo aparecerán los 4 productos de proteína (puede tardar unos segundos).
+7. **Comprueba el identificador:** al final de la página, en *Vista previa del listado del motor de
    búsqueda* → **Editar**, la URL debe terminar en `/collections/proteinas`. El tema usa ese
    identificador para la tarjeta de categoría y la cabecera de color.
 
@@ -127,7 +128,7 @@ se rellenan solas según el **tipo de producto** que trae el CSV.
 | Comprueba | Cómo |
 |---|---|
 | ¿Se importaron los productos? | **Productos** debe mostrar 21. Si hay menos, revisa el email de Shopify sobre la importación |
-| ¿Es **Automatizada**? | Si al crearla elegiste *Manual*, no se rellena sola. Bórrala y créala de nuevo como Automatizada |
+| ¿Tiene una **condición**? | En el panel derecho *Productos* debe verse una condición (p. ej. *Etiqueta del producto es igual a cat-proteinas*). Si solo añadiste productos a mano con *Agregar productos*, no se rellena sola |
 | ¿El primer desplegable es el correcto? | Debe ser **Etiqueta del producto** (o **Tipo de producto**). *Categoría del producto* es otra cosa (la clasificación estándar de Shopify) y el CSV no la rellena |
 | ¿El producto tiene la etiqueta? | Abre un producto → panel derecho **Organización del producto → Etiquetas**: debe aparecer `cat-proteinas`. Si no está, vuelve a importar el CSV actualizado marcando *Sobrescribir* |
 | ¿El texto tiene acentos raros? (`ProteÃ­nas`) | El CSV se abrió y guardó con Excel. Descárgalo de nuevo de GitHub e impórtalo sin abrirlo |
