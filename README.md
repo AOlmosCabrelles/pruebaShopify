@@ -21,8 +21,8 @@ Desde ese momento **funciona en las dos direcciones**:
 | Zona | Cambios |
 |---|---|
 | **Estilo global** (`config/settings_data.json`) | Paleta: fondo blanco, texto `#111111`, **acento naranja `#E4572E`** (botones), fondo suave `#F4F1EC`. Títulos en **Montserrat** en mayúsculas, texto en Inter de 16 px. Bordes redondeados y tarjetas que se elevan al pasar el ratón |
-| **Barra de anuncios** (`sections/header-group.json`) | Barra negra con tres mensajes rotativos: envío gratis desde 50 €, envíos el mismo día y pago seguro |
-| **Cabecera** (`sections/header-group.json`) | Logo a la izquierda y menú centrado en mayúsculas. Se oculta al bajar y reaparece al subir. Menú desplegable con imágenes de colección, contador del carrito en naranja, menú móvil en acordeón. Sin selector de país/idioma |
+| **Barra de anuncios** (`sections/header-group.json`) | Barra naranja con tres mensajes rotativos: envío gratis desde 50 €, envíos el mismo día y pago seguro |
+| **Cabecera** (`sections/header-group.json`) | Dos filas: arriba, logo, buscador, cuenta y carrito (contador naranja) en blanco; abajo, barra negra con el menú centrado en mayúsculas y desplegables con imágenes de colección. En móvil, barra negra deslizable con las categorías bajo la cabecera. Se oculta al bajar y reaparece al subir. Sin selector de país/idioma
 | **Pie de página** (`sections/footer-group.json`) | Pie Vigor: franja naranja de beneficios, logo blanco, redes sociales, enlaces automáticos a las categorías, ayuda, contacto con suscripción, aviso legal de complementos, políticas y métodos de pago |
 | **Inicio** (`templates/index.json`) | Banner principal *"Rinde más. Recupera mejor."* → categorías → *Los imprescindibles* → *¿Por qué Vigor?* → Proteínas → calculadora de proteína → *Hecho para quien entrena de verdad* → preguntas frecuentes → newsletter |
 | **Ficha de producto** (`templates/product.json`) | Aviso de **pocas unidades** (por debajo de 10), desplegables de envío, devoluciones, pago y asesoramiento, **calculadora "¿Cuánto te dura este bote?"** (solo en Proteínas), *Combínalo con* y franja de beneficios |
