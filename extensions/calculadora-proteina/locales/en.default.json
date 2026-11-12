@@ -1,0 +1,18 @@
+{
+  "calculadora": {
+    "titulo": "How much protein do you need?",
+    "peso": "Your weight (kg)",
+    "objetivo": "Goal",
+    "mantener": "Maintain / performance",
+    "masa": "Build muscle",
+    "definicion": "Cutting",
+    "aviso": "Estimate only. It does not replace advice from a health professional."
+  },
+  "nutricion": {
+    "titulo": "Nutrition facts",
+    "proteina": "Protein per serving",
+    "dosis": "Serving",
+    "alergenos": "Allergens",
+    "modo_empleo": "How to use"
+  }
+}

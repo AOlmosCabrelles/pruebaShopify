@@ -1,0 +1,71 @@
+{% comment %}
+  Calculadora de proteína (Theme app extension de Vigor Manager).
+  Usa los metafields:
+    - product.metafields.nutricion.proteina_por_dosis
+    - variant.metafields.nutricion.gramos_envase
+    - product.metafields.nutricion.dosis_g
+  Solo se muestra en productos con proteína (> 0 g por dosis).
+{% endcomment %}
+{%- assign producto = block.settings.product | default: product -%}
+{%- assign proteina = producto.metafields.nutricion.proteina_por_dosis.value | default: 0 -%}
+{%- assign dosis_g = producto.metafields.nutricion.dosis_g.value | default: 30 -%}
+
+{%- if proteina > 0 -%}
+  <div
+    class="vigor-calc"
+    style="--vigor-acento: {{ block.settings.color_acento }};"
+    data-proteina="{{ proteina }}"
+    data-dosis-g="{{ dosis_g }}"
+    data-porcentaje="{{ block.settings.porcentaje_suplemento }}"
+  >
+    <h3 class="vigor-calc__titulo">{{ 'calculadora.titulo' | t }}</h3>
+
+    <div class="vigor-calc__campos">
+      <label>
+        {{ 'calculadora.peso' | t }}
+        <input type="number" min="30" max="250" value="75" data-vigor-peso>
+      </label>
+      <label>
+        {{ 'calculadora.objetivo' | t }}
+        <select data-vigor-objetivo>
+          <option value="1.6">{{ 'calculadora.mantener' | t }}</option>
+          <option value="2.0" selected>{{ 'calculadora.masa' | t }}</option>
+          <option value="2.2">{{ 'calculadora.definicion' | t }}</option>
+        </select>
+      </label>
+    </div>
+
+    <p class="vigor-calc__resultado" data-vigor-resultado aria-live="polite"></p>
+    <p class="vigor-calc__aviso">{{ 'calculadora.aviso' | t }}</p>
+
+    <script type="application/json" data-vigor-variantes>
+      {
+        {%- for v in producto.variants -%}
+          "{{ v.id }}": {{ v.metafields.nutricion.gramos_envase.value | default: 0 }}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      }
+    </script>
+    <script type="application/json" data-vigor-variante-inicial>{{ producto.selected_or_first_available_variant.id | json }}</script>
+  </div>
+
+  {{ 'calculadora.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'calculadora.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Calculadora de proteína",
+  "target": "section",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "product", "id": "product", "label": "Producto", "autofill": true },
+    {
+      "type": "range",
+      "id": "porcentaje_suplemento",
+      "label": "% de la proteína diaria que aporta el suplemento",
+      "min": 10, "max": 60, "step": 5, "unit": "%", "default": 30
+    },
+    { "type": "color", "id": "color_acento", "label": "Color de acento", "default": "#e4572e" }
+  ]
+}
+{% endschema %}

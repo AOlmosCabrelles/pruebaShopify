@@ -1,0 +1,19 @@
+.vigor-calc,
+.vigor-info {
+  border: 1px solid rgba(var(--color-foreground, 0, 0, 0), 0.15);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+.vigor-calc__titulo,
+.vigor-info h3 { margin: 0 0 0.75rem; font-size: 1.1em; }
+.vigor-calc__campos { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.vigor-calc__campos label { display: flex; flex-direction: column; gap: 0.25rem; flex: 1 1 140px; font-size: 0.9em; }
+.vigor-calc__campos input,
+.vigor-calc__campos select { padding: 0.5rem; border-radius: 8px; border: 1px solid rgba(0, 0, 0, 0.25); font: inherit; }
+.vigor-calc__resultado { margin: 0.75rem 0 0.25rem; }
+.vigor-calc__resultado b { color: var(--vigor-acento, #e4572e); }
+.vigor-calc__aviso { font-size: 0.75em; opacity: 0.7; margin: 0; }
+.vigor-info dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; margin: 0; }
+.vigor-info dt { font-weight: 600; }
+.vigor-info dd { margin: 0; }

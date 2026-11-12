@@ -1,0 +1,42 @@
+{% comment %}
+  Bloque de información nutricional obligatoria (Reglamento UE 1169/2011):
+  alérgenos y modo de empleo visibles antes de la compra.
+{% endcomment %}
+{%- assign producto = block.settings.product | default: product -%}
+{%- assign n = producto.metafields.nutricion -%}
+
+{%- if n.dosis_g or n.alergenos or n.modo_empleo -%}
+  <div class="vigor-info">
+    <h3>{{ 'nutricion.titulo' | t }}</h3>
+    <dl>
+      {%- if n.proteina_por_dosis.value > 0 -%}
+        <dt>{{ 'nutricion.proteina' | t }}</dt>
+        <dd>{{ n.proteina_por_dosis.value }} g</dd>
+      {%- endif -%}
+      {%- if n.dosis_g -%}
+        <dt>{{ 'nutricion.dosis' | t }}</dt>
+        <dd>{{ n.dosis_g.value }} g</dd>
+      {%- endif -%}
+      {%- if n.alergenos -%}
+        <dt>{{ 'nutricion.alergenos' | t }}</dt>
+        <dd><strong>{{ n.alergenos.value | join: ', ' }}</strong></dd>
+      {%- endif -%}
+      {%- if n.modo_empleo -%}
+        <dt>{{ 'nutricion.modo_empleo' | t }}</dt>
+        <dd>{{ n.modo_empleo.value | newline_to_br }}</dd>
+      {%- endif -%}
+    </dl>
+  </div>
+  {{ 'calculadora.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Información nutricional",
+  "target": "section",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "product", "id": "product", "label": "Producto", "autofill": true }
+  ]
+}
+{% endschema %}
