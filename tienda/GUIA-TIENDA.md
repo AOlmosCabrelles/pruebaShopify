@@ -9,6 +9,9 @@ Archivos de esta carpeta:
 |---|---|
 | `productos-vigor.csv` | Catálogo de ejemplo: 6 productos, 15 variantes, precios, stock, SKU, peso, información nutricional y SEO |
 | `GUIA-TIENDA.md` | Esta guía, con los textos listos para copiar y pegar |
+| `imagenes/productos/` | 15 imágenes de envases, una por variante (ya enlazadas en el CSV) |
+| `imagenes/marca/` | Logo (oscuro y blanco), favicon, imagen de *Sobre nosotros* e imagen para redes sociales |
+| `imagenes/generar-imagenes.mjs` | Script que genera todas las imágenes (por si quieres cambiar colores o textos) |
 
 ---
 
@@ -59,8 +62,10 @@ el **modo de empleo** y las advertencias obligatorias.
 propósito (Vainilla 2 kg: 3 uds, Frutos rojos: 2 uds) para que practiques reponer existencias.
 La política es *"no vender sin stock"*, así que cuando una variante llega a 0 aparece como **Agotado**.
 
-**Imágenes:** el CSV no trae fotos. Añádelas en cada producto (**Medios → Añadir**) con tus fotos o
-con imágenes de bancos libres de derechos. Formato cuadrado, 2048 × 2048 px, fondo blanco o neutro.
+**Imágenes:** el CSV ya enlaza una foto por variante (carpeta `imagenes/productos/`). Shopify
+las descarga solas al importar y, al cambiar de sabor o de tamaño en la tienda, se ve el envase
+correspondiente. Son **ilustraciones de ejemplo** creadas para este simulacro. Cuando tengas
+fotos reales, cámbialas en cada producto (**Medios**). Formato cuadrado, 2048 × 2048 px.
 
 ## Paso 4 · Colecciones (las categorías de la web)
 
@@ -110,6 +115,14 @@ Las colecciones automáticas se rellenan solas cuando añades productos nuevos d
 ## Paso 6 · Personalizar la web
 
 **Tienda online → Temas → Personalizar.** Arriba eliges qué página editar: Inicio, Producto, Colección...
+
+### Imágenes de marca (carpeta `imagenes/marca/`)
+| Archivo | Dónde se sube |
+|---|---|
+| `logo-vigor.png` | Personalizar → Configuración del tema → **Logo** (el tema Vigor ya lo muestra aunque no lo subas) |
+| `favicon-vigor.png` | Configuración del tema → Logo → **Favicon** |
+| `sobre-nosotros.jpg` | Página *Sobre nosotros* → botón de insertar imagen |
+| `compartir-redes.jpg` | Configuración del tema → Redes sociales → **Imagen para compartir** |
 
 ### Estilo de marca (Configuración del tema)
 - **Colores:** fondo blanco, texto casi negro `#111111`, color de acento enérgico `#E4572E` (naranja) para botones y ofertas.
