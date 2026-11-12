@@ -146,7 +146,7 @@ No hace falta crear "Todos los productos": Shopify ya la tiene en `/collections/
 - **Colección "Veganos":** Automatizada con la condición *Etiqueta del producto es igual a* `vegana`.
 
 ### 4.4 Añadirlas al menú
-**Tienda online → Menús → Menú principal** → **Añadir elemento de menú** → escribe el nombre y,
+**Contenido → Menús → Menú principal** → **Añadir elemento de menú** → escribe el nombre y,
 en *Enlace*, elige **Colecciones →** la colección correspondiente. Arrástralas para ordenarlas.
 
 ## Paso 5 · Elegir el tema (el diseño)
@@ -218,7 +218,7 @@ en *Enlace*, elige **Colecciones →** la colección correspondiente. Arrástral
 
 ## Paso 7 · Páginas y menús
 
-### Páginas (**Tienda online → Páginas → Añadir página**)
+### Páginas (**Contenido → Páginas → Añadir página**)
 
 **Sobre nosotros**
 ```
@@ -253,7 +253,9 @@ Cada ficha indica los alérgenos en negrita. Si tienes alguna alergia, revísala
 con tus datos fiscales (obligatoria en España). En **Configuración → Privacidad de los clientes**,
 activa el **banner de cookies**.
 
-### Menús (**Tienda online → Menús**)
+### Menús (**Contenido → Menús**)
+
+> En el admin actual de Shopify, los menús y las páginas están en **Contenido** (menú de la izquierda), no en *Tienda online*. También puedes escribir "Menús" en el buscador de arriba del admin, o abrirlos desde el editor de temas: cabecera → bloque *Menú* → **Editar menú**.
 
 **Menú principal** (`main-menu`): la cabecera del tema Vigor muestra un panel con imágenes en los
 elementos que tienen subelementos.
@@ -273,7 +275,7 @@ Contacto              → Páginas › Contacto
 ```
 
 Pasos:
-1. **Tienda online → Menús → Menú principal**. Borra *Catálogo* (icono de papelera). Si dejas
+1. **Contenido → Menús → Menú principal**. Borra *Catálogo* (icono de papelera). Si dejas
    *Inicio*, no pasa nada, aunque el logo ya lleva al inicio.
 2. **Agregar elemento de menú** → *Etiqueta* `Tienda` → *Enlace*: **Colecciones → Todos los productos** → **Agregar**.
 3. Repite para cada categoría (`Proteínas`, `Rendimiento`...) con su colección.
