@@ -98,7 +98,7 @@ Casi todo lo propio está en archivos `vigor-*`. Estos son los únicos archivos 
 
 El tema usa contenido que vive en la tienda, no en el tema:
 
-- **Productos:** importa `tienda/productos-vigor.csv` (rama `main`). La calculadora usa el
+- **Productos:** importa `tienda/csv/productos-vigor.csv` (rama `main`). La calculadora usa el
   **peso de la variante** (1 kg, 2 kg) para calcular cuántos días dura el envase.
 - **Colecciones** con estos identificadores (*handles*): `proteinas`, `rendimiento`,
   `recuperacion`, `salud`, `snacks` y `accesorios`. Shopify los crea solos si las colecciones se llaman
