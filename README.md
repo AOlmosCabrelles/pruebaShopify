@@ -48,7 +48,8 @@ retocadas con el estilo de la marca. Originales, licencias y créditos: rama `ma
 | Imagen | Dónde se ve |
 |---|---|
 | `assets/vigor-hero.jpg` | Banner principal (peso muerto) |
-| `assets/vigor-cat-*.jpg` | Tarjetas de categorías, página `/collections` y cabeceras de colección |
+| `assets/vigor-cat-*.jpg` | Tarjetas de categorías y página `/collections` |
+| `assets/vigor-cabecera-*.jpg` | Fondo a todo lo ancho de la cabecera de cada colección (recortes horizontales) |
 | `assets/vigor-nosotros.jpg` | Sección *Hecho para quien entrena de verdad* (gimnasio clásico) |
 | `assets/vigor-logo.png`, `vigor-logo-blanco.png`, `vigor-favicon.png` | Logo y favicon de ejemplo (si no subes los tuyos) |
 
