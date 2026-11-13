@@ -93,7 +93,40 @@
   (() => {
     const raiz = document.querySelector('#shopify-section-{{ section.id }} [data-vigor-quiz]');
     if (!raiz) return;
-    const productos = JSON.parse(document.querySelector('#shopify-section-{{ section.id }} [data-vigor-quiz-productos]').textContent || '{}');
+    // Datos de los productos: primero los que trae la página (Liquid). Los que falten se piden a la
+    // tienda con /products/<handle>.js (all_products puede volver vacío sin avisar).
+    let productos = {};
+    try {
+      productos = JSON.parse(document.querySelector('#shopify-section-{{ section.id }} [data-vigor-quiz-productos]').textContent || '{}');
+    } catch (e) {
+      productos = {};
+    }
+    const TODOS = {{ handles | json }};
+    const raizTienda = (window.Shopify && window.Shopify.routes && window.Shopify.routes.root) || '/';
+    const moneda = {{ cart.currency.iso_code | default: shop.currency | json }};
+    const formatoPrecio = (centimos) => {
+      try {
+        return new Intl.NumberFormat(document.documentElement.lang || 'es-ES', { style: 'currency', currency: moneda }).format(centimos / 100);
+      } catch (e) {
+        return (centimos / 100).toFixed(2) + ' ' + moneda;
+      }
+    };
+    const pedirProducto = async (h) => {
+      try {
+        const resp = await fetch(`${raizTienda}products/${h}.js`, { headers: { Accept: 'application/json' } });
+        if (!resp.ok) return;
+        const d = await resp.json();
+        const variante = (d.variants || []).find((v) => v.available);
+        if (!d.available || !variante) return;
+        let imagen = d.featured_image || '';
+        if (imagen) imagen += (imagen.includes('?') ? '&' : '?') + 'width=400';
+        productos[h] = { titulo: d.title, url: d.url, precio: formatoPrecio(variante.price), imagen, variante: variante.id };
+      } catch (e) {
+        // Sin conexión o producto inexistente: se omite
+      }
+    };
+    let cargando = null;
+    const cargarProductos = () => (cargando ||= Promise.all(TODOS.filter((h) => !productos[h]).map(pedirProducto)));
 
     // Objetivo → lácteos → cafeína → lista de productos por prioridad
     const RECOMENDACIONES = {
@@ -163,10 +196,12 @@
       return { handles: lista.filter((h) => productos[h]).slice(0, 3), texto };
     };
 
-    const pintarResultado = () => {
+    const pintarResultado = async () => {
+      const cont = raiz.querySelector('[data-productos]');
+      cont.innerHTML = '<p>Buscando tus productos…</p>';
+      await cargarProductos();
       const { handles, texto } = elegir();
       raiz.querySelector('[data-explicacion]').textContent = texto;
-      const cont = raiz.querySelector('[data-productos]');
       cont.innerHTML = '';
       for (const h of handles) {
         const p = productos[h];
@@ -196,6 +231,7 @@
         if (paso === '1') {
           Object.keys(respuestas).forEach((k) => delete respuestas[k]);
           respuestas.objetivo = valor;
+          cargarProductos();
           mostrarPaso(SEGUNDA[valor]);
           return;
         }
