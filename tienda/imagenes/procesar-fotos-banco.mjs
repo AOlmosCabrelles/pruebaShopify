@@ -23,6 +23,7 @@ const FORMATOS = {
   banner: { w: 2000, h: 1000, carpeta: "banco/tema" },
   categoria: { w: 1000, h: 1250, carpeta: "banco/tema" },
   nosotros: { w: 1800, h: 1100, carpeta: "banco/tema" },
+  cabecera: { w: 2000, h: 700, carpeta: "banco/tema" },
   producto: { w: 1600, h: 1600, carpeta: "ambiente" },
 };
 
@@ -58,7 +59,13 @@ for (const [nombre, f] of Object.entries(fotos)) {
 }
 
 // ───────── Créditos ─────────
-const filas = Object.entries(fotos).map(([nombre, f]) => ({ nombre, ...f, licenciaTexto: LICENCIAS[f.licencia] ?? f.licencia }));
+const porOrigen = new Map();
+for (const [nombre, f] of Object.entries(fotos)) {
+  const previa = porOrigen.get(f.origen);
+  if (previa) previa.uso += `, ${f.uso.charAt(0).toLowerCase()}${f.uso.slice(1)}`;
+  else porOrigen.set(f.origen, { nombre, ...f, licenciaTexto: LICENCIAS[f.licencia] ?? f.licencia });
+}
+const filas = [...porOrigen.values()];
 const md = `# Créditos de las fotos de banco de imágenes
 
 Fotos obtenidas con [Openverse](https://openverse.org) con licencias que permiten el uso comercial.

@@ -183,5 +183,77 @@
     "version": "2.0",
     "licencia_url": "https://creativecommons.org/licenses/by/2.0/",
     "origen": "https://www.flickr.com/photos/70757891@N00/7395683298"
+  },
+  "cabecera-proteinas": {
+    "uso": "Cabecera de la colección Proteinas",
+    "formato": "cabecera",
+    "foco": "north",
+    "archivo": "hero.jpg",
+    "titulo": "Man lifting barbell gym",
+    "autor": null,
+    "licencia": "cc0",
+    "version": "1.0",
+    "licencia_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "origen": "https://www.rawpixel.com/image/6031193/photo-image-public-domain-hands-person"
+  },
+  "cabecera-rendimiento": {
+    "uso": "Cabecera de la colección Rendimiento",
+    "formato": "cabecera",
+    "foco": "center",
+    "archivo": "cat-rendimiento.jpg",
+    "titulo": "2013_08_12_Weight_Lifters_C.jpg",
+    "autor": "AMISOM Public Information",
+    "licencia": "cc0",
+    "version": "1.0",
+    "licencia_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "origen": "https://www.flickr.com/photos/61765479@N08/9498439423"
+  },
+  "cabecera-recuperacion": {
+    "uso": "Cabecera de la colección Recuperacion",
+    "formato": "cabecera",
+    "foco": "center",
+    "archivo": "cat-recuperacion.jpg",
+    "titulo": "Dumbbells",
+    "autor": "qubodup",
+    "licencia": "by",
+    "version": "2.0",
+    "licencia_url": "https://creativecommons.org/licenses/by/2.0/",
+    "origen": "https://www.flickr.com/photos/21051491@N02/3210745877"
+  },
+  "cabecera-salud": {
+    "uso": "Cabecera de la colección Salud",
+    "formato": "cabecera",
+    "foco": "center",
+    "archivo": "cat-salud.jpg",
+    "titulo": "Supplement Capsules on Spoons",
+    "autor": "formulatehealth",
+    "licencia": "by",
+    "version": "2.0",
+    "licencia_url": "https://creativecommons.org/licenses/by/2.0/",
+    "origen": "https://www.flickr.com/photos/189590028@N07/50191152468"
+  },
+  "cabecera-snacks": {
+    "uso": "Cabecera de la colección Snacks",
+    "formato": "cabecera",
+    "foco": "center",
+    "archivo": "cat-snacks.jpg",
+    "titulo": "making chocolate protein bars",
+    "autor": "Stacy Spensley",
+    "licencia": "by",
+    "version": "2.0",
+    "licencia_url": "https://creativecommons.org/licenses/by/2.0/",
+    "origen": "https://www.flickr.com/photos/21001756@N06/8111249107"
+  },
+  "cabecera-accesorios": {
+    "uso": "Cabecera de la colección Accesorios",
+    "formato": "cabecera",
+    "foco": "center",
+    "archivo": "cat-accesorios.jpg",
+    "titulo": "Dumbbells",
+    "autor": "bepositivelyfit",
+    "licencia": "by-sa",
+    "version": "2.0",
+    "licencia_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "origen": "https://www.flickr.com/photos/32749811@N08/3401138347"
   }
 }
