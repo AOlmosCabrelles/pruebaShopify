@@ -8,9 +8,10 @@
 
 import { PRODUCTOS, combinar, descripcionHtml, slugValor } from "../catalogo.mjs";
 import { nombreFoto } from "./fotos.mjs";
+import { urlArchivo } from "./repo.mjs";
 
-export const URL_AMBIENTE = "https://raw.githubusercontent.com/AOlmosCabrelles/pruebaShopify/main/tienda/imagenes/ambiente/";
-export const URL_IMAGENES = "https://raw.githubusercontent.com/AOlmosCabrelles/pruebaShopify/main/tienda/imagenes/productos-oscuro/";
+export const URL_AMBIENTE = urlArchivo("tienda/imagenes/ambiente/");
+export const URL_IMAGENES = urlArchivo("tienda/imagenes/productos-oscuro/");
 export const TIPOS_VALIDOS = ["Proteínas", "Rendimiento", "Recuperación", "Salud", "Snacks", "Accesorios"];
 export const etiquetaCategoria = (tipo) => `cat-${slugValor(tipo)}`;
 

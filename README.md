@@ -5,6 +5,8 @@
 > catálogo e inventario de ejemplo (`tienda/productos-vigor.csv`) y textos listos para copiar.
 >
 > El resto del repositorio es una app opcional (*Vigor Manager*) para más adelante.
+>
+> 🔁 **¿Cambio de mantenedor?** Sigue [`docs/TRANSFERENCIA.md`](docs/TRANSFERENCIA.md).
 
 ---
 
@@ -46,7 +48,7 @@ Requisitos: Node.js ≥ 22.12, Git, una cuenta de desarrollador de Shopify y una
 npm install -g @shopify/cli@latest
 ```
 ```bash
-git clone https://github.com/AOlmosCabrelles/pruebaShopify.git
+git clone <URL-del-repositorio>
 ```
 ```bash
 cd pruebaShopify

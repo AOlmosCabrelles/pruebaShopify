@@ -54,7 +54,7 @@ deportiva usando **Shopify CLI**, **Visual Studio Code** y **GitHub**.
 
 ### 2.1 Clonar el repositorio en VS Code
 1. Abre VS Code → `Ctrl + Shift + P` → **Git: Clone**.
-2. Pega `https://github.com/AOlmosCabrelles/pruebaShopify.git` y elige una carpeta.
+2. Pega la URL del repositorio (botón verde **Code** en GitHub) y elige una carpeta.
 3. Pulsa **Abrir** cuando termine.
 4. Aparecerá un aviso: *"Este repositorio recomienda extensiones"* → **Instalar todas**.
    Las define `.vscode/extensions.json`: GraphQL, Prisma, ESLint, Prettier,

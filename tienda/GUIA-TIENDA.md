@@ -50,7 +50,7 @@ Todo esto está en **Configuración** (abajo a la izquierda del admin):
 ## Paso 3 · Importar el catálogo y el inventario
 
 ### 3.1 Descargar el CSV
-1. Abre https://github.com/AOlmosCabrelles/pruebaShopify/blob/main/tienda/productos-vigor.csv
+1. Abre en GitHub el archivo [`tienda/productos-vigor.csv`](productos-vigor.csv) de este repositorio
 2. Arriba a la derecha del archivo, pulsa el botón de descarga (**Download raw file**, icono ⬇).
 3. Se guarda `productos-vigor.csv` en tu carpeta de Descargas. **No lo abras ni lo guardes con
    Excel**, porque puede estropear los acentos y las comas.
@@ -103,7 +103,7 @@ de la marca. Se importan con el CSV de imágenes.
 El pie del tema Vigor ya muestra un desplegable **"Créditos de imágenes"** con la lista completa;
 no hace falta hacer nada. Si además quieres una página propia, crea en *Páginas* una llamada
 `Créditos de imágenes` con el HTML de `tienda/imagenes/banco/creditos.html` (botón **</>**) y el pie
-la enlazará. Las páginas están en https://admin.shopify.com/store/vigor-sport-dev/pages
+la enlazará. Las páginas están en `https://admin.shopify.com/store/<identificador-de-la-tienda>/pages`
 
 **Fotos reales:** deja las fotos en `tienda/imagenes/recortes/` (PNG transparente, o JPG sobre
 fondo blanco y el script quita el fondo), regenera imágenes y CSV, y reimporta el CSV de imágenes.
@@ -167,7 +167,7 @@ No hace falta crear "Todos los productos": Shopify ya la tiene en `/collections/
 ### 4.3 Extras opcionales
 - **Imagen de la colección:** en cada colección, en el apartado *Imagen de colección*, puedes
   subir la ilustración de su categoría. Están en la rama del tema, en
-  [`assets/`](https://github.com/AOlmosCabrelles/pruebaShopify/tree/tema-horizon/assets)
+  `assets/` de la rama `tema-horizon`
   (`vigor-cat-proteinas.jpg`, etc.). Si usas el tema Vigor no hace falta: ya las muestra solo.
 - **Colección "Más vendidos":** Automatizada con la condición *Precio del producto es mayor que 0*
   y ordenada por **Más vendidos**.
@@ -179,10 +179,10 @@ en *Enlace*, elige **Colecciones →** la colección correspondiente. Arrástral
 
 ## Paso 5 · Elegir el tema (el diseño)
 
-> ✨ **Atajo:** en la rama [`tema-horizon`](https://github.com/AOlmosCabrelles/pruebaShopify/tree/tema-horizon)
+> ✨ **Atajo:** en la rama `tema-horizon` de este repositorio
 > está Horizon ya adaptado a suplementos (colores, inicio, ficha de producto, calculadora, FAQ...).
 > Para usarlo: **Tienda online → Temas → Añadir tema → Conectar desde GitHub** → repositorio
-> `pruebaShopify`, rama `tema-horizon`. Los detalles están en el README de esa rama. Si lo usas,
+> del proyecto, rama `tema-horizon`. Los detalles están en el README de esa rama. Si lo usas,
 > puedes saltarte casi todo el paso 6.
 
 **Tienda online → Temas.** Ya tienes instalado el tema gratuito por defecto (Horizon).
