@@ -432,7 +432,7 @@ Hazlo de vez en cuando (p. ej. una vez al mes, o después de cambios grandes):
 5. **Guardar en GitHub** (commit): la copia de la exportación y `catalogo-shopify.json` quedan como
    **copia de seguridad** e historial de cambios del catálogo.
 
-> 🔒 El repositorio `pruebaShopify` es **público**. Las exportaciones de productos no contienen
+> 🔒 El repositorio `vigor-sport-shopify` es **público**. Las exportaciones de productos no contienen
 > datos de clientes, pero si rellenas el **coste por artículo** también quedaría visible. Si eso te
 > importa, haz el repositorio privado (GitHub → *Settings → Danger Zone → Change visibility*).
 > Ojo: las imágenes del CSV inicial se descargan desde el repositorio, así que hazlo después de

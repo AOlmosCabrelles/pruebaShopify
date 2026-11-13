@@ -14,7 +14,7 @@ Tienda Shopify de suplementación deportiva para una **marca ficticia, "Vigor Sp
 13/11/2026, apps propias **sin servidor** (ver 5 bis).
 
 - **Tienda de pruebas:** `vigor-sport-dev.myshopify.com` (tienda de desarrollo).
-- **Repositorio:** GitHub `AOlmosCabrelles/pruebaShopify` (público). Preparado para transferirse
+- **Repositorio:** GitHub `AOlmosCabrelles/vigor-sport-shopify` (público; antes `pruebaShopify`, renombrado el 13/11/2026). Preparado para transferirse
   a otro propietario (`docs/TRANSFERENCIA.md`).
 - **Idioma de trabajo:** español (textos, commits, documentación).
 
