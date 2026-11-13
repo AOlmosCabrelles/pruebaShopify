@@ -1,101 +1,82 @@
-# Vigor Sport Nutrition · simulacro de tienda Shopify
+# Vigor Sport Nutrition · tienda Shopify
 
-> 🛒 **¿Solo quieres montar la tienda, sin programar?** Empieza por
-> **[tienda/GUIA-TIENDA.md](tienda/GUIA-TIENDA.md)**: creación de la tienda, elección del tema,
-> catálogo e inventario de ejemplo (`tienda/productos-vigor.csv`) y textos listos para copiar.
->
-> El resto del repositorio es una app opcional (*Vigor Manager*) para más adelante.
->
-> 🔁 **¿Cambio de mantenedor?** Sigue [`docs/TRANSFERENCIA.md`](docs/TRANSFERENCIA.md).
+Tienda online de suplementación deportiva (marca de ejemplo **Vigor Sport Nutrition**) hecha con
+Shopify, sin apps: tema propio basado en Horizon + catálogo, imágenes y herramientas para
+mantenerlo.
 
----
+## Ramas
 
-## Vigor Manager (app opcional)
-
-App de Shopify de ejemplo para una tienda **ficticia** de suplementación deportiva,
-*Vigor Sport Nutrition*. Es un proyecto de práctica (simulacro) para aprender el flujo
-completo de desarrollo: **Shopify CLI + Visual Studio Code + GitHub**.
-
-> 📘 La guía paso a paso está en **[docs/GUIA-SIMULACRO.md](docs/GUIA-SIMULACRO.md)**
-> y el backlog (issues para crear en GitHub) en **[docs/BACKLOG.md](docs/BACKLOG.md)**.
-
-## Qué hace
-
-| Funcionalidad | Dónde | Código |
+| Rama | Contenido | Uso |
 |---|---|---|
-| Panel de **lotes que caducan** y **stock bajo** | Admin de Shopify | `app/routes/app._index.tsx` |
-| Alta y baja de **lotes con fecha de caducidad** | Admin | `app/routes/app.lotes.tsx` |
-| **Catálogo de prueba** (6 suplementos, variantes, stock, metafields, colecciones, lotes) | Admin | `app/routes/app.catalogo.tsx`, `app/data/catalogo.server.ts` |
-| **Calculadora de proteína** + **información nutricional** en la ficha de producto | Tienda online | `extensions/calculadora-proteina/` |
-| **Descuento automático "Pack proteína + creatina"** | Checkout | `extensions/pack-proteina-creatina/` (Shopify Function) + `app/routes/app.promociones.tsx` |
-| Umbrales configurables | Admin | `app/routes/app.ajustes.tsx` |
-| Webhooks de desinstalación y RGPD | Backend | `app/routes/webhooks.*.tsx` |
+| **`main`** (esta) | Catálogo en CSV, imágenes, scripts y guías | Se importa a mano en Shopify (*Productos → Importar*) |
+| **`tema-horizon`** | El tema de la tienda (Horizon adaptado) | Conectada a Shopify: se sincroniza sola en los dos sentidos |
 
-## Tecnología
+> Shopify exige que el tema esté en la raíz de la rama que se conecta, por eso el tema vive en su
+> propia rama. Su README explica cómo conectarlo y qué se ha cambiado sobre Horizon.
 
-- [React Router 7](https://reactrouter.com/), la plantilla oficial de apps de Shopify
-- Polaris web components (`<s-page>`, `<s-table>`…) y App Bridge
-- Admin GraphQL API `2026-10` con tipos generados (`app/types/`)
-- Prisma + SQLite en desarrollo (modelos `Session`, `Lote` y `Ajustes`)
-- Theme app extension (Liquid + JS) y Shopify Function (JavaScript → Wasm)
-- GitHub Actions: CI en cada PR y deploy al fusionar en `main`
+## Qué hay en `main`
 
-## Arranque rápido
-
-Requisitos: Node.js ≥ 22.12, Git, una cuenta de desarrollador de Shopify y una tienda de desarrollo.
-
-```bash
-npm install -g @shopify/cli@latest
 ```
-```bash
-git clone <URL-del-repositorio>
+tienda/
+├── GUIA-TIENDA.md                 ← guía paso a paso: montar, configurar y mantener la tienda
+├── productos-vigor.csv            ← catálogo completo para importar (21 productos, 41 variantes)
+├── productos-vigor-imagenes.csv   ← solo imágenes (cambiar fotos sin tocar precios ni stock)
+├── catalogo.mjs                   ← fuente de datos del catálogo (de aquí salen CSV e imágenes)
+├── generar-csv.mjs                ← genera los CSV (opciones: --solo, --sin-stock, --solo-imagenes…)
+├── sincronizar-desde-shopify.mjs  ← lee una exportación de Shopify y hace un informe de cambios y errores
+├── lib/                           ← código compartido (modelo de producto, CSV, repositorio, fotos)
+├── herramientas/
+│   └── validar-ajustes-tema.py    ← valida los ajustes del tema antes de subir cambios
+└── imagenes/
+    ├── productos-oscuro/          ← fotos de producto (envases) que enlaza el CSV
+    ├── ambiente/                  ← segundas fotos de producto (banco de imágenes)
+    ├── banco/                     ← fotos de banco de imágenes: originales, licencias y CRÉDITOS
+    ├── recortes/                  ← aquí van las fotos reales de producto (ver su README)
+    ├── marca/                     ← logo, favicon, imagen de Sobre nosotros y para redes
+    ├── generar-imagenes.mjs       ← genera las fotos de producto (ilustración o foto real)
+    └── procesar-fotos-banco.mjs   ← retoca las fotos de banco con el estilo de la marca
+docs/
+└── TRANSFERENCIA.md               ← cómo pasar el proyecto a otro mantenedor
 ```
-```bash
-cd pruebaShopify
-```
+
+## Uso diario
+
+El día a día (productos, stock, textos, menús, páginas) **se hace desde el admin de Shopify** y no
+necesita nada de este repositorio. Las herramientas sirven para cambios masivos, imágenes y
+copias de seguridad:
+
 ```bash
 npm install
 ```
-```bash
-npm run dev
-```
-
-La primera vez, la CLI te pedirá iniciar sesión, crear o enlazar la app y elegir la tienda
-de desarrollo. Pulsa `p` en la terminal para abrir la app y luego ve a **Catálogo de prueba →
-Cargar catálogo en la tienda**.
-
-## Scripts
 
 | Comando | Qué hace |
 |---|---|
-| `npm run dev` | Arranca la app en la tienda de desarrollo (túnel y recarga en caliente) |
-| `npm run check` | Lint, tipos, tests y build, lo mismo que la CI |
-| `npm test` | Tests de la Shopify Function |
-| `npm run graphql-codegen` | Regenera los tipos de las consultas GraphQL |
-| `npm run deploy` | Publica la configuración y las extensiones en Shopify |
-| `npx prisma studio` | Abre la base de datos en el navegador |
+| `npm run csv` | Regenera `productos-vigor.csv` y `productos-vigor-imagenes.csv` desde `catalogo.mjs` |
+| `npm run imagenes` | Regenera las fotos de producto (usa las fotos reales de `recortes/` si existen) |
+| `npm run fotos-banco` | Retoca las fotos de banco de imágenes y actualiza los créditos |
+| `npm run sincronizar -- export.csv` | Lee una exportación de productos de Shopify: copia de seguridad + informe |
+| `npm run comprobar` | Comprueba que los CSV están al día (lo mismo que hace GitHub en cada cambio) |
 
-## Estructura
+Requisitos: **Node.js 22+**; para imágenes, **ImageMagick** y el navegador de Playwright
+(`npx playwright install chromium`); para validar el tema, **Python 3**.
 
+Para validar el tema (en una copia de la rama `tema-horizon`):
+
+```bash
+python3 tienda/herramientas/validar-ajustes-tema.py ruta/al/tema
 ```
-app/
-├── data/catalogo.server.ts        ← productos de suplementación de ejemplo
-├── services/                      ← lógica (carga de catálogo, inventario)
-├── routes/
-│   ├── app._index.tsx             ← panel
-│   ├── app.lotes.tsx              ← lotes y caducidad
-│   ├── app.catalogo.tsx           ← cargar catálogo de prueba
-│   ├── app.promociones.tsx        ← activar/configurar el pack
-│   ├── app.ajustes.tsx            ← umbrales
-│   └── webhooks.*.tsx             ← desinstalación y RGPD
-└── types/                         ← tipos generados de la Admin API
-extensions/
-├── calculadora-proteina/          ← bloques de tema (Liquid)
-└── pack-proteina-creatina/        ← Shopify Function de descuento + tests
-prisma/                            ← esquema y migraciones
-.vscode/                           ← extensiones, tareas y depuración recomendadas
-.github/                           ← CI, deploy, Dependabot y plantillas de PR/issues
-```
+
+## Licencias de las imágenes
+
+- **Envases, logo y banners de marca:** ilustraciones originales generadas por los scripts.
+- **Fotos de banco de imágenes:** licencias CC0, CC BY y CC BY-SA. Las CC BY **obligan a citar al
+  autor**: el pie del tema muestra los créditos (lista en `tienda/imagenes/banco/CREDITOS.md`).
+- **Tipografía Anton** del tema: SIL Open Font License.
+
+## Cambio de mantenedor
+
+Ver [`docs/TRANSFERENCIA.md`](docs/TRANSFERENCIA.md): transferir el repositorio, reconectar el tema
+en Shopify con la nueva cuenta y salir del flujo.
 
 ---
-*Vigor Sport Nutrition es una marca inventada para este simulacro.*
+*Vigor Sport Nutrition es una marca inventada para este proyecto.*

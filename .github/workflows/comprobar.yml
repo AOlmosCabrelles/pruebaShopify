@@ -1,0 +1,20 @@
+name: Comprobar catálogo
+
+# Comprueba que los CSV están al día con tienda/catalogo.mjs y que la sincronización funciona.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  comprobar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: CSV al día con el catálogo
+        run: npm run comprobar
+      - name: La sincronización lee el CSV sin errores
+        run: node tienda/sincronizar-desde-shopify.mjs tienda/productos-vigor.csv

@@ -445,5 +445,4 @@ restaurar fichas, o para cargar el catálogo en otra tienda (por ejemplo, una de
 | 3 | Pasos 7-8: páginas, menús, políticas y pedido de prueba |
 
 Cuando la tienda funcione, si un día necesitas algo que Shopify no trae (como el control de
-caducidad por lotes), el código de una app de ejemplo está en el resto de este repositorio.
-Por ahora puedes ignorarlo.
+caducidad por lotes), busca una app en la Shopify App Store o encarga una app a medida.

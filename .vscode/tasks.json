@@ -1,51 +1,18 @@
 {
   "version": "2.0.0",
   "tasks": [
+    { "label": "Tienda: regenerar CSV", "type": "shell", "command": "npm run csv", "problemMatcher": [] },
+    { "label": "Tienda: regenerar imágenes de producto", "type": "shell", "command": "npm run imagenes", "problemMatcher": [] },
+    { "label": "Tienda: procesar fotos de banco", "type": "shell", "command": "npm run fotos-banco", "problemMatcher": [] },
     {
-      "label": "Shopify: dev (arrancar la app)",
+      "label": "Tienda: sincronizar desde exportación de Shopify",
       "type": "shell",
-      "command": "npm run dev",
-      "isBackground": true,
+      "command": "npm run sincronizar -- \"${input:exportacion}\"",
       "problemMatcher": []
     },
-    {
-      "label": "Shopify: deploy",
-      "type": "shell",
-      "command": "npm run deploy",
-      "problemMatcher": []
-    },
-    {
-      "label": "Prisma: nueva migración",
-      "type": "shell",
-      "command": "npx prisma migrate dev --name ${input:nombreMigracion}",
-      "problemMatcher": []
-    },
-    {
-      "label": "Prisma: Studio (ver la base de datos)",
-      "type": "shell",
-      "command": "npx prisma studio",
-      "isBackground": true,
-      "problemMatcher": []
-    },
-    {
-      "label": "GraphQL: generar tipos",
-      "type": "shell",
-      "command": "npm run graphql-codegen",
-      "problemMatcher": []
-    },
-    {
-      "label": "Comprobar todo (como la CI)",
-      "type": "shell",
-      "command": "npm run check",
-      "group": { "kind": "test", "isDefault": true },
-      "problemMatcher": ["$tsc", "$eslint-stylish"]
-    }
+    { "label": "Tienda: comprobar (como en GitHub)", "type": "shell", "command": "npm run comprobar", "group": { "kind": "test", "isDefault": true }, "problemMatcher": [] }
   ],
   "inputs": [
-    {
-      "id": "nombreMigracion",
-      "type": "promptString",
-      "description": "Nombre de la migración (p. ej. add_campo_x)"
-    }
+    { "id": "exportacion", "type": "promptString", "description": "Ruta del CSV exportado de Shopify" }
   ]
 }
