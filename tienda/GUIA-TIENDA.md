@@ -13,6 +13,9 @@ Archivos de esta carpeta:
 | `imagenes/productos/` | 41 imágenes de envases, una por variante (ya enlazadas en el CSV) |
 | `imagenes/marca/` | Logo (oscuro y blanco), favicon, imagen de *Sobre nosotros* e imagen para redes sociales |
 | `imagenes/generar-imagenes.mjs` | Script que genera todas las imágenes (por si quieres cambiar colores o textos) |
+| `generar-csv.mjs` | Genera CSV de importación: el catálogo completo, solo algunos productos o sin stock |
+| `sincronizar-desde-shopify.mjs` | Lee una exportación de Shopify, guarda una copia y genera un informe de cambios y errores |
+| `sincronizacion/` | Lo crea el script anterior: copias de las exportaciones, `catalogo-shopify.json` e `INFORME.md` |
 
 ---
 
@@ -319,6 +322,94 @@ repetirlas todas aquí.
 - [ ] **Normativa de suplementos:** usar solo declaraciones de salud autorizadas (Reglamento UE 1924/2006), mostrar la información nutricional y los alérgenos (Reglamento 1169/2011), y, si eres tú quien pone el producto en el mercado con tu marca, notificarlo a la **AESAN**. Si revendes marcas de terceros, pídeles su documentación
 
 ---
+
+## Paso 10 · Mantenimiento del catálogo (cuando la tienda ya esté en marcha)
+
+### Cómo funciona cada sincronización
+
+| Qué | Cómo se sincroniza | ¿Puedo cambiarlo a mano? |
+|---|---|---|
+| **Tema** (diseño, textos, secciones) | **Automática y en los dos sentidos** con la rama `tema-horizon` de GitHub. Lo que cambias en el editor de temas se guarda en GitHub; lo que cambia en GitHub aparece en la tienda | Sí, con total libertad. Si vas a hacer cambios grandes, avisa para no editar lo mismo a la vez |
+| **Productos** | **No hay sincronización automática.** El CSV es una carga puntual: solo afecta a la tienda cuando lo importas | Sí, pero lee lo que sigue |
+| **Menús, páginas, colecciones** | Viven solo en Shopify | Sí, siempre desde el admin |
+
+### La regla de oro: Shopify manda
+Desde que la tienda está en marcha, **los productos se gestionan en el admin de Shopify**. El
+catálogo del repositorio (`catalogo.mjs` y `productos-vigor.csv`) es el **catálogo inicial**.
+
+> ⚠️ **No vuelvas a importar `productos-vigor.csv` completo con "Sobrescribir".** Haría esto:
+> - Volvería a poner los **precios, títulos y descripciones** de ejemplo, y perderías tus cambios.
+> - **Restablecería el stock** a las cantidades de ejemplo, y se perderían las ventas descontadas.
+> - Podría duplicar o mezclar imágenes.
+>
+> Los productos creados a mano que no estén en el CSV no se tocan.
+
+### Añadir un producto a mano (checklist)
+Lo más rápido: abre un producto parecido → **⋯ → Duplicar** y cambia lo necesario. Hereda el
+tipo, las etiquetas, el formato de la descripción y el inventario.
+
+| Campo | Qué poner | Si no lo pones… |
+|---|---|---|
+| **Tipo** | Exactamente: `Proteínas`, `Rendimiento`, `Recuperación`, `Salud`, `Snacks` o `Accesorios` | No funcionan los filtros ni la calculadora de proteína |
+| **Etiquetas** | `cat-proteinas` (o la de su categoría) y otras que quieras | **No entra en su colección** |
+| **Descripción** | La de un producto parecido, cambiando los datos: tabla *Información nutricional*, *Alérgenos*, *Modo de empleo* y avisos | Incumples el etiquetado obligatorio y la tabla no sale con estilo |
+| **Peso por variante** | En gramos (1 kg = 1000) | La calculadora no dice cuántos días dura el envase |
+| **Imágenes** | Cuadradas, una por variante | Al cambiar de sabor no cambia la foto |
+| **Inventario** | *Hacer seguimiento* activado, *vender sin stock* desactivado | No aparece "quedan pocas" ni "Agotado" |
+| **Estado y canales** | Activo y publicado en *Tienda online* | No se ve en la web |
+
+**Categoría nueva** (p. ej. "Veganos"): crea la colección automática con su etiqueta, añádela
+al menú y **avisa a Claude** para darle color, ilustración y texto en el tema.
+
+### Stock
+Siempre desde **Productos → Inventario**. Para cambios masivos de stock, usa la exportación e
+importación **de inventario** de esa misma pantalla (es un CSV distinto, solo con cantidades).
+
+### Sincronizar la tienda con el repositorio
+Hazlo de vez en cuando (p. ej. una vez al mes, o después de cambios grandes):
+
+1. **Exportar:** *Productos → Exportar → Todos los productos → CSV para Excel, Numbers u otro programa*.
+   Shopify te envía el archivo por email.
+2. **Sincronizar:** pásale el archivo a Claude, o ejecuta:
+   ```bash
+   node tienda/sincronizar-desde-shopify.mjs ruta/a/products_export.csv
+   ```
+3. **Revisar el informe** `tienda/sincronizacion/INFORME.md`. Incluye:
+   - ❌ **Errores**: tipo no válido, falta la etiqueta `cat-…`, productos sin imágenes, SKU repetidos.
+   - ⚠️ **Avisos**: sin tabla nutricional o sin alérgenos, sin peso, borradores, se puede vender sin stock...
+   - 🆕 Productos **creados a mano**, 🗑️ productos **borrados** y ✏️ **cambios** de precio, título, etiquetas o descripción respecto al catálogo inicial.
+   - 📦 Variantes con **stock bajo**.
+4. **Corrige en Shopify** los errores y avisos, y vuelve a sincronizar si quieres comprobarlo.
+5. **Guardar en GitHub** (commit): la copia de la exportación y `catalogo-shopify.json` quedan como
+   **copia de seguridad** e historial de cambios del catálogo.
+
+> 🔒 El repositorio `pruebaShopify` es **público**. Las exportaciones de productos no contienen
+> datos de clientes, pero si rellenas el **coste por artículo** también quedaría visible. Si eso te
+> importa, haz el repositorio privado (GitHub → *Settings → Danger Zone → Change visibility*).
+> Ojo: las imágenes del CSV inicial se descargan desde el repositorio, así que hazlo después de
+> importarlo.
+
+### Generar CSV seguros para importar
+```bash
+node tienda/generar-csv.mjs --solo proteina-vegana,caseina-micelar --sin-stock
+```
+Solo esos productos y sin columna de stock: actualiza su ficha sin tocar el inventario ni el
+resto de productos. Sale en `tienda/sincronizacion/importar.csv`.
+
+```bash
+node tienda/generar-csv.mjs --desde-shopify --sin-stock
+```
+Regenera el catálogo **tal como está en la tienda** (desde la última sincronización). Sirve para
+restaurar fichas, o para cargar el catálogo en otra tienda (por ejemplo, una de pruebas).
+
+| Quiero… | Haz esto |
+|---|---|
+| Cambiar un precio o una descripción | En Shopify, directamente |
+| Añadir 1 o 2 productos | En Shopify, duplicando uno parecido |
+| Añadir muchos productos de golpe | Pide a Claude que los añada a `catalogo.mjs` (con sus imágenes) e importa `--solo <nuevos> --sin-stock`, y después pon el stock |
+| Subir todos los precios un 5 % | Sincroniza, pide a Claude el cambio sobre `catalogo-shopify.json` e importa `--desde-shopify --sin-stock` |
+| Reponer stock | *Productos → Inventario* |
+| Tener copia de seguridad | Exporta y sincroniza |
 
 ## Orden recomendado (3 tardes)
 

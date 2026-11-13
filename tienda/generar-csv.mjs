@@ -1,53 +1,50 @@
-// Genera tienda/productos-vigor.csv (formato de importación de productos de Shopify)
-// a partir de tienda/catalogo.mjs.   Uso: node tienda/generar-csv.mjs
-import { writeFileSync } from "node:fs";
+// Genera un CSV de importación de productos de Shopify.
+//
+//   node tienda/generar-csv.mjs
+//       → tienda/productos-vigor.csv desde tienda/catalogo.mjs (catálogo inicial, con stock)
+//
+//   node tienda/generar-csv.mjs --desde-shopify
+//       → desde la última exportación sincronizada (tienda/sincronizacion/catalogo-shopify.json)
+//
+// Opciones:
+//   --sin-stock        quita la columna de stock (para reimportar SIN pisar el inventario real)
+//   --solo a,b,c       solo esos productos (por su identificador / handle)
+//   --salida ruta.csv  archivo de salida
+//
+// Ejemplo seguro para subir solo un producto nuevo a una tienda en marcha:
+//   node tienda/generar-csv.mjs --solo proteina-vegana --sin-stock
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { PRODUCTOS, combinar, archivoImagen, descripcionHtml, slugValor } from "./catalogo.mjs";
+import { escribirCsv } from "./lib/csv.mjs";
+import { desdeCatalogo, aFilasCsv } from "./lib/modelo.mjs";
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
-const URL_IMAGENES = "https://raw.githubusercontent.com/AOlmosCabrelles/pruebaShopify/main/tienda/imagenes/productos/";
+const args = process.argv.slice(2);
+const valor = (flag) => { const i = args.indexOf(flag); return i >= 0 ? args[i + 1] : undefined; };
+const desdeShopify = args.includes("--desde-shopify");
+const sinStock = args.includes("--sin-stock");
+const solo = valor("--solo")?.split(",").map((h) => h.trim()).filter(Boolean);
 
-const COLUMNAS = ["Handle", "Title", "Body (HTML)", "Vendor", "Product Category", "Type", "Tags", "Published",
-  "Option1 Name", "Option1 Value", "Option2 Name", "Option2 Value", "Option3 Name", "Option3 Value",
-  "Variant SKU", "Variant Grams", "Variant Inventory Tracker", "Variant Inventory Qty", "Variant Inventory Policy",
-  "Variant Fulfillment Service", "Variant Price", "Variant Compare At Price", "Variant Requires Shipping", "Variant Taxable",
-  "Variant Barcode", "Image Src", "Image Position", "Image Alt Text", "Variant Image", "Gift Card", "SEO Title",
-  "SEO Description", "Variant Weight Unit", "Status"];
-
-const celda = (v) => {
-  const s = String(v ?? "");
-  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-};
-
-const filas = [];
-for (const p of PRODUCTOS) {
-  combinar(p.opciones).forEach((valores, i) => {
-    const v = p.variante(valores);
-    const img = URL_IMAGENES + archivoImagen(p, valores) + ".jpg";
-    const f = Object.fromEntries(COLUMNAS.map((c) => [c, ""]));
-    Object.assign(f, {
-      Handle: p.handle,
-      "Variant SKU": v.sku, "Variant Grams": v.gramos, "Variant Inventory Tracker": "shopify",
-      "Variant Inventory Qty": v.stock, "Variant Inventory Policy": "deny", "Variant Fulfillment Service": "manual",
-      "Variant Price": v.precio, "Variant Requires Shipping": "TRUE", "Variant Taxable": "TRUE", "Variant Weight Unit": "g",
-      "Image Src": img, "Image Position": i + 1, "Image Alt Text": `${p.titulo} ${valores.join(" ")}`, "Variant Image": img,
-    });
-    valores.forEach((val, n) => {
-      f[`Option${n + 1} Value`] = val;
-      if (i === 0) f[`Option${n + 1} Name`] = p.opciones[n].nombre;
-    });
-    if (i === 0) {
-      Object.assign(f, {
-        Title: p.titulo, "Body (HTML)": descripcionHtml(p), Vendor: "Vigor Sport Nutrition", Type: p.tipo, Tags: `cat-${slugValor(p.tipo)}, ${p.tags}`,
-        Published: "TRUE", "Gift Card": "FALSE", "SEO Title": `${p.seo} | Vigor Sport Nutrition`,
-        "SEO Description": p.descripcion.slice(0, 155), Status: "active",
-      });
-    }
-    filas.push(f);
-  });
+let productos;
+if (desdeShopify) {
+  const ruta = path.join(DIR, "sincronizacion", "catalogo-shopify.json");
+  productos = JSON.parse(readFileSync(ruta, "utf8")).productos;
+} else {
+  productos = desdeCatalogo();
+}
+if (solo) {
+  const faltan = solo.filter((h) => !productos.some((p) => p.handle === h));
+  if (faltan.length) { console.error(`No existen estos productos: ${faltan.join(", ")}`); process.exit(1); }
+  productos = productos.filter((p) => solo.includes(p.handle));
 }
 
-const csv = [COLUMNAS.join(","), ...filas.map((f) => COLUMNAS.map((c) => celda(f[c])).join(","))].join("\r\n") + "\r\n";
-writeFileSync(path.join(DIR, "productos-vigor.csv"), csv);
-console.log(`${PRODUCTOS.length} productos, ${filas.length} variantes → tienda/productos-vigor.csv`);
+const porDefecto = !desdeShopify && !solo && !sinStock
+  ? path.join(DIR, "productos-vigor.csv")
+  : path.join(DIR, "sincronizacion", "importar.csv");
+const salida = path.resolve(valor("--salida") ?? porDefecto);
+mkdirSync(path.dirname(salida), { recursive: true });
+
+const { columnas, filas } = aFilasCsv(productos, { sinStock });
+writeFileSync(salida, escribirCsv(columnas, filas));
+console.log(`${productos.length} productos, ${filas.length} filas${sinStock ? " (sin stock)" : ""} → ${path.relative(process.cwd(), salida)}`);
