@@ -13,8 +13,11 @@ de Shopify ([código original](https://github.com/Shopify/horizon), ver `README-
 
 1. Admin de Shopify → **Tienda online → Temas**.
 2. En *Biblioteca de temas*: **Añadir tema → Conectar desde GitHub**.
-3. Inicia sesión con GitHub y autoriza a Shopify (elige el repositorio `pruebaShopify`).
-4. Selecciona el repositorio **pruebaShopify** y la rama **`tema-horizon`** → **Conectar**.
+3. Inicia sesión con GitHub **con la cuenta del propietario del repositorio** y autoriza a Shopify.
+4. Selecciona el repositorio del proyecto y la rama **`tema-horizon`** → **Conectar**.
+
+> La conexión queda ligada a la cuenta de GitHub que la autoriza. Si el repositorio cambia de
+> propietario, hay que reconectar el tema con la cuenta nueva (ver `docs/TRANSFERENCIA.md` en la rama `main`).
 5. El tema aparece en la biblioteca → **⋯ → Vista previa**. Cuando te guste: **Publicar**.
 
 Desde ese momento **funciona en las dos direcciones**:
