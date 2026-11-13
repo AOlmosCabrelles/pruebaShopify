@@ -99,11 +99,11 @@ a la anterior; si en tu versión de Shopify se **añade** a las existentes, borr
 (batido, cápsulas, perlas de omega-3, crema de cacahuete, galletas…), retocada con el estilo
 de la marca. Se importan con el CSV de imágenes.
 
-**Página de créditos (obligatoria):** varias fotos tienen licencia CC BY, que exige citar al autor.
-1. **Contenido → Páginas → Añadir página**. Título: `Créditos de imágenes`.
-2. En el editor, pulsa el botón **</>** (Mostrar HTML) y pega el contenido de
-   `tienda/imagenes/banco/creditos.html`.
-3. Guarda. La URL será `/pages/creditos-de-imagenes`; el pie del tema Vigor ya enlaza a ella.
+**Créditos de imágenes (obligatorio):** varias fotos tienen licencia CC BY, que exige citar al autor.
+El pie del tema Vigor ya muestra un desplegable **"Créditos de imágenes"** con la lista completa;
+no hace falta hacer nada. Si además quieres una página propia, crea en *Páginas* una llamada
+`Créditos de imágenes` con el HTML de `tienda/imagenes/banco/creditos.html` (botón **</>**) y el pie
+la enlazará. Las páginas están en https://admin.shopify.com/store/vigor-sport-dev/pages
 
 **Fotos reales:** deja las fotos en `tienda/imagenes/recortes/` (PNG transparente, o JPG sobre
 fondo blanco y el script quita el fondo), regenera imágenes y CSV, y reimporta el CSV de imágenes.
