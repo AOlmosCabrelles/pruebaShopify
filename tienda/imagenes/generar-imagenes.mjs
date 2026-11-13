@@ -151,7 +151,7 @@ const hero = pagina(2400, 1200, `
   <div style="position:absolute;inset:0;background:linear-gradient(115deg,#0d0d0d 0%,#1b1512 55%,#2b1810 100%)"></div>
   <div style="position:absolute;right:-200px;top:-260px;width:1500px;height:1500px;border-radius:50%;background:radial-gradient(circle,${ACENTO}cc 0%,${ACENTO}33 45%,transparent 70%)"></div>
   ${Array.from({ length: 7 }, (_, i) => `<div style="position:absolute;left:${1150 + i * 120}px;top:-200px;width:28px;height:1700px;background:#fff;opacity:.035;transform:rotate(18deg)"></div>`).join("")}
-  <div style="position:absolute;right:70px;bottom:60px">${grupo([buscar("barritas-proteicas-cookies"), buscar("creatina-monohidrato-500g"), buscar("whey-protein-isolate-chocolate-2kg"), buscar("pre-entreno-explosive-frutos-rojos")], 1560, 468)}</div>`);
+  <div style="position:absolute;right:50px;bottom:60px">${grupo([buscar("creatina-monohidrato-500g"), buscar("whey-protein-isolate-chocolate-2kg"), buscar("pre-entreno-explosive-frutos-rojos"), buscar("barritas-proteicas-cookies")], 1300, 390)}</div>`);
 
 const categoria = (items, color, palabra) => pagina(1000, 1250, `
   <div style="position:absolute;inset:0;background:linear-gradient(160deg,${color} 0%,#111 120%)"></div>
