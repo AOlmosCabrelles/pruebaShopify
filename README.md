@@ -4,6 +4,9 @@ Tienda online de suplementación deportiva (marca de ejemplo **Vigor Sport Nutri
 Shopify, sin apps: tema propio basado en Horizon + catálogo, imágenes y herramientas para
 mantenerlo.
 
+> 🧭 **¿Retomas el proyecto?** Lee primero [`docs/CONTEXTO.md`](docs/CONTEXTO.md): estado, decisiones,
+> pendientes y lecciones aprendidas.
+
 ## Ramas
 
 | Rama | Contenido | Uso |
@@ -36,6 +39,7 @@ tienda/
     ├── generar-imagenes.mjs       ← genera las fotos de producto (ilustración o foto real)
     └── procesar-fotos-banco.mjs   ← retoca las fotos de banco con el estilo de la marca
 docs/
+├── CONTEXTO.md                    ← estado del proyecto, decisiones y pendientes (leer primero)
 └── TRANSFERENCIA.md               ← cómo pasar el proyecto a otro mantenedor
 ```
 
