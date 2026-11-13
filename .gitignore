@@ -3,3 +3,5 @@ node_modules/
 Thumbs.db
 # Salida temporal de pruebas (la carpeta tienda/sincronizacion sí se sube cuando sincronizas de verdad)
 *.log
+# Salida por defecto del generador de imágenes cuando no se indica carpeta
+imagenes-generadas/
