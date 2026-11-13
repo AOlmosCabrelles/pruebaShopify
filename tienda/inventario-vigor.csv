@@ -1,0 +1,42 @@
+Handle,Title,Option1 Name,Option1 Value,Option2 Name,Option2 Value,Option3 Name,Option3 Value,SKU,HS Code,COO,Location,Bin name,Incoming (not editable),Unavailable (not editable),Committed (not editable),Available (not editable),On hand (current),On hand (new)
+whey-protein-isolate,Whey Protein Isolate,Sabor,Chocolate,Tamaño,1 kg,,,WHEY-CHO-1,,,Shop location,,,,,,0,42
+whey-protein-isolate,Whey Protein Isolate,Sabor,Chocolate,Tamaño,2 kg,,,WHEY-CHO-2,,,Shop location,,,,,,0,18
+whey-protein-isolate,Whey Protein Isolate,Sabor,Vainilla,Tamaño,1 kg,,,WHEY-VAI-1,,,Shop location,,,,,,0,8
+whey-protein-isolate,Whey Protein Isolate,Sabor,Vainilla,Tamaño,2 kg,,,WHEY-VAI-2,,,Shop location,,,,,,0,3
+whey-protein-isolate,Whey Protein Isolate,Sabor,Fresa,Tamaño,1 kg,,,WHEY-FRE-1,,,Shop location,,,,,,0,25
+whey-protein-isolate,Whey Protein Isolate,Sabor,Fresa,Tamaño,2 kg,,,WHEY-FRE-2,,,Shop location,,,,,,0,12
+whey-protein-concentrada,Whey Protein Concentrada,Sabor,Chocolate,Tamaño,1 kg,,,WPC-CHO-1,,,Shop location,,,,,,0,55
+whey-protein-concentrada,Whey Protein Concentrada,Sabor,Chocolate,Tamaño,2 kg,,,WPC-CHO-2,,,Shop location,,,,,,0,30
+whey-protein-concentrada,Whey Protein Concentrada,Sabor,Vainilla,Tamaño,1 kg,,,WPC-VAI-1,,,Shop location,,,,,,0,34
+whey-protein-concentrada,Whey Protein Concentrada,Sabor,Vainilla,Tamaño,2 kg,,,WPC-VAI-2,,,Shop location,,,,,,0,16
+whey-protein-concentrada,Whey Protein Concentrada,Sabor,Cookies,Tamaño,1 kg,,,WPC-COO-1,,,Shop location,,,,,,0,21
+whey-protein-concentrada,Whey Protein Concentrada,Sabor,Cookies,Tamaño,2 kg,,,WPC-COO-2,,,Shop location,,,,,,0,4
+proteina-vegana,Proteína Vegana,Sabor,Chocolate,,,,,VEG-CHO,,,Shop location,,,,,,0,26
+proteina-vegana,Proteína Vegana,Sabor,Neutro,,,,,VEG-NEU,,,Shop location,,,,,,0,11
+caseina-micelar,Caseína Micelar,Sabor,Chocolate,,,,,CAS-CHO,,,Shop location,,,,,,0,19
+caseina-micelar,Caseína Micelar,Sabor,Vainilla,,,,,CAS-VAI,,,Shop location,,,,,,0,7
+creatina-monohidrato,Creatina Monohidrato,Tamaño,300 g,,,,,CREA-300,,,Shop location,,,,,,0,60
+creatina-monohidrato,Creatina Monohidrato,Tamaño,500 g,,,,,CREA-500,,,Shop location,,,,,,0,6
+pre-entreno-explosive,Pre-Entreno Explosive,Sabor,Limón,,,,,PRE-LIM,,,Shop location,,,,,,0,30
+pre-entreno-explosive,Pre-Entreno Explosive,Sabor,Frutos rojos,,,,,PRE-FRU,,,Shop location,,,,,,0,2
+beta-alanina,Beta-Alanina,Tamaño,300 g,,,,,BALA-300,,,Shop location,,,,,,0,24
+citrulina-malato,Citrulina Malato,Tamaño,300 g,,,,,CITR-300,,,Shop location,,,,,,0,17
+cafeina-200,Cafeína 200 mg,Formato,90 cápsulas,,,,,CAF-90,,,Shop location,,,,,,0,48
+bebida-isotonica,Bebida Isotónica,Sabor,Limón,,,,,ISO-LIM,,,Shop location,,,,,,0,38
+bebida-isotonica,Bebida Isotónica,Sabor,Naranja,,,,,ISO-NAR,,,Shop location,,,,,,0,29
+bcaa-2-1-1,BCAA 2:1:1,Sabor,Mango,,,,,BCAA-MAN,,,Shop location,,,,,,0,22
+bcaa-2-1-1,BCAA 2:1:1,Sabor,Neutro,,,,,BCAA-NEU,,,Shop location,,,,,,0,14
+l-glutamina,L-Glutamina,Tamaño,500 g,,,,,GLUT-500,,,Shop location,,,,,,0,20
+colageno-magnesio,Colágeno + Magnesio,Sabor,Limón,,,,,COLA-LIM,,,Shop location,,,,,,0,15
+multivitaminico-sport,Multivitamínico Sport,Formato,90 cápsulas,,,,,MULTI-90,,,Shop location,,,,,,0,75
+omega-3,Omega-3,Formato,120 perlas,,,,,OMEGA-120,,,Shop location,,,,,,0,40
+vitamina-d3-k2,Vitamina D3 + K2,Formato,60 cápsulas,,,,,D3K2-60,,,Shop location,,,,,,0,33
+magnesio-bisglicinato,Magnesio Bisglicinato,Formato,120 cápsulas,,,,,MAG-120,,,Shop location,,,,,,0,5
+barritas-proteicas-caja-12,Barritas proteicas (caja de 12),Sabor,Cookies,,,,,BAR-COO,,,Shop location,,,,,,0,9
+barritas-proteicas-caja-12,Barritas proteicas (caja de 12),Sabor,Cacahuete,,,,,BAR-CAC,,,Shop location,,,,,,0,40
+galletas-proteicas-caja-12,Galletas proteicas (caja de 12),Sabor,Chocolate,,,,,GAL-CHO,,,Shop location,,,,,,0,18
+galletas-proteicas-caja-12,Galletas proteicas (caja de 12),Sabor,Avena,,,,,GAL-AVE,,,Shop location,,,,,,0,12
+crema-de-cacahuete,Crema de cacahuete,Textura,Natural,,,,,PB-NAT,,,Shop location,,,,,,0,52
+crema-de-cacahuete,Crema de cacahuete,Textura,Crunchy,,,,,PB-CRU,,,Shop location,,,,,,0,37
+shaker-vigor-700,Shaker Vigor 700 ml,Color,Negro,,,,,SHK-NEG,,,Shop location,,,,,,0,64
+shaker-vigor-700,Shaker Vigor 700 ml,Color,Naranja,,,,,SHK-NAR,,,Shop location,,,,,,0,45
