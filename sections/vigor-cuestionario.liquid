@@ -1,0 +1,200 @@
+{%- comment -%}
+  Vigor Sport Nutrition · cuestionario "Encuentra tu suplemento".
+  Tres preguntas (objetivo, lácteos, cafeína) → recomienda hasta 3 productos.
+
+  Las recomendaciones se definen abajo en RECOMENDACIONES con los identificadores (handles)
+  de los productos. Si un producto no existe o está agotado, se omite y se usa el siguiente.
+{%- endcomment -%}
+{%- liquid
+  assign handles = 'whey-protein-isolate,whey-protein-concentrada,caseina-micelar,proteina-vegana,creatina-monohidrato,crema-de-cacahuete,pre-entreno-explosive,beta-alanina,citrulina-malato,bebida-isotonica,bcaa-2-1-1,l-glutamina,colageno-magnesio,multivitaminico-sport,omega-3,vitamina-d3-k2,magnesio-bisglicinato,barritas-proteicas-caja-12' | split: ','
+-%}
+
+<div class="vigor-section vigor-quiz" id="encuentra-tu-suplemento" style="--vigor-pad: {{ section.settings.padding }}px;">
+  <div class="vigor-section__inner">
+    <h2 class="vigor-section__heading">{{ section.settings.heading }}</h2>
+    <p class="vigor-section__subheading">{{ section.settings.subheading }}</p>
+
+    <div class="vigor-quiz__caja" data-vigor-quiz>
+      <ol class="vigor-quiz__progreso" aria-hidden="true">
+        <li class="is-activo"></li><li></li><li></li>
+      </ol>
+
+      <fieldset class="vigor-quiz__paso is-activo" data-paso="1">
+        <legend>1 · ¿Cuál es tu objetivo principal?</legend>
+        <div class="vigor-quiz__opciones">
+          <button type="button" data-valor="musculo">💪 Ganar músculo</button>
+          <button type="button" data-valor="rendimiento">⚡ Rendir más</button>
+          <button type="button" data-valor="recuperacion">⏱️ Recuperarme mejor</button>
+          <button type="button" data-valor="salud">❤️ Cuidar mi salud</button>
+        </div>
+      </fieldset>
+
+      <fieldset class="vigor-quiz__paso" data-paso="2">
+        <legend>2 · ¿Tomas lácteos?</legend>
+        <div class="vigor-quiz__opciones">
+          <button type="button" data-valor="si">Sí</button>
+          <button type="button" data-valor="sinlactosa">Sin lácteos (intolerancia)</button>
+          <button type="button" data-valor="vegano">Soy vegano/a</button>
+        </div>
+      </fieldset>
+
+      <fieldset class="vigor-quiz__paso" data-paso="3">
+        <legend>3 · ¿Y la cafeína?</legend>
+        <div class="vigor-quiz__opciones">
+          <button type="button" data-valor="si">Me sienta bien</button>
+          <button type="button" data-valor="no">Prefiero evitarla</button>
+        </div>
+      </fieldset>
+
+      <div class="vigor-quiz__resultado" data-resultado hidden>
+        <h3>Tu combinación Vigor</h3>
+        <p class="vigor-quiz__explicacion" data-explicacion></p>
+        <div class="vigor-quiz__productos" data-productos></div>
+        <p class="vigor-quiz__aviso">{{ section.settings.aviso }}</p>
+        <button type="button" class="vigor-quiz__reiniciar" data-reiniciar>↺ Volver a empezar</button>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Datos de los productos para el cuestionario {%- endcomment -%}
+  <script type="application/json" data-vigor-quiz-productos>
+    {
+      {%- assign primero = true -%}
+      {%- for h in handles -%}
+        {%- assign p = all_products[h] -%}
+        {%- if p != blank and p.available -%}
+          {%- unless primero -%},{%- endunless -%}
+          {%- assign primero = false -%}
+          {{ h | json }}: {
+            "titulo": {{ p.title | json }},
+            "url": {{ p.url | json }},
+            "precio": {{ p.price | money | json }},
+            "imagen": {{ p.featured_image | image_url: width: 400 | json }},
+            "variante": {{ p.selected_or_first_available_variant.id | json }}
+          }
+        {%- endif -%}
+      {%- endfor -%}
+    }
+  </script>
+</div>
+
+<script>
+  (() => {
+    const raiz = document.querySelector('#shopify-section-{{ section.id }} [data-vigor-quiz]');
+    if (!raiz) return;
+    const productos = JSON.parse(document.querySelector('#shopify-section-{{ section.id }} [data-vigor-quiz-productos]').textContent || '{}');
+
+    // Objetivo → lácteos → cafeína → lista de productos por prioridad
+    const RECOMENDACIONES = {
+      musculo: {
+        lacteos: ['whey-protein-isolate', 'creatina-monohidrato', 'caseina-micelar', 'whey-protein-concentrada'],
+        sinLacteos: ['proteina-vegana', 'creatina-monohidrato', 'crema-de-cacahuete'],
+        texto: 'Para ganar músculo lo básico es llegar a tu proteína diaria y entrenar fuerza. La creatina te ayuda a rendir más en cada serie.',
+      },
+      rendimiento: {
+        cafeina: ['pre-entreno-explosive', 'creatina-monohidrato', 'beta-alanina'],
+        sinCafeina: ['citrulina-malato', 'beta-alanina', 'creatina-monohidrato', 'bebida-isotonica'],
+        texto: 'Para rendir más en sesiones intensas, un pre-entreno o sus ingredientes por separado. Si haces fondo, la isotónica te ayuda a mantener el ritmo.',
+      },
+      recuperacion: {
+        todos: ['bcaa-2-1-1', 'l-glutamina', 'colageno-magnesio', 'magnesio-bisglicinato'],
+        texto: 'La recuperación empieza por dormir bien y comer suficiente. Estos productos te ayudan a completar tu rutina después de entrenar.',
+      },
+      salud: {
+        todos: ['multivitaminico-sport', 'omega-3', 'vitamina-d3-k2', 'magnesio-bisglicinato'],
+        texto: 'Cubre la base: vitaminas, minerales y omega-3, sobre todo si entrenas mucho o tu alimentación no siempre es perfecta.',
+      },
+    };
+
+    const respuestas = {};
+    const pasos = [...raiz.querySelectorAll('[data-paso]')];
+    const puntos = [...raiz.querySelectorAll('.vigor-quiz__progreso li')];
+    const resultado = raiz.querySelector('[data-resultado]');
+
+    const mostrarPaso = (n) => {
+      pasos.forEach((p) => p.classList.toggle('is-activo', Number(p.dataset.paso) === n));
+      puntos.forEach((p, i) => p.classList.toggle('is-activo', i < n));
+      resultado.hidden = n <= pasos.length;
+    };
+
+    const elegir = () => {
+      const r = RECOMENDACIONES[respuestas[1]];
+      let lista;
+      if (r.todos) lista = r.todos;
+      else if (r.lacteos) lista = ['sinlactosa', 'vegano'].includes(respuestas[2]) ? r.sinLacteos : r.lacteos;
+      else lista = respuestas[3] === 'no' ? r.sinCafeina : r.cafeina;
+      // Filtros generales. Mantener al día si cambia el catálogo:
+      //  - con leche: fuera si "sin lácteos" o "vegano"
+      //  - de origen animal (o que pueden serlo, como la vitamina D3): fuera si "vegano"
+      //  - con cafeína: fuera si "prefiero evitarla"
+      const conLeche = ['whey-protein-isolate', 'whey-protein-concentrada', 'caseina-micelar', 'barritas-proteicas-caja-12'];
+      const animal = ['omega-3', 'colageno-magnesio', 'vitamina-d3-k2'];
+      const conCafeina = ['pre-entreno-explosive'];
+      const sinLeche = ['sinlactosa', 'vegano'].includes(respuestas[2]);
+      lista = lista.filter((h) =>
+        !(sinLeche && conLeche.includes(h)) &&
+        !(respuestas[2] === 'vegano' && animal.includes(h)) &&
+        !(respuestas[3] === 'no' && conCafeina.includes(h)));
+      return { handles: lista.filter((h) => productos[h]).slice(0, 3), texto: r.texto };
+    };
+
+    const pintarResultado = () => {
+      const { handles, texto } = elegir();
+      raiz.querySelector('[data-explicacion]').textContent = texto;
+      const cont = raiz.querySelector('[data-productos]');
+      cont.innerHTML = '';
+      for (const h of handles) {
+        const p = productos[h];
+        const tarjeta = document.createElement('article');
+        tarjeta.className = 'vigor-quiz__producto';
+        tarjeta.innerHTML = `
+          <a href="${p.url}" class="vigor-quiz__imagen">${p.imagen ? `<img src="${p.imagen}" alt="" loading="lazy" width="400" height="400">` : ''}</a>
+          <a href="${p.url}" class="vigor-quiz__titulo"></a>
+          <span class="vigor-quiz__precio"></span>
+          <form method="post" action="{{ routes.cart_add_url }}">
+            <input type="hidden" name="id" value="${p.variante}">
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="vigor-boton vigor-boton--primario">Añadir al carrito</button>
+          </form>`;
+        tarjeta.querySelector('.vigor-quiz__titulo').textContent = p.titulo;
+        tarjeta.querySelector('.vigor-quiz__precio').textContent = p.precio;
+        cont.appendChild(tarjeta);
+      }
+      if (!handles.length) cont.innerHTML = '<p>Ahora mismo no hay productos disponibles para esta combinación. Escríbenos y te ayudamos.</p>';
+    };
+
+    raiz.addEventListener('click', (e) => {
+      const opcion = e.target.closest('[data-paso] button');
+      if (opcion) {
+        const paso = Number(opcion.closest('[data-paso]').dataset.paso);
+        respuestas[paso] = opcion.dataset.valor;
+        let siguiente = paso + 1;
+        // Para recuperación y salud, la pregunta de cafeína no cambia nada: se salta
+        if (siguiente === 3 && ['recuperacion', 'salud'].includes(respuestas[1])) siguiente = 4;
+        // Para rendimiento, la de lácteos no cambia nada: se salta
+        if (siguiente === 2 && respuestas[1] === 'rendimiento') siguiente = 3;
+        if (siguiente > pasos.length) pintarResultado();
+        mostrarPaso(siguiente);
+      }
+      if (e.target.closest('[data-reiniciar]')) {
+        Object.keys(respuestas).forEach((k) => delete respuestas[k]);
+        mostrarPaso(1);
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Vigor · Cuestionario",
+  "tag": "section",
+  "class": "vigor-cuestionario-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "Encuentra tu suplemento" },
+    { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Tres preguntas y te decimos qué encaja contigo." },
+    { "type": "text", "id": "aviso", "label": "Aviso", "default": "Recomendación orientativa. Si tienes alguna patología, estás embarazada o tomas medicación, consulta antes con un profesional sanitario." },
+    { "type": "range", "id": "padding", "label": "Espaciado vertical", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "presets": [{ "name": "Vigor · Cuestionario" }]
+}
+{% endschema %}

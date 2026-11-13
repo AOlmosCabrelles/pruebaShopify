@@ -202,6 +202,15 @@
         "o4"
       ]
     },
+    "vigor_cuestionario": {
+      "type": "vigor-cuestionario",
+      "settings": {
+        "heading": "Encuentra tu suplemento",
+        "subheading": "Tres preguntas y te decimos qué encaja contigo.",
+        "aviso": "Recomendación orientativa. Si tienes alguna patología, estás embarazada o tomas medicación, consulta antes con un profesional sanitario.",
+        "padding": 56
+      }
+    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -551,6 +560,7 @@
     "vigor_beneficios",
     "vigor_categorias",
     "vigor_objetivos",
+    "vigor_cuestionario",
     "product_list_fa6P9H",
     "vigor_rutina",
     "vigor_imagen_texto",

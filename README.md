@@ -35,6 +35,7 @@ Desde ese momento **funciona en las dos direcciones**:
 | **Inicio** (`templates/index.json`) | Banner → franja de beneficios → categorías → *¿Cuál es tu objetivo?* (guía por objetivo con productos recomendados) → *Los más vendidos* (4 productos) → *Tu día con Vigor* (cuándo tomar cada suplemento) → *Hecho para quien entrena de verdad* → calculadora de proteína → preguntas frecuentes (7) → newsletter |
 | **Ficha de producto** (`templates/product.json`) | Aviso de **pocas unidades** (por debajo de 10), desplegables de envío, devoluciones, pago y asesoramiento, **calculadora "¿Cuánto te dura este bote?"** (solo en Proteínas), *Combínalo con* y franja de beneficios |
 | **Páginas de colección** (`templates/collection.json`) | Cabecera visual por categoría: color propio, ilustración, ruta de navegación, contador de productos y accesos rápidos al resto de categorías. Debajo, franja de beneficios |
+| **Carrito** (`snippets/cart-summary.liquid`, `snippets/vigor-envio-gratis.liquid`) | Barra de progreso \"Te faltan X € para el envío gratis\" en el carrito lateral y en la página del carrito. Importe en *Configuración del tema → Vigor · Tienda* |
 | **Página de categorías** (`templates/list-collections.json`, ruta `/collections`) | Cabecera *Elige tu objetivo* y tarjetas grandes por categoría con su color, ilustración, número de productos, descripción y enlace; Proteínas destacada en doble alto; tarjeta *Todo el catálogo*; otras colecciones como botones. Debajo, *¿Por qué Vigor?* |
 | **Tabla nutricional** (`assets/vigor.css`) | Las tablas de la descripción se ven como una tabla nutricional |
 
@@ -71,6 +72,7 @@ Todas se pueden añadir, mover y editar desde el editor de temas (**Añadir secc
 | Vigor · Todas categorías | `sections/vigor-lista-colecciones.liquid` (página `/collections`) |
 | Vigor · Pie de página | `sections/vigor-footer.liquid` |
 | Vigor · Objetivos | `sections/vigor-objetivos.liquid` |
+| Vigor · Cuestionario | `sections/vigor-cuestionario.liquid` ("Encuentra tu suplemento": 3 preguntas → 3 productos con botón de añadir al carrito) |
 | Vigor · Tu día | `sections/vigor-rutina.liquid` |
 | Vigor · Beneficios | `sections/vigor-beneficios.liquid` |
 | Vigor · Categorías | `sections/vigor-categorias.liquid` |
@@ -78,8 +80,19 @@ Todas se pueden añadir, mover y editar desde el editor de temas (**Añadir secc
 | Vigor · FAQ | `sections/vigor-faq.liquid` (incluye datos estructurados para Google) |
 | Vigor · Newsletter | `sections/vigor-newsletter.liquid` |
 
-Los estilos están en `assets/vigor.css` y se cargan desde `snippets/vigor-variables.liquid`
-(una línea añadida en `layout/theme.liquid`).
+Los estilos están en `assets/vigor.css` y se cargan desde `snippets/vigor-variables.liquid`.
+
+### Archivos originales de Horizon modificados
+Casi todo lo propio está en archivos `vigor-*`. Estos son los únicos archivos de Horizon tocados
+(revisarlos al actualizar Horizon a una versión nueva):
+
+| Archivo | Cambio |
+|---|---|
+| `layout/theme.liquid` | Carga `vigor-variables` y favicon de ejemplo |
+| `blocks/_header-logo.liquid` | Logo de ejemplo si no se ha subido uno |
+| `snippets/cart-summary.liquid` | Una línea: barra de envío gratis |
+| `config/settings_schema.json` | Grupo nuevo *Vigor · Tienda* (envío gratis) |
+| `config/settings_data.json`, `templates/*.json`, `sections/*-group.json` | Ajustes y secciones de la tienda |
 
 ## Qué tienes que hacer tú en la tienda
 

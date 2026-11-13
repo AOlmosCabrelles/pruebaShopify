@@ -2117,5 +2117,27 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Vigor · Tienda",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Envío gratis"
+      },
+      {
+        "type": "checkbox",
+        "id": "vigor_envio_gratis_activo",
+        "label": "Mostrar barra de envío gratis en el carrito",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "vigor_envio_gratis_umbral",
+        "label": "Importe para envío gratis (€)",
+        "default": 50,
+        "info": "Debe coincidir con la tarifa de envío gratis de Configuración → Envío y entrega."
+      }
+    ]
   }
 ]

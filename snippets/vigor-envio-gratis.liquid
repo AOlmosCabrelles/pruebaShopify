@@ -1,0 +1,30 @@
+{%- doc -%}
+  Vigor Sport Nutrition · barra de progreso hacia el envío gratis (carrito lateral y página del carrito).
+  El importe se configura en Configuración del tema → Vigor · Tienda.
+  Debe coincidir con la tarifa de envío gratis de Configuración → Envío y entrega.
+{%- enddoc -%}
+{%- if settings.vigor_envio_gratis_activo and cart.item_count > 0 -%}
+  {%- liquid
+    assign umbral_euros = settings.vigor_envio_gratis_umbral | default: 50
+    assign umbral = umbral_euros | times: 100
+    assign total = cart.total_price
+    assign falta = umbral | minus: total
+    if falta > 0
+      assign progreso = total | times: 100 | divided_by: umbral
+    else
+      assign progreso = 100
+    endif
+  -%}
+  <div class="vigor-envio{% if falta <= 0 %} vigor-envio--conseguido{% endif %}" role="status">
+    <p class="vigor-envio__texto">
+      {%- if falta > 0 -%}
+        🚚 Te faltan <strong>{{ falta | money }}</strong> para el <strong>envío gratis</strong>
+      {%- else -%}
+        ⚡ ¡Tienes <strong>envío gratis</strong>!
+      {%- endif -%}
+    </p>
+    <div class="vigor-envio__barra" aria-hidden="true">
+      <span style="width: {{ progreso }}%;"></span>
+    </div>
+  </div>
+{%- endif -%}
