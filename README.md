@@ -41,8 +41,9 @@ bancos de imágenes con licencia abierta** (CC0, CC BY y CC BY-SA, vía Openvers
 retocadas con el estilo de la marca. Originales, licencias y créditos: rama `main`,
 `tienda/imagenes/banco/` (`CREDITOS.md`).
 
-> ⚠️ Las licencias CC BY obligan a **citar al autor**: crea la página *Créditos de imágenes* con el
-> contenido de `tienda/imagenes/banco/creditos.html`. El pie enlaza a `/pages/creditos-de-imagenes`.
+> ⚠️ Las licencias CC BY obligan a **citar al autor**. El pie muestra un desplegable
+> *Créditos de imágenes* con la lista completa (`snippets/vigor-creditos-imagenes.liquid`), sin
+> necesidad de crear ninguna página. Si además creas la página `creditos-de-imagenes`, se enlaza.
 
 | Imagen | Dónde se ve |
 |---|---|

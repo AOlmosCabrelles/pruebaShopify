@@ -287,5 +287,10 @@
 .vigor-categoria::after { background: linear-gradient(to top, rgb(0 0 0 / 0.85), transparent 65%); }
 .vigor-categoria img { filter: saturate(1.05); }
 
-/* Créditos de imágenes en el pie */
-.vigor-footer__creditos { opacity: 0.6; }
+/* Créditos de imágenes en el pie (desplegable) */
+.vigor-footer__creditos { margin: 0 0 16px; }
+.vigor-footer__creditos summary { cursor: pointer; display: inline-block; opacity: 0.75; text-decoration: underline; text-underline-offset: 3px; }
+.vigor-footer__creditos summary:hover { color: var(--vigor-acento); opacity: 1; }
+.vigor-footer__creditos-lista { margin-top: 12px; padding: 16px; border: 1px solid rgb(255 255 255 / 0.1); border-radius: 4px; max-width: 900px; opacity: 0.8; }
+.vigor-footer__creditos-lista ul { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; }
+.vigor-footer__creditos-lista a { text-decoration: underline; }
