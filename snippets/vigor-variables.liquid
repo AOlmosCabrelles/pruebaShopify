@@ -1,11 +1,30 @@
 {%- doc -%}
-  Variables de color de Vigor Sport Nutrition, tomadas de la paleta del tema
-  (Configuración del tema → Colores). color1 = acento, color2 = fondo suave.
+  Variables de estilo de Vigor Sport Nutrition, tomadas de la paleta del tema
+  (Configuración del tema → Colores):
+  color1 = acento, color2 = tarjetas, color3 = bordes.
+  Tipografía de títulos: Anton (SIL Open Font License), incluida en assets/vigor-anton.woff2.
 {%- enddoc -%}
+{{ 'vigor-anton.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
 <style>
+  @font-face {
+    font-family: 'Anton';
+    src: url('{{ 'vigor-anton.woff2' | asset_url }}') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
   :root {
-    --vigor-acento: {{ settings.color_palette.color1 | default: '#E4572E' }};
-    --vigor-suave: {{ settings.color_palette.color2 | default: '#F4F1EC' }};
+    --vigor-acento: {{ settings.color_palette.color1 | default: '#FF3D00' }};
+    --vigor-suave: {{ settings.color_palette.color2 | default: '#161616' }};
+    --vigor-borde: {{ settings.color_palette.color3 | default: '#2A2A2A' }};
+    --vigor-fondo: {{ settings.color_palette.background | default: '#0B0B0B' }};
+    --vigor-texto: {{ settings.color_palette.foreground | default: '#F5F5F5' }};
+    --vigor-display: 'Anton', Impact, 'Arial Narrow Bold', sans-serif;
+    /* Títulos del tema Horizon con la tipografía condensada */
+    --font-heading--family: var(--vigor-display);
+    --font-heading--weight: 400;
+    --font-accent--family: var(--vigor-display);
+    --font-accent--weight: 400;
   }
 </style>
 {{ 'vigor.css' | asset_url | stylesheet_tag }}

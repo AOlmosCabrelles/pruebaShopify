@@ -13,13 +13,23 @@
       "type": "vigor-hero",
       "settings": {
         "height": "grande",
-        "eyebrow": "Nueva fórmula Whey Isolate",
-        "heading": "Rinde más. Recupera mejor.",
-        "text": "Suplementación deportiva con fórmulas claras, dosis útiles y sin rellenos.",
-        "button_label": "Ver productos",
+        "eyebrow": "⚡ Nueva Whey Isolate · 27 g de proteína",
+        "heading": "Entrena duro.",
+        "text": "Suplementación deportiva sin rellenos: fórmulas claras, dosis que funcionan y envío gratis desde 50 €.",
+        "button_label": "Comprar ahora",
         "button_link": "shopify://collections/all",
         "button2_label": "Ver proteínas",
-        "button2_link": "shopify://collections/proteinas"
+        "button2_link": "shopify://collections/proteinas",
+        "heading_acento": "Sin excusas."
+      }
+    },
+    "vigor_cinta": {
+      "type": "vigor-cinta",
+      "settings": {
+        "frases": "Entrena duro\nSin excusas\nFórmulas claras\nDosis que funcionan\nEnvío gratis desde 50 €",
+        "separador": "⚡",
+        "duracion": 35,
+        "inclinada": true
       }
     },
     "vigor_beneficios": {
@@ -73,8 +83,8 @@
     "vigor_categorias": {
       "type": "vigor-categorias",
       "settings": {
-        "heading": "Encuentra lo que necesitas",
-        "subheading": "Elige tu objetivo y te enseñamos los productos adecuados.",
+        "heading": "Elige tu arma",
+        "subheading": "Cada objetivo, su suplemento.",
         "padding": 48
       },
       "blocks": {
@@ -529,7 +539,7 @@
       "settings": {
         "heading": "Únete al equipo Vigor",
         "text": "Consejos de entrenamiento, novedades y un 10 % de descuento en tu primer pedido.",
-        "button": "Suscribirme",
+        "button": "Me apunto",
         "legal": "Al suscribirte aceptas nuestra política de privacidad. Puedes darte de baja cuando quieras.",
         "padding": 48
       }
@@ -537,6 +547,7 @@
   },
   "order": [
     "vigor_hero",
+    "vigor_cinta",
     "vigor_beneficios",
     "vigor_categorias",
     "vigor_objetivos",

@@ -1,0 +1,40 @@
+{%- comment -%} Vigor Sport Nutrition · cinta de texto en movimiento {%- endcomment -%}
+{%- liquid
+  assign frases = section.settings.frases | newline_to_br | split: '<br />'
+-%}
+<div
+  class="vigor-cinta{% unless section.settings.inclinada %} vigor-cinta--recta{% endunless %}"
+  style="--vigor-cinta-duracion: {{ section.settings.duracion }}s;"
+  role="marquee"
+  aria-label="{{ section.settings.frases | newline_to_br | strip_html | escape }}"
+>
+  <div class="vigor-cinta__pista" aria-hidden="true">
+    {%- for _ in (1..2) -%}
+      <div class="vigor-cinta__grupo">
+        {%- for vuelta in (1..3) -%}
+          {%- for frase in frases -%}
+            {%- assign f = frase | strip -%}
+            {%- if f != blank -%}
+              <span>{{ f }}</span><span class="vigor-cinta__sep">{{ section.settings.separador }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Vigor · Cinta",
+  "tag": "section",
+  "class": "vigor-cinta-section",
+  "settings": [
+    { "type": "textarea", "id": "frases", "label": "Frases (una por línea)", "default": "Entrena duro\nSin excusas\nFórmulas claras\nEnvío gratis desde 50 €" },
+    { "type": "text", "id": "separador", "label": "Separador", "default": "⚡" },
+    { "type": "range", "id": "duracion", "label": "Duración de una vuelta", "min": 10, "max": 80, "step": 5, "unit": "s", "default": 35 },
+    { "type": "checkbox", "id": "inclinada", "label": "Cinta inclinada", "default": true }
+  ],
+  "presets": [{ "name": "Vigor · Cinta" }]
+}
+{% endschema %}
