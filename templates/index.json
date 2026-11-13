@@ -206,7 +206,7 @@
       "type": "vigor-cuestionario",
       "settings": {
         "heading": "Encuentra tu suplemento",
-        "subheading": "Tres preguntas y te decimos qué encaja contigo.",
+        "subheading": "Dos preguntas y te decimos qué encaja contigo.",
         "aviso": "Recomendación orientativa. Si tienes alguna patología, estás embarazada o tomas medicación, consulta antes con un profesional sanitario.",
         "padding": 56
       }

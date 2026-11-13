@@ -1,6 +1,8 @@
 {%- comment -%}
   Vigor Sport Nutrition · cuestionario "Encuentra tu suplemento".
-  Tres preguntas (objetivo, lácteos, cafeína) → recomienda hasta 3 productos.
+  Dos preguntas: el objetivo y, según el objetivo, la única que cambia la recomendación
+  (músculo → lácteos · rendimiento → cafeína · recuperación y salud → dieta vegana).
+  Recomienda hasta 3 productos.
 
   Las recomendaciones se definen abajo en RECOMENDACIONES con los identificadores (handles)
   de los productos. Si un producto no existe o está agotado, se omite y se usa el siguiente.
@@ -16,7 +18,7 @@
 
     <div class="vigor-quiz__caja" data-vigor-quiz>
       <ol class="vigor-quiz__progreso" aria-hidden="true">
-        <li class="is-activo"></li><li></li><li></li>
+        <li class="is-activo"></li><li></li>
       </ol>
 
       <fieldset class="vigor-quiz__paso is-activo" data-paso="1">
@@ -29,20 +31,29 @@
         </div>
       </fieldset>
 
-      <fieldset class="vigor-quiz__paso" data-paso="2">
+      {%- comment -%} Segunda pregunta: solo se muestra la que corresponde al objetivo {%- endcomment -%}
+      <fieldset class="vigor-quiz__paso" data-paso="lacteos">
         <legend>2 · ¿Tomas lácteos?</legend>
         <div class="vigor-quiz__opciones">
-          <button type="button" data-valor="si">Sí</button>
-          <button type="button" data-valor="sinlactosa">Sin lácteos (intolerancia)</button>
-          <button type="button" data-valor="vegano">Soy vegano/a</button>
+          <button type="button" data-valor="todo">Sí, sin problema</button>
+          <button type="button" data-valor="sinlacteos">No (intolerancia o alergia)</button>
+          <button type="button" data-valor="vegano">No, soy vegano/a</button>
         </div>
       </fieldset>
 
-      <fieldset class="vigor-quiz__paso" data-paso="3">
-        <legend>3 · ¿Y la cafeína?</legend>
+      <fieldset class="vigor-quiz__paso" data-paso="cafeina">
+        <legend>2 · ¿Y la cafeína?</legend>
         <div class="vigor-quiz__opciones">
           <button type="button" data-valor="si">Me sienta bien</button>
           <button type="button" data-valor="no">Prefiero evitarla</button>
+        </div>
+      </fieldset>
+
+      <fieldset class="vigor-quiz__paso" data-paso="vegano">
+        <legend>2 · ¿Sigues una dieta vegana?</legend>
+        <div class="vigor-quiz__opciones">
+          <button type="button" data-valor="todo">No</button>
+          <button type="button" data-valor="vegano">Sí, soy vegano/a</button>
         </div>
       </fieldset>
 
@@ -106,36 +117,49 @@
       },
     };
 
+    // Segunda pregunta según el objetivo: solo la que cambia la recomendación
+    const SEGUNDA = { musculo: 'lacteos', rendimiento: 'cafeina', recuperacion: 'vegano', salud: 'vegano' };
+
+    // Filtros generales. Mantener al día si cambia el catálogo:
+    //  - con leche: fuera si "sin lácteos" o "vegano"
+    //  - de origen animal (o que pueden serlo, como la vitamina D3): fuera si "vegano"
+    //  - con cafeína: fuera si "prefiero evitarla"
+    const CON_LECHE = ['whey-protein-isolate', 'whey-protein-concentrada', 'caseina-micelar', 'barritas-proteicas-caja-12', 'galletas-proteicas-caja-12'];
+    const ANIMAL = ['omega-3', 'colageno-magnesio', 'vitamina-d3-k2'];
+    const CON_CAFEINA = ['pre-entreno-explosive', 'cafeina-200'];
+
     const respuestas = {};
     const pasos = [...raiz.querySelectorAll('[data-paso]')];
     const puntos = [...raiz.querySelectorAll('.vigor-quiz__progreso li')];
     const resultado = raiz.querySelector('[data-resultado]');
 
-    const mostrarPaso = (n) => {
-      pasos.forEach((p) => p.classList.toggle('is-activo', Number(p.dataset.paso) === n));
-      puntos.forEach((p, i) => p.classList.toggle('is-activo', i < n));
-      resultado.hidden = n <= pasos.length;
+    // paso: '1', el nombre de la segunda pregunta, o null para ver el resultado
+    const mostrarPaso = (paso) => {
+      pasos.forEach((p) => p.classList.toggle('is-activo', p.dataset.paso === paso));
+      const hechos = paso === '1' ? 1 : 2;
+      puntos.forEach((p, i) => p.classList.toggle('is-activo', i < hechos));
+      resultado.hidden = paso !== null;
     };
 
     const elegir = () => {
-      const r = RECOMENDACIONES[respuestas[1]];
+      const r = RECOMENDACIONES[respuestas.objetivo];
+      const dieta = respuestas.dieta || 'todo';
+      const sinLeche = dieta === 'sinlacteos' || dieta === 'vegano';
       let lista;
       if (r.todos) lista = r.todos;
-      else if (r.lacteos) lista = ['sinlactosa', 'vegano'].includes(respuestas[2]) ? r.sinLacteos : r.lacteos;
-      else lista = respuestas[3] === 'no' ? r.sinCafeina : r.cafeina;
-      // Filtros generales. Mantener al día si cambia el catálogo:
-      //  - con leche: fuera si "sin lácteos" o "vegano"
-      //  - de origen animal (o que pueden serlo, como la vitamina D3): fuera si "vegano"
-      //  - con cafeína: fuera si "prefiero evitarla"
-      const conLeche = ['whey-protein-isolate', 'whey-protein-concentrada', 'caseina-micelar', 'barritas-proteicas-caja-12'];
-      const animal = ['omega-3', 'colageno-magnesio', 'vitamina-d3-k2'];
-      const conCafeina = ['pre-entreno-explosive'];
-      const sinLeche = ['sinlactosa', 'vegano'].includes(respuestas[2]);
-      lista = lista.filter((h) =>
-        !(sinLeche && conLeche.includes(h)) &&
-        !(respuestas[2] === 'vegano' && animal.includes(h)) &&
-        !(respuestas[3] === 'no' && conCafeina.includes(h)));
-      return { handles: lista.filter((h) => productos[h]).slice(0, 3), texto: r.texto };
+      else if (r.lacteos) lista = sinLeche ? r.sinLacteos : r.lacteos;
+      else lista = respuestas.cafeina === 'no' ? r.sinCafeina : r.cafeina;
+      const quitados = [];
+      lista = lista.filter((h) => {
+        const fuera = (sinLeche && CON_LECHE.includes(h)) ||
+          (dieta === 'vegano' && ANIMAL.includes(h)) ||
+          (respuestas.cafeina === 'no' && CON_CAFEINA.includes(h));
+        if (fuera && dieta === 'vegano' && ANIMAL.includes(h) && productos[h]) quitados.push(productos[h].titulo);
+        return !fuera;
+      });
+      let texto = r.texto;
+      if (quitados.length) texto += ` Como eres vegano/a, hemos quitado lo que es de origen animal (${quitados.join(', ')}).`;
+      return { handles: lista.filter((h) => productos[h]).slice(0, 3), texto };
     };
 
     const pintarResultado = () => {
@@ -166,19 +190,22 @@
     raiz.addEventListener('click', (e) => {
       const opcion = e.target.closest('[data-paso] button');
       if (opcion) {
-        const paso = Number(opcion.closest('[data-paso]').dataset.paso);
-        respuestas[paso] = opcion.dataset.valor;
-        let siguiente = paso + 1;
-        // Para recuperación y salud, la pregunta de cafeína no cambia nada: se salta
-        if (siguiente === 3 && ['recuperacion', 'salud'].includes(respuestas[1])) siguiente = 4;
-        // Para rendimiento, la de lácteos no cambia nada: se salta
-        if (siguiente === 2 && respuestas[1] === 'rendimiento') siguiente = 3;
-        if (siguiente > pasos.length) pintarResultado();
-        mostrarPaso(siguiente);
+        const paso = opcion.closest('[data-paso]').dataset.paso;
+        const valor = opcion.dataset.valor;
+        if (paso === '1') {
+          Object.keys(respuestas).forEach((k) => delete respuestas[k]);
+          respuestas.objetivo = valor;
+          mostrarPaso(SEGUNDA[valor]);
+          return;
+        }
+        if (paso === 'cafeina') respuestas.cafeina = valor;
+        else respuestas.dieta = valor;
+        pintarResultado();
+        mostrarPaso(null);
       }
       if (e.target.closest('[data-reiniciar]')) {
         Object.keys(respuestas).forEach((k) => delete respuestas[k]);
-        mostrarPaso(1);
+        mostrarPaso('1');
       }
     });
   })();
@@ -191,7 +218,7 @@
   "class": "vigor-cuestionario-section",
   "settings": [
     { "type": "text", "id": "heading", "label": "Título", "default": "Encuentra tu suplemento" },
-    { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Tres preguntas y te decimos qué encaja contigo." },
+    { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Dos preguntas y te decimos qué encaja contigo." },
     { "type": "text", "id": "aviso", "label": "Aviso", "default": "Recomendación orientativa. Si tienes alguna patología, estás embarazada o tomas medicación, consulta antes con un profesional sanitario." },
     { "type": "range", "id": "padding", "label": "Espaciado vertical", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 56 }
   ],
