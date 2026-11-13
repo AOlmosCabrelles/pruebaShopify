@@ -252,6 +252,8 @@
 .vigor-hero__imagen { filter: contrast(1.05); }
 
 /* Cinta de texto en movimiento */
+/* La cinta inclinada sobresale por los lados: se recorta en horizontal para que no aparezca scroll lateral */
+.vigor-cinta-section { overflow-x: clip; }
 .vigor-cinta { overflow: hidden; background: var(--vigor-acento); color: #0B0B0B; transform: rotate(-1.5deg) scale(1.02); margin-block: 8px 24px; border-block: 3px solid #0B0B0B; }
 .vigor-cinta--recta { transform: none; margin-block: 0; }
 .vigor-cinta__pista { display: flex; width: max-content; animation: vigor-cinta var(--vigor-cinta-duracion, 30s) linear infinite; }
