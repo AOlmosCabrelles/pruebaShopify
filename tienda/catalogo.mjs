@@ -19,6 +19,7 @@ export const PRODUCTOS = [
   // ───────────────────────────── PROTEÍNAS ─────────────────────────────
   {
     handle: "whey-protein-isolate",
+    ambiente: "batido", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-batido.jpg
     titulo: "Whey Protein Isolate",
     tipo: "Proteínas",
     tags: "proteina, recuperacion, whey",
@@ -42,6 +43,7 @@ export const PRODUCTOS = [
   },
   {
     handle: "whey-protein-concentrada",
+    ambiente: "batido", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-batido.jpg
     titulo: "Whey Protein Concentrada",
     tipo: "Proteínas",
     tags: "proteina, recuperacion, whey",
@@ -65,6 +67,7 @@ export const PRODUCTOS = [
   },
   {
     handle: "proteina-vegana",
+    ambiente: "batido", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-batido.jpg
     titulo: "Proteína Vegana",
     tipo: "Proteínas",
     tags: "proteina, vegana, guisante",
@@ -83,6 +86,7 @@ export const PRODUCTOS = [
   },
   {
     handle: "caseina-micelar",
+    ambiente: "batido", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-batido.jpg
     titulo: "Caseína Micelar",
     tipo: "Proteínas",
     tags: "proteina, caseina, noche",
@@ -103,6 +107,7 @@ export const PRODUCTOS = [
   // ───────────────────────────── RENDIMIENTO ─────────────────────────────
   {
     handle: "creatina-monohidrato",
+    ambiente: "creatina", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-creatina.jpg
     titulo: "Creatina Monohidrato",
     tipo: "Rendimiento",
     tags: "creatina, rendimiento, fuerza",
@@ -136,6 +141,7 @@ export const PRODUCTOS = [
   },
   {
     handle: "beta-alanina",
+    ambiente: "creatina", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-creatina.jpg
     titulo: "Beta-Alanina",
     tipo: "Rendimiento",
     tags: "beta-alanina, rendimiento, resistencia",
@@ -150,6 +156,7 @@ export const PRODUCTOS = [
   },
   {
     handle: "citrulina-malato",
+    ambiente: "creatina", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-creatina.jpg
     titulo: "Citrulina Malato",
     tipo: "Rendimiento",
     tags: "citrulina, rendimiento, bombeo",
@@ -164,6 +171,7 @@ export const PRODUCTOS = [
   },
   {
     handle: "cafeina-200",
+    ambiente: "multivitaminico", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-multivitaminico.jpg
     titulo: "Cafeína 200 mg",
     tipo: "Rendimiento",
     tags: "cafeina, energia, capsulas",
@@ -217,6 +225,7 @@ export const PRODUCTOS = [
   },
   {
     handle: "l-glutamina",
+    ambiente: "creatina", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-creatina.jpg
     titulo: "L-Glutamina",
     tipo: "Recuperación",
     tags: "glutamina, aminoacidos, recuperacion",
@@ -247,6 +256,7 @@ export const PRODUCTOS = [
   // ───────────────────────────── SALUD ─────────────────────────────
   {
     handle: "multivitaminico-sport",
+    ambiente: "multivitaminico", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-multivitaminico.jpg
     titulo: "Multivitamínico Sport",
     tipo: "Salud",
     tags: "vitaminas, minerales, salud",
@@ -261,6 +271,7 @@ export const PRODUCTOS = [
   },
   {
     handle: "omega-3",
+    ambiente: "omega-3", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-omega-3.jpg
     titulo: "Omega-3",
     tipo: "Salud",
     tags: "omega-3, epa, dha, salud",
@@ -275,6 +286,7 @@ export const PRODUCTOS = [
   },
   {
     handle: "vitamina-d3-k2",
+    ambiente: "vitamina-d3", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-vitamina-d3.jpg
     titulo: "Vitamina D3 + K2",
     tipo: "Salud",
     tags: "vitamina d, vitamina k, huesos, salud",
@@ -289,6 +301,7 @@ export const PRODUCTOS = [
   },
   {
     handle: "magnesio-bisglicinato",
+    ambiente: "multivitaminico", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-multivitaminico.jpg
     titulo: "Magnesio Bisglicinato",
     tipo: "Salud",
     tags: "magnesio, minerales, salud",
@@ -320,6 +333,7 @@ export const PRODUCTOS = [
   },
   {
     handle: "galletas-proteicas-caja-12",
+    ambiente: "galletas", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-galletas.jpg
     titulo: "Galletas proteicas (caja de 12)",
     tipo: "Snacks",
     tags: "snack, galletas, proteina",
@@ -335,6 +349,7 @@ export const PRODUCTOS = [
   },
   {
     handle: "crema-de-cacahuete",
+    ambiente: "crema-cacahuete", // segunda foto (banco de imágenes): tienda/imagenes/ambiente/extra-crema-cacahuete.jpg
     titulo: "Crema de cacahuete",
     tipo: "Snacks",
     tags: "snack, cacahuete, proteina",

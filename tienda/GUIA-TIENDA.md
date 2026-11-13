@@ -12,6 +12,8 @@ Archivos de esta carpeta:
 | `GUIA-TIENDA.md` | Esta guía, con los textos listos para copiar y pegar |
 | `imagenes/productos-oscuro/` | 41 fotos de producto con fondo oscuro, una por variante (ya enlazadas en el CSV) |
 | `productos-vigor-imagenes.csv` | CSV que **solo cambia las fotos** de los productos (no toca precios, textos ni stock) |
+| `imagenes/banco/` | Fotos reales de banco de imágenes (originales, licencias y **créditos**) usadas en el tema y como foto de ambiente |
+| `imagenes/ambiente/` | Segundas fotos de producto (ambiente), ya enlazadas en el CSV |
 | `imagenes/recortes/` | Aquí van las **fotos reales** de producto; el generador las pone sobre el fondo de estudio oscuro (instrucciones en su README) |
 | `imagenes/marca/` | Logo (oscuro y blanco), favicon, imagen de *Sobre nosotros* e imagen para redes sociales |
 | `imagenes/generar-imagenes.mjs` | Script que genera todas las imágenes (por si quieres cambiar colores o textos) |
@@ -92,6 +94,16 @@ importa `productos-vigor-imagenes.csv` con *Sobrescribir los productos que tenga
 identificador*. Prueba primero con un solo producto y comprueba que la foto nueva **sustituye**
 a la anterior; si en tu versión de Shopify se **añade** a las existentes, borra las antiguas desde
 *Medios* (selecciona varias a la vez → Eliminar).
+
+**Fotos de ambiente:** 15 productos llevan una **segunda foto real** de banco de imágenes
+(batido, cápsulas, perlas de omega-3, crema de cacahuete, galletas…), retocada con el estilo
+de la marca. Se importan con el CSV de imágenes.
+
+**Página de créditos (obligatoria):** varias fotos tienen licencia CC BY, que exige citar al autor.
+1. **Contenido → Páginas → Añadir página**. Título: `Créditos de imágenes`.
+2. En el editor, pulsa el botón **</>** (Mostrar HTML) y pega el contenido de
+   `tienda/imagenes/banco/creditos.html`.
+3. Guarda. La URL será `/pages/creditos-de-imagenes`; el pie del tema Vigor ya enlaza a ella.
 
 **Fotos reales:** deja las fotos en `tienda/imagenes/recortes/` (PNG transparente, o JPG sobre
 fondo blanco y el script quita el fondo), regenera imágenes y CSV, y reimporta el CSV de imágenes.

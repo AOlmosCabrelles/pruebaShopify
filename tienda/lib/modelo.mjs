@@ -9,6 +9,7 @@
 import { PRODUCTOS, combinar, descripcionHtml, slugValor } from "../catalogo.mjs";
 import { nombreFoto } from "./fotos.mjs";
 
+export const URL_AMBIENTE = "https://raw.githubusercontent.com/AOlmosCabrelles/pruebaShopify/main/tienda/imagenes/ambiente/";
 export const URL_IMAGENES = "https://raw.githubusercontent.com/AOlmosCabrelles/pruebaShopify/main/tienda/imagenes/productos-oscuro/";
 export const TIPOS_VALIDOS = ["Proteínas", "Rendimiento", "Recuperación", "Salud", "Snacks", "Accesorios"];
 export const etiquetaCategoria = (tipo) => `cat-${slugValor(tipo)}`;
@@ -27,10 +28,13 @@ export function desdeCatalogo() {
     return {
       handle: p.handle, titulo: p.titulo, descripcionHtml: descripcionHtml(p), proveedor: "Vigor Sport Nutrition",
       tipo: p.tipo, etiquetas: [etiquetaCategoria(p.tipo), ...p.tags.split(",").map((t) => t.trim())],
-      publicado: true, estado: "active", seoTitulo: `${p.seo} | Vigor Sport Nutrition`, seoDescripcion: p.descripcion.slice(0, 155),
+      publicado: true, estado: "active", seoTitulo: `${p.seo} | Vigor Sport Nutrition`, seoDescripcion: p.descripcion.slice(0, 155).trim(),
       opciones: p.opciones.map((o) => ({ nombre: o.nombre, valores: o.valores })),
       variantes,
-      imagenes: variantes.map((v, i) => ({ url: v.imagen, posicion: i + 1, alt: `${p.titulo} ${v.opciones.join(" ")}` })),
+      imagenes: [
+        ...variantes.map((v, i) => ({ url: v.imagen, posicion: i + 1, alt: `${p.titulo} ${v.opciones.join(" ")}` })),
+        ...(p.ambiente ? [{ url: `${URL_AMBIENTE}extra-${p.ambiente}.jpg`, posicion: variantes.length + 1, alt: `${p.titulo}: foto de ambiente` }] : []),
+      ],
     };
   });
 }
