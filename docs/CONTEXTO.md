@@ -95,6 +95,8 @@ README de la rama `tema-horizon`.
   (o URL directa `admin.shopify.com/store/<tienda>/pages`); las **colecciones automáticas** se crean con
   *+ Agregar condición* (ya no hay selector Manual/Automatizada).
 - Para no pisar cambios del editor de temas: hacer `git pull` en `tema-horizon` antes de tocarla.
+- **`all_products` en Liquid no es fiable** (límite de 20 productos por página y vuelve vacío sin avisar).
+  El cuestionario pide los que falten con `/products/<handle>.js` desde el navegador.
 
 ## 8. Notas para Claude (sesiones en la nube)
 
