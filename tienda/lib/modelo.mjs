@@ -127,14 +127,18 @@ export const COLUMNAS = ["Handle", "Title", "Body (HTML)", "Vendor", "Product Ca
 export const COLUMNAS_IMAGENES = ["Handle", "Title", "Option1 Name", "Option1 Value", "Option2 Name", "Option2 Value",
   "Option3 Name", "Option3 Value", "Variant SKU", "Image Src", "Image Position", "Image Alt Text", "Variant Image"];
 
+export const COLUMNAS_STOCK = ["Handle", "Title", "Option1 Name", "Option1 Value", "Option2 Name", "Option2 Value",
+  "Option3 Name", "Option3 Value", "Variant SKU", "Variant Inventory Tracker", "Variant Inventory Qty", "Variant Inventory Policy"];
+
 /**
- * @param {{ sinStock?: boolean, soloImagenes?: boolean }} opciones
+ * @param {{ sinStock?: boolean, soloImagenes?: boolean, soloStock?: boolean }} opciones
  *   sinStock: quita la columna de stock para no pisar el inventario real.
  *   soloImagenes: solo las columnas necesarias para cambiar las imágenes (no toca precios, textos ni stock).
+ *   soloStock: solo las columnas necesarias para poner el stock (no toca precios, textos ni imágenes).
  */
-export function aFilasCsv(productos, { sinStock = false, soloImagenes = false } = {}) {
+export function aFilasCsv(productos, { sinStock = false, soloImagenes = false, soloStock = false } = {}) {
   const base = sinStock ? COLUMNAS.filter((c) => c !== "Variant Inventory Qty") : COLUMNAS;
-  const columnas = soloImagenes ? COLUMNAS_IMAGENES : base;
+  const columnas = soloStock ? COLUMNAS_STOCK : soloImagenes ? COLUMNAS_IMAGENES : base;
   const filas = [];
   for (const p of productos) {
     const opciones = p.opciones.length ? p.opciones : [{ nombre: "Title", valores: ["Default Title"] }];
@@ -171,6 +175,11 @@ export function aFilasCsv(productos, { sinStock = false, soloImagenes = false } 
       Object.assign(f, { Handle: p.handle, "Image Src": img.url, "Image Position": img.posicion, "Image Alt Text": img.alt });
       filas.push(f);
     }
+  }
+  if (soloStock) {
+    // Solo las filas de variantes (las de imágenes extra no llevan stock)
+    const recortar = (f) => Object.fromEntries(columnas.map((c) => [c, f[c] ?? ""]));
+    return { columnas, filas: filas.filter((f) => f["Variant SKU"]).map(recortar) };
   }
   if (soloImagenes) {
     const recortar = (f) => Object.fromEntries(columnas.map((c) => [c, f[c] ?? ""]));

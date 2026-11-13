@@ -54,8 +54,9 @@ README de la rama `tema-horizon`.
 ## 5. Qué hay en `main`
 
 - `tienda/catalogo.mjs`: **fuente única** del catálogo (21 productos, 41 variantes).
-- `npm run csv` → `productos-vigor.csv` (completo) y `productos-vigor-imagenes.csv` (solo fotos).
-- `tienda/generar-csv.mjs`: opciones `--solo`, `--sin-stock`, `--solo-imagenes`, `--desde-shopify`.
+- `npm run csv` → `productos-vigor.csv` (completo), `productos-vigor-imagenes.csv` (solo fotos) y
+  `productos-vigor-stock.csv` (solo stock de ejemplo).
+- `tienda/generar-csv.mjs`: opciones `--solo`, `--sin-stock`, `--solo-imagenes`, `--solo-stock`, `--desde-shopify`.
 - `npm run sincronizar -- export.csv`: lee una **exportación de Shopify** → copia + `INFORME.md`
   (errores, cambios, stock bajo).
 - `npm run imagenes`: fotos de producto; usa fotos reales de `tienda/imagenes/recortes/` si existen

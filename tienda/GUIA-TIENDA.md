@@ -12,6 +12,7 @@ Archivos de esta carpeta:
 | `GUIA-TIENDA.md` | Esta guía, con los textos listos para copiar y pegar |
 | `imagenes/productos-oscuro/` | 41 fotos de producto con fondo oscuro, una por variante (ya enlazadas en el CSV) |
 | `productos-vigor-imagenes.csv` | CSV que **solo cambia las fotos** de los productos (no toca precios, textos ni stock) |
+| `productos-vigor-stock.csv` | CSV que **solo pone el stock de ejemplo** (no toca precios, textos ni fotos) |
 | `imagenes/banco/` | Fotos reales de banco de imágenes (originales, licencias y **créditos**) usadas en el tema y como foto de ambiente |
 | `imagenes/ambiente/` | Segundas fotos de producto (ambiente), ya enlazadas en el CSV |
 | `imagenes/recortes/` | Aquí van las **fotos reales** de producto; el generador las pone sobre el fondo de estudio oscuro (instrucciones en su README) |
@@ -88,6 +89,12 @@ practiques reponer: Whey Isolate Vainilla 2 kg (3 uds), Pre-Entreno Frutos rojos
 Whey Concentrada Cookies 2 kg (4 uds) y Magnesio (5 uds).
 La política es *"no vender sin stock"*, así que cuando una variante llega a 0 aparece como **Agotado**.
 Para reponer, haz clic en la cantidad de la columna **Disponible**, escribe la nueva y pulsa **Guardar**.
+
+**Poner el stock de ejemplo en todos los productos** (si salen como *Agotado*):
+importa `productos-vigor-stock.csv` en **Productos → Importar** con *Sobrescribir los productos que
+tengan el mismo identificador*. Solo cambia el stock (41 variantes, 1086 unidades en total), el
+seguimiento de inventario y la política *no vender sin stock*: no toca precios, textos ni fotos.
+⚠️ **Pone las cantidades de ejemplo**: en una tienda con ventas reales, borraría las cantidades de verdad.
 
 **Cambiar las fotos de productos ya importados** (por ejemplo, a la versión de fondo oscuro):
 importa `productos-vigor-imagenes.csv` con *Sobrescribir los productos que tengan el mismo
