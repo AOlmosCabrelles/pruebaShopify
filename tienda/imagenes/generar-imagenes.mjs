@@ -139,10 +139,14 @@ const pagina = (w, h, cuerpo) => `<!doctype html><html><head><meta charset="utf-
 </style></head><body><div class="lienzo">${cuerpo}</div></body></html>`;
 
 const fotoProducto = ({ svg, fondo }) => pagina(1600, 1600, `
-  <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 42%, #ffffff 0%, #F4F1EC 55%, #E9E2D6 100%)"></div>
-  <div style="position:absolute;left:50%;top:46%;width:1100px;height:1100px;margin:-550px;border-radius:50%;background:${fondo};opacity:.13"></div>
-  <div style="position:absolute;left:0;right:0;bottom:0;height:330px;background:linear-gradient(#E9E2D6,#DED5C6)"></div>
-  <svg viewBox="0 0 600 720" style="position:absolute;left:200px;top:180px;width:1200px;height:1440px">${svg}</svg>`);
+  <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 38%, #2a2a2a 0%, #141414 50%, #090909 100%)"></div>
+  ${Array.from({ length: 12 }, (_, i) => `<div style="position:absolute;left:${i * 170 - 300}px;top:-200px;width:18px;height:2200px;background:#fff;opacity:.022;transform:rotate(22deg)"></div>`).join("")}
+  <div style="position:absolute;left:50%;top:44%;width:1000px;height:1000px;margin:-500px;border-radius:50%;background:radial-gradient(circle, rgba(255,255,255,.16) 0%, transparent 65%)"></div>
+  <div style="position:absolute;left:50%;top:44%;width:1150px;height:1150px;margin:-575px;border-radius:50%;background:radial-gradient(circle, ${fondo} 0%, transparent 68%);opacity:.55"></div>
+  <div style="position:absolute;left:50%;top:44%;width:1250px;height:1250px;margin:-625px;border-radius:50%;border:3px solid ${ACENTO};opacity:.18"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:330px;background:linear-gradient(#121212,#070707);border-top:2px solid rgba(255,255,255,.06)"></div>
+  <div style="position:absolute;left:50%;bottom:250px;width:1000px;height:120px;margin-left:-500px;background:radial-gradient(ellipse, ${ACENTO}55 0%, transparent 70%)"></div>
+  <svg viewBox="0 0 600 720" style="position:absolute;left:200px;top:180px;width:1200px;height:1440px;filter:drop-shadow(0 0 22px rgba(255,255,255,.08))">${svg}</svg>`);
 
 const grupo = (items, ancho, alto) => `<svg viewBox="0 0 ${items.length * 600} 720" style="width:${ancho}px;height:${alto}px">${items.map((it, i) => `<g transform="translate(${i * 600} 0)">${it}</g>`).join("")}</svg>`;
 const buscar = (a) => P.find((p) => p.archivo === a).svg;
@@ -182,7 +186,7 @@ const social = pagina(1200, 630, `
 
 // ---------- Render ----------
 const salidas = [
-  ...P.map((p) => ({ dir: "productos", nombre: p.archivo, html: fotoProducto(p), w: 1600, h: 1600 })),
+  ...P.map((p) => ({ dir: "productos-oscuro", nombre: p.archivo, html: fotoProducto(p), w: 1600, h: 1600 })),
   { dir: "tema", nombre: "vigor-hero", html: hero, w: 2400, h: 1200 },
   { dir: "tema", nombre: "vigor-cat-proteinas", html: categoria([buscar("whey-protein-isolate-chocolate-2kg"), buscar("whey-protein-isolate-fresa-1kg")], "#5B3A29", "PROTEÍNA"), w: 1000, h: 1250 },
   { dir: "tema", nombre: "vigor-cat-rendimiento", html: categoria([buscar("creatina-monohidrato-500g"), buscar("pre-entreno-explosive-limon")], "#2D6CDF", "FUERZA"), w: 1000, h: 1250 },

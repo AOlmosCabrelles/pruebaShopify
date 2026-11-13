@@ -10,7 +10,8 @@ Archivos de esta carpeta:
 | `productos-vigor.csv` | Catálogo de ejemplo: **21 productos, 41 variantes**, con precios, stock, SKU, peso, información nutricional, imágenes y SEO |
 | `catalogo.mjs` | Los datos del catálogo. Si cambias algo aquí, regenera el CSV con `node tienda/generar-csv.mjs` |
 | `GUIA-TIENDA.md` | Esta guía, con los textos listos para copiar y pegar |
-| `imagenes/productos/` | 41 imágenes de envases, una por variante (ya enlazadas en el CSV) |
+| `imagenes/productos-oscuro/` | 41 fotos de producto con fondo oscuro, una por variante (ya enlazadas en el CSV) |
+| `productos-vigor-imagenes.csv` | CSV que **solo cambia las fotos** de los productos (no toca precios, textos ni stock) |
 | `imagenes/marca/` | Logo (oscuro y blanco), favicon, imagen de *Sobre nosotros* e imagen para redes sociales |
 | `imagenes/generar-imagenes.mjs` | Script que genera todas las imágenes (por si quieres cambiar colores o textos) |
 | `generar-csv.mjs` | Genera CSV de importación: el catálogo completo, solo algunos productos o sin stock |
@@ -84,6 +85,12 @@ practiques reponer: Whey Isolate Vainilla 2 kg (3 uds), Pre-Entreno Frutos rojos
 Whey Concentrada Cookies 2 kg (4 uds) y Magnesio (5 uds).
 La política es *"no vender sin stock"*, así que cuando una variante llega a 0 aparece como **Agotado**.
 Para reponer, haz clic en la cantidad de la columna **Disponible**, escribe la nueva y pulsa **Guardar**.
+
+**Cambiar las fotos de productos ya importados** (por ejemplo, a la versión de fondo oscuro):
+importa `productos-vigor-imagenes.csv` con *Sobrescribir los productos que tengan el mismo
+identificador*. Prueba primero con un solo producto y comprueba que la foto nueva **sustituye**
+a la anterior; si en tu versión de Shopify se **añade** a las existentes, borra las antiguas desde
+*Medios* (selecciona varias a la vez → Eliminar).
 
 **Imágenes:** son **ilustraciones de ejemplo** creadas para este simulacro. Cuando tengas fotos
 reales, cámbialas en cada producto (**Medios**). Formato cuadrado, 2048 × 2048 px.

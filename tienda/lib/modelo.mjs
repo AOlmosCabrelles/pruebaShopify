@@ -8,7 +8,7 @@
 
 import { PRODUCTOS, combinar, archivoImagen, descripcionHtml, slugValor } from "../catalogo.mjs";
 
-export const URL_IMAGENES = "https://raw.githubusercontent.com/AOlmosCabrelles/pruebaShopify/main/tienda/imagenes/productos/";
+export const URL_IMAGENES = "https://raw.githubusercontent.com/AOlmosCabrelles/pruebaShopify/main/tienda/imagenes/productos-oscuro/";
 export const TIPOS_VALIDOS = ["Proteínas", "Rendimiento", "Recuperación", "Salud", "Snacks", "Accesorios"];
 export const etiquetaCategoria = (tipo) => `cat-${slugValor(tipo)}`;
 
@@ -118,9 +118,17 @@ export const COLUMNAS = ["Handle", "Title", "Body (HTML)", "Vendor", "Product Ca
   "Variant Barcode", "Image Src", "Image Position", "Image Alt Text", "Variant Image", "Gift Card", "SEO Title",
   "SEO Description", "Variant Weight Unit", "Status"];
 
-/** @param {{ sinStock?: boolean }} opciones  sinStock: quita la columna de stock para no pisar el inventario real. */
-export function aFilasCsv(productos, { sinStock = false } = {}) {
-  const columnas = sinStock ? COLUMNAS.filter((c) => c !== "Variant Inventory Qty") : COLUMNAS;
+export const COLUMNAS_IMAGENES = ["Handle", "Title", "Option1 Name", "Option1 Value", "Option2 Name", "Option2 Value",
+  "Option3 Name", "Option3 Value", "Variant SKU", "Image Src", "Image Position", "Image Alt Text", "Variant Image"];
+
+/**
+ * @param {{ sinStock?: boolean, soloImagenes?: boolean }} opciones
+ *   sinStock: quita la columna de stock para no pisar el inventario real.
+ *   soloImagenes: solo las columnas necesarias para cambiar las imágenes (no toca precios, textos ni stock).
+ */
+export function aFilasCsv(productos, { sinStock = false, soloImagenes = false } = {}) {
+  const base = sinStock ? COLUMNAS.filter((c) => c !== "Variant Inventory Qty") : COLUMNAS;
+  const columnas = soloImagenes ? COLUMNAS_IMAGENES : base;
   const filas = [];
   for (const p of productos) {
     const opciones = p.opciones.length ? p.opciones : [{ nombre: "Title", valores: ["Default Title"] }];
@@ -157,6 +165,10 @@ export function aFilasCsv(productos, { sinStock = false } = {}) {
       Object.assign(f, { Handle: p.handle, "Image Src": img.url, "Image Position": img.posicion, "Image Alt Text": img.alt });
       filas.push(f);
     }
+  }
+  if (soloImagenes) {
+    const recortar = (f) => Object.fromEntries(columnas.map((c) => [c, f[c] ?? ""]));
+    return { columnas, filas: filas.map(recortar) };
   }
   return { columnas, filas };
 }
