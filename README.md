@@ -35,20 +35,24 @@ Desde ese momento **funciona en las dos direcciones**:
 | **Página de categorías** (`templates/list-collections.json`, ruta `/collections`) | Cabecera *Elige tu objetivo* y tarjetas grandes por categoría con su color, ilustración, número de productos, descripción y enlace; Proteínas destacada en doble alto; tarjeta *Todo el catálogo*; otras colecciones como botones. Debajo, *¿Por qué Vigor?* |
 | **Tabla nutricional** (`assets/vigor.css`) | Las tablas de la descripción se ven como una tabla nutricional |
 
-### Imágenes de ejemplo incluidas en el tema
-Son ilustraciones originales de la marca ficticia (sin derechos de terceros). Se usan solas
-mientras no subas imágenes propias:
+### Imágenes incluidas en el tema
+Las fotos del banner, las categorías y *Hecho para quien entrena de verdad* son **fotos reales de
+bancos de imágenes con licencia abierta** (CC0, CC BY y CC BY-SA, vía Openverse), recortadas y
+retocadas con el estilo de la marca. Originales, licencias y créditos: rama `main`,
+`tienda/imagenes/banco/` (`CREDITOS.md`).
+
+> ⚠️ Las licencias CC BY obligan a **citar al autor**: crea la página *Créditos de imágenes* con el
+> contenido de `tienda/imagenes/banco/creditos.html`. El pie enlaza a `/pages/creditos-de-imagenes`.
 
 | Imagen | Dónde se ve |
 |---|---|
-| `assets/vigor-hero.jpg` | Banner principal de la página de inicio |
-| `assets/vigor-cat-*.jpg` | Tarjetas de categorías (Proteínas, Rendimiento, Recuperación, Salud, Snacks, Accesorios) |
-| `assets/vigor-nosotros.jpg` | Sección *Hecho para quien entrena de verdad* |
-| `assets/vigor-logo.png` | Logo de la cabecera, si no has subido uno en *Configuración del tema → Logo* |
-| `assets/vigor-favicon.png` | Icono de la pestaña del navegador, si no has subido uno |
+| `assets/vigor-hero.jpg` | Banner principal (peso muerto) |
+| `assets/vigor-cat-*.jpg` | Tarjetas de categorías, página `/collections` y cabeceras de colección |
+| `assets/vigor-nosotros.jpg` | Sección *Hecho para quien entrena de verdad* (gimnasio clásico) |
+| `assets/vigor-logo.png`, `vigor-logo-blanco.png`, `vigor-favicon.png` | Logo y favicon de ejemplo (si no subes los tuyos) |
 
-Las fotos de los productos están en la rama `main` (`tienda/imagenes/productos-oscuro/`, con fondo oscuro) y se cargan
-solas al importar `tienda/productos-vigor.csv`.
+Cualquiera se sustituye desde el editor de temas eligiendo otra imagen en la sección.
+Las fotos de producto (envases y fotos de ambiente) están en la rama `main` y se cargan con el CSV.
 
 ### Secciones nuevas
 Todas se pueden añadir, mover y editar desde el editor de temas (**Añadir sección → Vigor · …**):

@@ -149,6 +149,9 @@
           {%- for policy in shop.policies -%}
             <li><a href="{{ policy.url }}">{{ policy.title }}</a></li>
           {%- endfor -%}
+          {%- if section.settings.creditos_url != blank -%}
+            <li class="vigor-footer__creditos"><a href="{{ section.settings.creditos_url }}">Créditos de imágenes</a></li>
+          {%- endif -%}
         </ul>
         {%- if shop.enabled_payment_types.size > 0 -%}
           <ul class="vigor-footer__pagos" aria-label="Métodos de pago">
@@ -193,6 +196,7 @@
     { "type": "checkbox", "id": "mostrar_newsletter", "label": "Mostrar suscripción", "default": true },
     { "type": "text", "id": "newsletter_titulo", "label": "Título de la suscripción", "default": "10 % en tu primer pedido" },
     { "type": "header", "content": "Legal" },
+    { "type": "text", "id": "creditos_url", "label": "Enlace a créditos de imágenes", "default": "/pages/creditos-de-imagenes", "info": "Obligatorio si usas fotos con licencia CC BY. Déjalo vacío para ocultarlo." },
     { "type": "textarea", "id": "aviso", "label": "Aviso legal de complementos", "default": "Los complementos alimenticios no deben utilizarse como sustituto de una dieta equilibrada y variada ni de un estilo de vida saludable. No superar la dosis diaria recomendada." }
   ],
   "presets": [{ "name": "Vigor · Pie de página" }]
