@@ -1,7 +1,7 @@
 # Vigor Sport Nutrition · tienda Shopify
 
 Tienda online de suplementación deportiva (marca de ejemplo **Vigor Sport Nutrition**) hecha con
-Shopify, sin apps: tema propio basado en Horizon + catálogo, imágenes y herramientas para
+Shopify, sin apps de terceros: tema propio basado en Horizon + catálogo, imágenes y herramientas para
 mantenerlo.
 
 > 🧭 **¿Retomas el proyecto?** Lee primero [`docs/CONTEXTO.md`](docs/CONTEXTO.md): estado, decisiones,
@@ -20,27 +20,31 @@ mantenerlo.
 ## Qué hay en `main`
 
 ```
-tienda/
-├── GUIA-TIENDA.md                 ← guía paso a paso: montar, configurar y mantener la tienda
-├── productos-vigor.csv            ← catálogo completo para importar (21 productos, 41 variantes)
-├── productos-vigor-imagenes.csv   ← solo imágenes (cambiar fotos sin tocar precios ni stock)
-├── catalogo.mjs                   ← fuente de datos del catálogo (de aquí salen CSV e imágenes)
-├── generar-csv.mjs                ← genera los CSV (opciones: --solo, --sin-stock, --solo-imagenes…)
-├── sincronizar-desde-shopify.mjs  ← lee una exportación de Shopify y hace un informe de cambios y errores
-├── lib/                           ← código compartido (modelo de producto, CSV, repositorio, fotos)
-├── herramientas/
-│   └── validar-ajustes-tema.py    ← valida los ajustes del tema antes de subir cambios
-└── imagenes/
-    ├── productos-oscuro/          ← fotos de producto (envases) que enlaza el CSV
-    ├── ambiente/                  ← segundas fotos de producto (banco de imágenes)
-    ├── banco/                     ← fotos de banco de imágenes: originales, licencias y CRÉDITOS
-    ├── recortes/                  ← aquí van las fotos reales de producto (ver su README)
-    ├── marca/                     ← logo, favicon, imagen de Sobre nosotros y para redes
-    ├── generar-imagenes.mjs       ← genera las fotos de producto (ilustración o foto real)
-    └── procesar-fotos-banco.mjs   ← retoca las fotos de banco con el estilo de la marca
 docs/
 ├── CONTEXTO.md                    ← estado del proyecto, decisiones y pendientes (leer primero)
+├── GUIA-TIENDA.md                 ← guía paso a paso: montar, configurar y mantener la tienda
 └── TRANSFERENCIA.md               ← cómo pasar el proyecto a otro mantenedor
+tienda/
+├── catalogo.mjs                   ← fuente de datos del catálogo (de aquí salen los CSV y las fotos)
+├── csv/                           ← archivos para importar en Shopify (se generan, no editar a mano)
+│   ├── productos-vigor.csv            catálogo completo (21 productos, 41 variantes)
+│   ├── productos-vigor-imagenes.csv   solo fotos (no toca precios, textos ni stock)
+│   ├── inventario-vigor.csv           stock de ejemplo (Productos → Inventario → Importar)
+│   └── ejemplo-fotos-reales.csv       ejemplo con 2 fotos reales de producto
+├── scripts/                       ← programas (ver "Uso diario")
+│   ├── generar-csv.mjs                genera los CSV de productos (--solo, --sin-stock, --solo-imagenes…)
+│   ├── generar-inventario.mjs         genera el CSV de inventario (--ubicacion "…")
+│   ├── sincronizar-desde-shopify.mjs  lee una exportación de Shopify: copia + informe de cambios y errores
+│   ├── generar-imagenes.mjs           genera las fotos de producto (ilustración o foto real)
+│   ├── procesar-fotos-banco.mjs       retoca las fotos de banco con el estilo de la marca
+│   ├── validar-ajustes-tema.py        valida los ajustes del tema antes de subir cambios
+│   └── lib/                           código compartido (modelo de producto, CSV, repositorio, fotos)
+└── imagenes/                      ← las direcciones de estas fotos están en Shopify: no mover
+    ├── productos-oscuro/              fotos de producto (envases) que enlaza el CSV
+    ├── ambiente/                      segundas fotos de producto (banco de imágenes)
+    ├── banco/                         fotos de banco: originales, licencias y CRÉDITOS
+    ├── recortes/                      aquí van las fotos reales de producto (ver su README)
+    └── marca/                         logo, favicon, imagen de Sobre nosotros y para redes
 ```
 
 ## Uso diario
@@ -55,10 +59,11 @@ npm install
 
 | Comando | Qué hace |
 |---|---|
-| `npm run csv` | Regenera `productos-vigor.csv` y `productos-vigor-imagenes.csv` desde `catalogo.mjs` |
+| `npm run csv` | Regenera los tres CSV de `tienda/csv/` desde `catalogo.mjs` |
 | `npm run imagenes` | Regenera las fotos de producto (usa las fotos reales de `recortes/` si existen) |
 | `npm run fotos-banco` | Retoca las fotos de banco de imágenes y actualiza los créditos |
 | `npm run sincronizar -- export.csv` | Lee una exportación de productos de Shopify: copia de seguridad + informe |
+| `npm run validar-tema -- ruta/al/tema` | Valida los ajustes del tema antes de subirlo |
 | `npm run comprobar` | Comprueba que los CSV están al día (lo mismo que hace GitHub en cada cambio) |
 
 Requisitos: **Node.js 22+**; para imágenes, **ImageMagick** y el navegador de Playwright
@@ -67,7 +72,7 @@ Requisitos: **Node.js 22+**; para imágenes, **ImageMagick** y el navegador de P
 Para validar el tema (en una copia de la rama `tema-horizon`):
 
 ```bash
-python3 tienda/herramientas/validar-ajustes-tema.py ruta/al/tema
+python3 tienda/scripts/validar-ajustes-tema.py ruta/al/tema
 ```
 
 ## Licencias de las imágenes

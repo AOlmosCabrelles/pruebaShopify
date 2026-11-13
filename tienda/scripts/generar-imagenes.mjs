@@ -1,5 +1,5 @@
 // Genera las imágenes de ejemplo de Vigor Sport Nutrition (ilustraciones originales, sin derechos de terceros).
-// Uso:  node tienda/imagenes/generar-imagenes.mjs <carpeta-salida>
+// Uso:  node tienda/scripts/generar-imagenes.mjs <carpeta-salida>
 // Requiere Playwright (Chromium) y ImageMagick (`convert`) para pasar a JPG.
 import { createRequire } from "node:module";
 const { chromium } = createRequire(import.meta.url)("playwright");
@@ -8,7 +8,7 @@ import os from "node:os";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
 import { PRODUCTOS, combinar } from "../catalogo.mjs";
-import { recorteDe, nombreFoto } from "../lib/fotos.mjs";
+import { recorteDe, nombreFoto } from "./lib/fotos.mjs";
 
 const OUT = path.resolve(process.argv[2] ?? "imagenes-generadas");
 const ACENTO = "#E4572E";

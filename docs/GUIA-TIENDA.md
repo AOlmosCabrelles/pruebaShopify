@@ -4,11 +4,26 @@ Guía para crear la **web de venta de suplementos** solo con el panel de Shopify
 crear la tienda, elegir el tema, cargar el catálogo y el inventario de ejemplo y dejarla
 lista para vender. **No hace falta ninguna app ni escribir código.**
 
-Archivos de esta carpeta:
+Archivos de la carpeta `tienda/` que usa esta guía:
 | Archivo | Para qué |
 |---|---|
+| `csv/productos-vigor.csv` | Catálogo de ejemplo: **21 productos, 41 variantes**, con precios, stock, SKU, peso, información nutricional, imágenes y SEO |
+| `csv/productos-vigor-imagenes.csv` | CSV que **solo cambia las fotos** de los productos (no toca precios, textos ni stock) |
+| `csv/inventario-vigor.csv` | CSV de **inventario** con el stock de ejemplo (*Productos → Inventario → Importar*) |
+| `catalogo.mjs` | Los datos del catálogo. Si cambias algo aquí, regenera los CSV con `npm run csv` |
+| `imagenes/productos-oscuro/` | 41 fotos de producto con fondo oscuro, una por variante (ya enlazadas en el CSV) |
+| `imagenes/banco/` | Fotos reales de banco de imágenes (originales, licencias y **créditos**) usadas en el tema y como foto de ambiente |
+| `imagenes/ambiente/` | Segundas fotos de producto (ambiente), ya enlazadas en el CSV |
+| `imagenes/recortes/` | Aquí van las **fotos reales** de producto; el generador las pone sobre el fondo de estudio oscuro (instrucciones en su README) |
+| `imagenes/marca/` | Logo (oscuro y blanco), favicon, imagen de *Sobre nosotros* e imagen para redes sociales |
+| `scripts/generar-imagenes.mjs` | Script que genera todas las imágenes (por si quieres cambiar colores o textos) |
+| `scripts/generar-csv.mjs` | Genera CSV de importación: el catálogo completo, solo algunos productos o sin stock |
+| `scripts/sincronizar-desde-shopify.mjs` | Lee una exportación de Shopify, guarda una copia y genera un informe de cambios y errores |
+| `sincronizacion/` | Lo crea el script anterior: copias de las exportaciones, `catalogo-shopify.json` e `INFORME.md` |
+
+---|---|
 | `productos-vigor.csv` | Catálogo de ejemplo: **21 productos, 41 variantes**, con precios, stock, SKU, peso, información nutricional, imágenes y SEO |
-| `catalogo.mjs` | Los datos del catálogo. Si cambias algo aquí, regenera el CSV con `node tienda/generar-csv.mjs` |
+| `catalogo.mjs` | Los datos del catálogo. Si cambias algo aquí, regenera el CSV con `node tienda/scripts/generar-csv.mjs` |
 | `GUIA-TIENDA.md` | Esta guía, con los textos listos para copiar y pegar |
 | `imagenes/productos-oscuro/` | 41 fotos de producto con fondo oscuro, una por variante (ya enlazadas en el CSV) |
 | `productos-vigor-imagenes.csv` | CSV que **solo cambia las fotos** de los productos (no toca precios, textos ni stock) |
@@ -51,7 +66,7 @@ Todo esto está en **Configuración** (abajo a la izquierda del admin):
 ## Paso 3 · Importar el catálogo y el inventario
 
 ### 3.1 Descargar el CSV
-1. Abre en GitHub el archivo [`tienda/productos-vigor.csv`](productos-vigor.csv) de este repositorio
+1. Abre en GitHub el archivo [`tienda/csv/productos-vigor.csv`](../tienda/csv/productos-vigor.csv) de este repositorio
 2. Arriba a la derecha del archivo, pulsa el botón de descarga (**Download raw file**, icono ⬇).
 3. Se guarda `productos-vigor.csv` en tu carpeta de Descargas. **No lo abras ni lo guardes con
    Excel**, porque puede estropear los acentos y las comas.
@@ -93,7 +108,7 @@ Para reponer, haz clic en la cantidad de la columna **Disponible**, escribe la n
 **Si todo sale con 0 en existencias** (el CSV de productos no cambia el stock de productos que ya
 existen), usa `inventario-vigor.csv`:
 1. Comprueba el nombre de tu ubicación en **Configuración → Ubicaciones**. El CSV usa `Shop location`;
-   si la tuya se llama distinto, genera otro con `node tienda/generar-inventario.mjs --ubicacion "Tu nombre"`.
+   si la tuya se llama distinto, genera otro con `node tienda/scripts/generar-inventario.mjs --ubicacion "Tu nombre"`.
 2. **Productos → Inventario → Importar** → elige `inventario-vigor.csv` → importa.
 3. Pone el stock de ejemplo en las 41 variantes (1086 unidades). ⚠️ En una tienda con ventas reales
    borraría las cantidades de verdad.
@@ -406,7 +421,7 @@ Hazlo de vez en cuando (p. ej. una vez al mes, o después de cambios grandes):
    Shopify te envía el archivo por email.
 2. **Sincronizar:** pásale el archivo a Claude, o ejecuta:
    ```bash
-   node tienda/sincronizar-desde-shopify.mjs ruta/a/products_export.csv
+   node tienda/scripts/sincronizar-desde-shopify.mjs ruta/a/products_export.csv
    ```
 3. **Revisar el informe** `tienda/sincronizacion/INFORME.md`. Incluye:
    - ❌ **Errores**: tipo no válido, falta la etiqueta `cat-…`, productos sin imágenes, SKU repetidos.
@@ -425,13 +440,13 @@ Hazlo de vez en cuando (p. ej. una vez al mes, o después de cambios grandes):
 
 ### Generar CSV seguros para importar
 ```bash
-node tienda/generar-csv.mjs --solo proteina-vegana,caseina-micelar --sin-stock
+node tienda/scripts/generar-csv.mjs --solo proteina-vegana,caseina-micelar --sin-stock
 ```
 Solo esos productos y sin columna de stock: actualiza su ficha sin tocar el inventario ni el
 resto de productos. Sale en `tienda/sincronizacion/importar.csv`.
 
 ```bash
-node tienda/generar-csv.mjs --desde-shopify --sin-stock
+node tienda/scripts/generar-csv.mjs --desde-shopify --sin-stock
 ```
 Regenera el catálogo **tal como está en la tienda** (desde la última sincronización). Sirve para
 restaurar fichas, o para cargar el catálogo en otra tienda (por ejemplo, una de pruebas).

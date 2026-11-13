@@ -11,7 +11,7 @@ import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
-const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 
 function detectarRepo() {
   if (process.env.VIGOR_REPO) return process.env.VIGOR_REPO.replace(/\.git$/, "");

@@ -1,9 +1,9 @@
 // Genera un CSV de importación de productos de Shopify.
 //
-//   node tienda/generar-csv.mjs
-//       → tienda/productos-vigor.csv desde tienda/catalogo.mjs (catálogo inicial, con stock)
+//   node tienda/scripts/generar-csv.mjs
+//       → tienda/csv/productos-vigor.csv desde tienda/catalogo.mjs (catálogo inicial, con stock)
 //
-//   node tienda/generar-csv.mjs --desde-shopify
+//   node tienda/scripts/generar-csv.mjs --desde-shopify
 //       → desde la última exportación sincronizada (tienda/sincronizacion/catalogo-shopify.json)
 //
 // Opciones:
@@ -13,17 +13,17 @@
 //   --salida ruta.csv  archivo de salida
 //
 // Ejemplo seguro para subir solo un producto nuevo a una tienda en marcha:
-//   node tienda/generar-csv.mjs --solo proteina-vegana --sin-stock
+//   node tienda/scripts/generar-csv.mjs --solo proteina-vegana --sin-stock
 //
 // Cambiar solo las fotos de todos los productos:
-//   node tienda/generar-csv.mjs --solo-imagenes --salida tienda/productos-vigor-imagenes.csv
+//   node tienda/scripts/generar-csv.mjs --solo-imagenes --salida tienda/csv/productos-vigor-imagenes.csv
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { escribirCsv } from "./lib/csv.mjs";
 import { desdeCatalogo, aFilasCsv } from "./lib/modelo.mjs";
 
-const DIR = path.dirname(fileURLToPath(import.meta.url));
+const TIENDA = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
 const valor = (flag) => { const i = args.indexOf(flag); return i >= 0 ? args[i + 1] : undefined; };
 const desdeShopify = args.includes("--desde-shopify");
@@ -33,7 +33,7 @@ const solo = valor("--solo")?.split(",").map((h) => h.trim()).filter(Boolean);
 
 let productos;
 if (desdeShopify) {
-  const ruta = path.join(DIR, "sincronizacion", "catalogo-shopify.json");
+  const ruta = path.join(TIENDA, "sincronizacion", "catalogo-shopify.json");
   productos = JSON.parse(readFileSync(ruta, "utf8")).productos;
 } else {
   productos = desdeCatalogo();
@@ -45,8 +45,8 @@ if (solo) {
 }
 
 const porDefecto = !desdeShopify && !solo && !sinStock && !soloImagenes
-  ? path.join(DIR, "productos-vigor.csv")
-  : path.join(DIR, "sincronizacion", "importar.csv");
+  ? path.join(TIENDA, "csv", "productos-vigor.csv")
+  : path.join(TIENDA, "sincronizacion", "importar.csv");
 const salida = path.resolve(valor("--salida") ?? porDefecto);
 mkdirSync(path.dirname(salida), { recursive: true });
 

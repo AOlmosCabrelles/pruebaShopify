@@ -10,7 +10,8 @@ o para otro mantenedor: **leer esto primero**, luego el `README.md` de cada rama
 ## 1. Qué es
 
 Tienda Shopify de suplementación deportiva para una **marca ficticia, "Vigor Sport Nutrition"**
-(simulacro de proyecto real). **Sin apps**: todo con Shopify estándar y un tema propio.
+(simulacro de proyecto real). **Sin apps de terceros**: Shopify estándar, un tema propio y, desde el
+13/11/2026, apps propias **sin servidor** (ver 5 bis).
 
 - **Tienda de pruebas:** `vigor-sport-dev.myshopify.com` (tienda de desarrollo).
 - **Repositorio:** GitHub `AOlmosCabrelles/pruebaShopify` (público). Preparado para transferirse
@@ -21,7 +22,7 @@ Tienda Shopify de suplementación deportiva para una **marca ficticia, "Vigor Sp
 
 | Rama | Contenido |
 |---|---|
-| `main` | `tienda/` (CSV, catálogo, imágenes, scripts, `GUIA-TIENDA.md`), `docs/` |
+| `main` | `tienda/` (`catalogo.mjs`, `csv/`, `scripts/`, `imagenes/`) y `docs/` (`CONTEXTO.md`, `GUIA-TIENDA.md`, `TRANSFERENCIA.md`) |
 | `tema-horizon` | El tema: **Horizon 4.5.0** de Shopify adaptado. Conectado a la tienda con la integración de GitHub (sincroniza en los dos sentidos) |
 
 Shopify exige el tema en la raíz de la rama conectada: por eso son dos ramas (decisión confirmada
@@ -31,13 +32,13 @@ por el propietario; no unificar).
 
 | Decisión | Motivo |
 |---|---|
-| **Sin apps.** La app "Vigor Manager" (React Router) se creó al principio y **se eliminó** | El propietario solo quiere la web. El código sigue en el historial de git |
+| **Sin apps de terceros.** La app "Vigor Manager" (React Router, con servidor) se creó al principio y **se eliminó**. Desde el 13/11/2026 se permiten apps propias **sin servidor** (ver 5 bis) | El propietario quiere la web sin dependencias ni costes de alojamiento. El código de Vigor Manager sigue en el historial de git |
 | **Estilo "agresivo"**: modo oscuro `#0B0B0B`, acento rojo fuego `#FF3D00`, títulos en **Anton** (OFL, en `assets/vigor-anton.woff2`), esquinas rectas, cortes diagonales, cinta animada | Petición expresa: aspecto de web de suplementación |
 | **Colecciones automáticas por etiqueta** `cat-proteinas`, `cat-rendimiento`, `cat-recuperacion`, `cat-salud`, `cat-snacks`, `cat-accesorios` | Sin tildes ni mayúsculas para evitar errores al escribir la condición. Identificadores (handles) de colección: `proteinas`, `rendimiento`… (el tema los usa para colores e imágenes) |
 | **Fotos de producto = ilustraciones de envases Vigor** (generadas por script, fondo oscuro) + **segunda foto de ambiente** real de banco de imágenes | No hay producto real; no usar fotos de otras marcas (ni quitándoles el logo: se rechazó por legal y calidad) |
 | **Fotos reales de banco de imágenes** (Openverse: CC0, CC BY, CC BY-SA) en banner, categorías, cabeceras de colección y "Sobre nosotros", retocadas con el estilo de la marca | Aspecto profesional. **CC BY obliga a citar al autor**: créditos en desplegable del pie (`snippets/vigor-creditos-imagenes.liquid`) |
 | **Shopify manda en los productos** una vez la tienda está en marcha. El CSV es carga inicial, no sincronización | Reimportar el CSV completo pisaría precios, textos y **stock** |
-| **Sin usuario fijado en el código**: `tienda/lib/repo.mjs` detecta el repositorio del remoto git | Facilitar la transferencia a otro mantenedor |
+| **Sin usuario fijado en el código**: `tienda/scripts/lib/repo.mjs` detecta el repositorio del remoto git | Facilitar la transferencia a otro mantenedor |
 
 ## 4. Qué tiene el tema (`tema-horizon`)
 
@@ -54,16 +55,17 @@ README de la rama `tema-horizon`.
 ## 5. Qué hay en `main`
 
 - `tienda/catalogo.mjs`: **fuente única** del catálogo (21 productos, 41 variantes).
-- `npm run csv` → `productos-vigor.csv` (completo) y `productos-vigor-imagenes.csv` (solo fotos).
-- `tienda/generar-csv.mjs`: opciones `--solo`, `--sin-stock`, `--solo-imagenes`, `--desde-shopify`.
-- `node tienda/generar-inventario.mjs [--ubicacion "..."]` → `inventario-vigor.csv` (stock de ejemplo para
+- `npm run csv` → en `tienda/csv/`: `productos-vigor.csv` (completo), `productos-vigor-imagenes.csv`
+  (solo fotos) e `inventario-vigor.csv` (stock de ejemplo).
+- `tienda/scripts/generar-csv.mjs`: opciones `--solo`, `--sin-stock`, `--solo-imagenes`, `--desde-shopify`.
+- `node tienda/scripts/generar-inventario.mjs [--ubicacion "..."]` → `inventario-vigor.csv` (stock de ejemplo para
   *Inventario → Importar*).
 - `npm run sincronizar -- export.csv`: lee una **exportación de Shopify** → copia + `INFORME.md`
   (errores, cambios, stock bajo).
 - `npm run imagenes`: fotos de producto; usa fotos reales de `tienda/imagenes/recortes/` si existen
   (ahora hay **2 fotos de EJEMPLO** ahí, marcadas en su README).
 - `npm run fotos-banco`: retoque de fotos de banco + créditos (`tienda/imagenes/banco/`).
-- `tienda/herramientas/validar-ajustes-tema.py <carpeta-tema>`: valida ajustes del tema.
+- `npm run validar-tema -- <carpeta-tema>` (`tienda/scripts/validar-ajustes-tema.py`): valida ajustes del tema.
 - GitHub Actions: comprueba que los CSV están al día con el catálogo.
 
 ## 5 bis. Próximo trabajo: app propia sin servidor (decidido el 13/11/2026)

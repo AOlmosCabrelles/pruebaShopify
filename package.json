@@ -7,11 +7,12 @@
     "node": ">=22"
   },
   "scripts": {
-    "csv": "node tienda/generar-csv.mjs && node tienda/generar-csv.mjs --solo-imagenes --salida tienda/productos-vigor-imagenes.csv",
-    "imagenes": "node tienda/imagenes/generar-imagenes.mjs tienda/imagenes",
-    "fotos-banco": "node tienda/imagenes/procesar-fotos-banco.mjs",
-    "sincronizar": "node tienda/sincronizar-desde-shopify.mjs",
-    "comprobar": "npm run csv && git diff --exit-code -- tienda/productos-vigor.csv tienda/productos-vigor-imagenes.csv && echo 'CSV al día con el catálogo'"
+    "csv": "node tienda/scripts/generar-csv.mjs && node tienda/scripts/generar-csv.mjs --solo-imagenes --salida tienda/csv/productos-vigor-imagenes.csv && node tienda/scripts/generar-inventario.mjs",
+    "imagenes": "node tienda/scripts/generar-imagenes.mjs tienda/imagenes",
+    "fotos-banco": "node tienda/scripts/procesar-fotos-banco.mjs",
+    "sincronizar": "node tienda/scripts/sincronizar-desde-shopify.mjs",
+    "comprobar": "npm run csv && git diff --exit-code -- tienda/csv/productos-vigor.csv tienda/csv/productos-vigor-imagenes.csv tienda/csv/inventario-vigor.csv && echo 'CSV al día con el catálogo'",
+    "validar-tema": "python3 tienda/scripts/validar-ajustes-tema.py"
   },
   "devDependencies": {
     "playwright": "1.63.0"

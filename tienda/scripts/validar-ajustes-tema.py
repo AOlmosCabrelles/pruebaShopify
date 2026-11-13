@@ -1,7 +1,7 @@
 # Comprueba que los valores de configuración del tema (templates/*.json, sections/*.json y
 # config/settings_data.json) son válidos según los schemas. Shopify rechaza al sincronizar
 # desde GitHub los archivos con valores no válidos, sin avisar en la tienda.
-# Uso: python3 tienda/herramientas/validar-ajustes-tema.py <carpeta-del-tema>
+# Uso: python3 tienda/scripts/validar-ajustes-tema.py <carpeta-del-tema>
 import json, re, glob, os, sys
 os.chdir(sys.argv[1])
 def schema_de(path):

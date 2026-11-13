@@ -10,11 +10,11 @@ jobs:
   comprobar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
       - name: CSV al día con el catálogo
         run: npm run comprobar
       - name: La sincronización lee el CSV sin errores
-        run: node tienda/sincronizar-desde-shopify.mjs tienda/productos-vigor.csv
+        run: node tienda/scripts/sincronizar-desde-shopify.mjs tienda/csv/productos-vigor.csv

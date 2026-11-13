@@ -4,8 +4,8 @@
 // imágenes de producto (imagenes/generar-imagenes.mjs).
 //
 // Para añadir un producto: copia uno parecido, cambia los datos y ejecuta
-//   node tienda/generar-csv.mjs
-//   node tienda/imagenes/generar-imagenes.mjs tienda/imagenes
+//   node tienda/scripts/generar-csv.mjs
+//   node tienda/scripts/generar-imagenes.mjs tienda/imagenes
 // ============================================================================
 
 const AVISO_COMPLEMENTOS =

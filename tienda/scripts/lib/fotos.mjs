@@ -9,9 +9,9 @@
 import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { archivoImagen } from "../catalogo.mjs";
+import { archivoImagen } from "../../catalogo.mjs";
 
-export const DIR_RECORTES = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../imagenes/recortes");
+export const DIR_RECORTES = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../imagenes/recortes");
 const EXTENSIONES = [".png", ".jpg", ".jpeg", ".webp"];
 
 /** Ruta del recorte real de una variante, o null si no hay. */

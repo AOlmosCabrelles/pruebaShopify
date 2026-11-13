@@ -4,9 +4,9 @@
 > - `whey-protein-isolate-chocolate-2kg.jpg`: "foto" sobre fondo blanco, para probar el quitado de fondo automático.
 > - `creatina-monohidrato.png`: recorte transparente, aplicado a todas las variantes de la creatina.
 >
-> Para verlas en la tienda: importa `tienda/ejemplo-fotos-reales.csv` con *Sobrescribir*.
+> Para verlas en la tienda: importa `tienda/csv/ejemplo-fotos-reales.csv` con *Sobrescribir*.
 > Para quitarlas: borra esos dos archivos, regenera imágenes y CSV, y reimporta el CSV de imágenes
-> (o vuelve a importar `tienda/ejemplo-fotos-reales.csv` generado de nuevo).
+> (o vuelve a importar `tienda/csv/ejemplo-fotos-reales.csv` generado de nuevo).
 
 Deja aquí las fotos reales. Al ejecutar el generador, cada producto que tenga foto la usa
 **sobre el mismo fondo de estudio oscuro** que las ilustraciones (halo del color del sabor,
@@ -24,7 +24,7 @@ reflejo rojo y sombra). Los productos sin foto siguen con su ilustración.
 - Los **valores** de la variante van en minúsculas, sin tildes y con guiones, y los tamaños
   juntos: `chocolate-2kg`, `frutos-rojos`, `90-capsulas`.
 - Para saber el nombre exacto de cada variante, mira la columna *Image Src* del CSV
-  `tienda/productos-vigor.csv`: es el mismo nombre (sin `.jpg`).
+  `tienda/csv/productos-vigor.csv`: es el mismo nombre (sin `.jpg`).
 
 ## Formatos
 
@@ -38,17 +38,17 @@ Consejos: envase de frente y centrado, buena luz, sin reflejos fuertes, al menos
 ## Después de añadir fotos
 
 ```bash
-node tienda/imagenes/generar-imagenes.mjs tienda/imagenes
+node tienda/scripts/generar-imagenes.mjs tienda/imagenes
 ```
 ```bash
-node tienda/generar-csv.mjs
+node tienda/scripts/generar-csv.mjs
 ```
 ```bash
-node tienda/generar-csv.mjs --solo-imagenes --salida tienda/productos-vigor-imagenes.csv
+node tienda/scripts/generar-csv.mjs --solo-imagenes --salida tienda/csv/productos-vigor-imagenes.csv
 ```
 
 Haz commit y push (las fotos tienen que estar en GitHub para que Shopify pueda descargarlas)
-e importa `tienda/productos-vigor-imagenes.csv` con *Sobrescribir*.
+e importa `tienda/csv/productos-vigor-imagenes.csv` con *Sobrescribir*.
 
 Las fotos reales se guardan con el sufijo `-foto` (p. ej. `whey-protein-isolate-chocolate-2kg-foto.jpg`).
 Así su dirección es distinta de la ilustración y Shopify la descarga como imagen nueva.

@@ -2,7 +2,7 @@
 //
 // 1. En Shopify: Productos → Exportar → "Todos los productos" → "CSV para Excel, Numbers u otro programa".
 // 2. Guarda el archivo (o pásaselo a Claude) y ejecuta:
-//      node tienda/sincronizar-desde-shopify.mjs ruta/a/products_export.csv
+//      node tienda/scripts/sincronizar-desde-shopify.mjs ruta/a/products_export.csv
 //
 // Resultado (en tienda/sincronizacion/):
 //   - exportaciones/productos-AAAA-MM-DD.csv  copia de seguridad de la exportación
@@ -10,18 +10,18 @@
 //   - INFORME.md                              diferencias con catalogo.mjs y problemas detectados
 //
 // Después puedes regenerar un CSV desde la tienda con:
-//   node tienda/generar-csv.mjs --desde-shopify --sin-stock
+//   node tienda/scripts/generar-csv.mjs --desde-shopify --sin-stock
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { leerCsv } from "./lib/csv.mjs";
 import { desdeCatalogo, desdeExportacion, TIPOS_VALIDOS, etiquetaCategoria } from "./lib/modelo.mjs";
 
-const DIR = path.dirname(fileURLToPath(import.meta.url));
-const SYNC = path.join(DIR, "sincronizacion");
+const TIENDA = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const SYNC = path.join(TIENDA, "sincronizacion");
 const entrada = process.argv[2];
 if (!entrada) {
-  console.error("Uso: node tienda/sincronizar-desde-shopify.mjs <exportación-de-shopify.csv>");
+  console.error("Uso: node tienda/scripts/sincronizar-desde-shopify.mjs <exportación-de-shopify.csv>");
   process.exit(1);
 }
 
@@ -139,7 +139,7 @@ ${stockBajo.length ? stockBajo.map((s) => `- ${s}`).join("\n") : "Ninguno."}
 
 ---
 Los productos de la tienda se han guardado en \`catalogo-shopify.json\`. Para generar un CSV desde ellos sin tocar el stock:
-\`node tienda/generar-csv.mjs --desde-shopify --sin-stock\`
+\`node tienda/scripts/generar-csv.mjs --desde-shopify --sin-stock\`
 `;
 writeFileSync(path.join(SYNC, "INFORME.md"), md);
 

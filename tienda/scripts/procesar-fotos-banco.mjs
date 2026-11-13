@@ -1,6 +1,6 @@
 // Procesa las fotos de banco de imágenes con el estilo de la marca Vigor.
 //
-//   node tienda/imagenes/procesar-fotos-banco.mjs
+//   node tienda/scripts/procesar-fotos-banco.mjs
 //
 // Lee tienda/imagenes/banco/fotos.json y las fotos originales de tienda/imagenes/banco/originales/,
 // y genera:
@@ -14,7 +14,7 @@ import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
-const DIR = path.dirname(fileURLToPath(import.meta.url));
+const DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../imagenes");
 const BANCO = path.join(DIR, "banco");
 const fotos = JSON.parse(readFileSync(path.join(BANCO, "fotos.json"), "utf8"));
 const ACENTO = "#FF3D00";

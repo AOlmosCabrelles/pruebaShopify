@@ -6,7 +6,7 @@ estar en el flujo, sin que la tienda deje de funcionar.
 El proyecto está preparado para ello:
 - **El tema** (rama `tema-horizon`) no contiene ninguna referencia a una cuenta concreta.
 - **Las herramientas** (`tienda/`) detectan solas en qué repositorio están para construir las
-  direcciones de las imágenes (`tienda/lib/repo.mjs`): tras la transferencia funcionan igual.
+  direcciones de las imágenes (`tienda/scripts/lib/repo.mjs`): tras la transferencia funcionan igual.
 - **La documentación** usa enlaces relativos.
 
 ---
@@ -78,7 +78,7 @@ git remote set-url origin https://github.com/<nuevo-propietario>/<repositorio>.g
 Comprobación de que las herramientas detectan el nuevo repositorio:
 
 ```bash
-node --input-type=module -e "import {REPO} from './tienda/lib/repo.mjs'; console.log(REPO)"
+node --input-type=module -e "import {REPO} from './tienda/scripts/lib/repo.mjs'; console.log(REPO)"
 ```
 
 ---
@@ -98,11 +98,11 @@ node --input-type=module -e "import {REPO} from './tienda/lib/repo.mjs'; console
 | Documento | Para qué |
 |---|---|
 | `README.md` (rama `main`) | Visión general del proyecto |
-| `tienda/GUIA-TIENDA.md` | Montaje y mantenimiento de la tienda (paso 10: catálogo y sincronización) |
+| `docs/GUIA-TIENDA.md` | Montaje y mantenimiento de la tienda (paso 10: catálogo y sincronización) |
 | `README.md` (rama `tema-horizon`) | Qué se ha cambiado sobre Horizon y qué secciones nuevas hay |
 | `tienda/imagenes/recortes/README.md` | Cómo añadir fotos reales de producto |
 | `tienda/imagenes/banco/CREDITOS.md` | Licencias de las fotos de banco de imágenes (hay que mantener los créditos) |
-| `tienda/herramientas/validar-ajustes-tema.py` | Validar el tema antes de subir cambios (Shopify rechaza en silencio valores no válidos) |
+| `tienda/scripts/validar-ajustes-tema.py` | Validar el tema antes de subir cambios (Shopify rechaza en silencio valores no válidos) |
 
 Requisitos para usar las herramientas de `tienda/`: **Node.js 22+**, **Python 3**,
 **ImageMagick** (`convert`) y, para generar imágenes, **Playwright con Chromium**. El día a día de la

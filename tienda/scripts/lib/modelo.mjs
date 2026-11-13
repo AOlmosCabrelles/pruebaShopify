@@ -6,7 +6,7 @@
 //   variantes: [{ opciones[], sku, precio, precioAnterior, gramos, stock, seguimiento, politica, imagen }],
 //   imagenes: [{ url, posicion, alt }] }
 
-import { PRODUCTOS, combinar, descripcionHtml, slugValor } from "../catalogo.mjs";
+import { PRODUCTOS, combinar, descripcionHtml, slugValor } from "../../catalogo.mjs";
 import { nombreFoto } from "./fotos.mjs";
 import { urlArchivo } from "./repo.mjs";
 

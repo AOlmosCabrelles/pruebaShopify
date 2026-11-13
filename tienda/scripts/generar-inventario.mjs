@@ -1,8 +1,8 @@
 // Genera un CSV para Productos → Inventario → Importar, con el stock de ejemplo del catálogo.
 // A diferencia del CSV de productos, este SÍ cambia las cantidades de productos que ya existen.
 //
-//   node tienda/generar-inventario.mjs
-//   node tienda/generar-inventario.mjs --ubicacion "Nombre exacto de la ubicación"
+//   node tienda/scripts/generar-inventario.mjs
+//   node tienda/scripts/generar-inventario.mjs --ubicacion "Nombre exacto de la ubicación"
 //
 // "On hand (current)" va a 0: pensado para la carga inicial, con el stock aún vacío.
 // La ubicación debe llamarse exactamente igual que en Shopify (Configuración → Ubicaciones).
@@ -12,11 +12,11 @@ import path from "node:path";
 import { escribirCsv } from "./lib/csv.mjs";
 import { desdeCatalogo } from "./lib/modelo.mjs";
 
-const DIR = path.dirname(fileURLToPath(import.meta.url));
+const TIENDA = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
 const valor = (flag) => { const i = args.indexOf(flag); return i >= 0 ? args[i + 1] : undefined; };
 const ubicacion = valor("--ubicacion") ?? "Shop location";
-const salida = path.resolve(valor("--salida") ?? path.join(DIR, "inventario-vigor.csv"));
+const salida = path.resolve(valor("--salida") ?? path.join(TIENDA, "csv", "inventario-vigor.csv"));
 
 const columnas = ["Handle", "Title", "Option1 Name", "Option1 Value", "Option2 Name", "Option2 Value",
   "Option3 Name", "Option3 Value", "SKU", "HS Code", "COO", "Location", "Bin name",
