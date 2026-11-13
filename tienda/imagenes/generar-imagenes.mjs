@@ -3,10 +3,12 @@
 // Requiere Playwright (Chromium) y ImageMagick (`convert`) para pasar a JPG.
 import { createRequire } from "node:module";
 const { chromium } = createRequire(import.meta.url)("playwright");
-import { mkdirSync, writeFileSync, unlinkSync } from "node:fs";
+import { mkdirSync, writeFileSync, unlinkSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import os from "node:os";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
-import { PRODUCTOS, combinar, archivoImagen } from "../catalogo.mjs";
+import { PRODUCTOS, combinar } from "../catalogo.mjs";
+import { recorteDe, nombreFoto } from "../lib/fotos.mjs";
 
 const OUT = path.resolve(process.argv[2] ?? "imagenes-generadas");
 const ACENTO = "#E4572E";
@@ -125,11 +127,34 @@ function shaker({ id, color }) {
 
 // ---------- Catálogo ----------
 const FORMAS = { tarro, bote, caja, shaker };
+const TMP = mkdtempSync(path.join(os.tmpdir(), "vigor-recortes-"));
+
+/** Prepara el recorte de una foto real: PNG transparente sin márgenes. Las fotos JPG/WEBP se recortan quitando el fondo liso. */
+function prepararRecorte(origen, destino) {
+  if (/\.png$/i.test(origen)) {
+    execFileSync("convert", [origen, "-trim", "+repage", destino]);
+    return;
+  }
+  // Color del fondo = el de la esquina superior izquierda; se borra todo lo conectado con los bordes
+  const fondo = execFileSync("convert", [origen, "-format", "%[pixel:p{0,0}]", "info:"]).toString().trim();
+  execFileSync("convert", [origen, "-alpha", "set", "-bordercolor", fondo, "-border", "2", "-fuzz", "12%",
+    "-fill", "none", "-draw", "color 0,0 floodfill", "-shave", "2x2",
+    "-channel", "A", "-blur", "0x0.8", "-level", "40%,100%", "+channel", "-trim", "+repage", destino]);
+}
+
 const P = [];
+let reales = 0;
 for (const prod of PRODUCTOS)
   for (const valores of combinar(prod.opciones)) {
     const { forma, ...datos } = prod.imagen(valores);
-    P.push({ archivo: archivoImagen(prod, valores), fondo: datos.color, svg: FORMAS[forma]({ id: P.length, ...datos }) });
+    const recorte = recorteDe(prod, valores);
+    let foto = null;
+    if (recorte) {
+      foto = path.join(TMP, `${nombreFoto(prod, valores)}.png`);
+      prepararRecorte(recorte, foto);
+      reales++;
+    }
+    P.push({ archivo: nombreFoto(prod, valores), fondo: datos.color, foto, svg: foto ? null : FORMAS[forma]({ id: P.length, ...datos }) });
   }
 
 // ---------- Plantillas HTML ----------
@@ -138,7 +163,7 @@ const pagina = (w, h, cuerpo) => `<!doctype html><html><head><meta charset="utf-
   .lienzo{position:relative;width:${w}px;height:${h}px;overflow:hidden}
 </style></head><body><div class="lienzo">${cuerpo}</div></body></html>`;
 
-const fotoProducto = ({ svg, fondo }) => pagina(1600, 1600, `
+const fotoProducto = ({ svg, fondo, foto }) => pagina(1600, 1600, `
   <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 38%, #2a2a2a 0%, #141414 50%, #090909 100%)"></div>
   ${Array.from({ length: 12 }, (_, i) => `<div style="position:absolute;left:${i * 170 - 300}px;top:-200px;width:18px;height:2200px;background:#fff;opacity:.022;transform:rotate(22deg)"></div>`).join("")}
   <div style="position:absolute;left:50%;top:44%;width:1000px;height:1000px;margin:-500px;border-radius:50%;background:radial-gradient(circle, rgba(255,255,255,.16) 0%, transparent 65%)"></div>
@@ -146,10 +171,15 @@ const fotoProducto = ({ svg, fondo }) => pagina(1600, 1600, `
   <div style="position:absolute;left:50%;top:44%;width:1250px;height:1250px;margin:-625px;border-radius:50%;border:3px solid ${ACENTO};opacity:.18"></div>
   <div style="position:absolute;left:0;right:0;bottom:0;height:330px;background:linear-gradient(#121212,#070707);border-top:2px solid rgba(255,255,255,.06)"></div>
   <div style="position:absolute;left:50%;bottom:250px;width:1000px;height:120px;margin-left:-500px;background:radial-gradient(ellipse, ${ACENTO}55 0%, transparent 70%)"></div>
-  <svg viewBox="0 0 600 720" style="position:absolute;left:200px;top:180px;width:1200px;height:1440px;filter:drop-shadow(0 0 22px rgba(255,255,255,.08))">${svg}</svg>`);
+  ${foto
+    ? `<div style="position:absolute;left:50%;bottom:235px;width:820px;height:70px;margin-left:-410px;border-radius:50%;background:radial-gradient(ellipse, rgba(0,0,0,.75) 0%, transparent 70%)"></div>
+       <img src="data:image/png;base64,${readFileSync(foto).toString("base64")}" style="position:absolute;left:300px;right:300px;top:230px;bottom:270px;width:1000px;height:1100px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 0 28px rgba(255,255,255,.10)) drop-shadow(0 30px 40px rgba(0,0,0,.6))">`
+    : `<svg viewBox="0 0 600 720" style="position:absolute;left:200px;top:180px;width:1200px;height:1440px;filter:drop-shadow(0 0 22px rgba(255,255,255,.08))">${svg}</svg>`}`);
 
 const grupo = (items, ancho, alto) => `<svg viewBox="0 0 ${items.length * 600} 720" style="width:${ancho}px;height:${alto}px">${items.map((it, i) => `<g transform="translate(${i * 600} 0)">${it}</g>`).join("")}</svg>`;
-const buscar = (a) => P.find((p) => p.archivo === a).svg;
+const SVG = new Map();
+for (const prod of PRODUCTOS) for (const valores of combinar(prod.opciones)) { const { forma, ...datos } = prod.imagen(valores); SVG.set(nombreFoto(prod, valores).replace(/-foto$/, ""), FORMAS[forma]({ id: "c" + SVG.size, ...datos })); }
+const buscar = (a) => SVG.get(a);
 
 const hero = pagina(2400, 1200, `
   <div style="position:absolute;inset:0;background:linear-gradient(115deg,#0d0d0d 0%,#1b1512 55%,#2b1810 100%)"></div>
@@ -217,4 +247,5 @@ for (const [nombre, svg, w, h] of [["logo-vigor", logoSvg(null, TINTA), 1240, 32
   await page.screenshot({ path: path.join(OUT, "tienda", `${nombre}.png`), omitBackground: true });
 }
 await browser.close();
-console.log(`Imágenes generadas en ${OUT}`);
+rmSync(TMP, { recursive: true, force: true });
+console.log(`Imágenes generadas en ${OUT} (${reales} fotos reales, ${P.length - reales} ilustraciones)`);

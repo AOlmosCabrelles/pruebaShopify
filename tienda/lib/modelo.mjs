@@ -6,7 +6,8 @@
 //   variantes: [{ opciones[], sku, precio, precioAnterior, gramos, stock, seguimiento, politica, imagen }],
 //   imagenes: [{ url, posicion, alt }] }
 
-import { PRODUCTOS, combinar, archivoImagen, descripcionHtml, slugValor } from "../catalogo.mjs";
+import { PRODUCTOS, combinar, descripcionHtml, slugValor } from "../catalogo.mjs";
+import { nombreFoto } from "./fotos.mjs";
 
 export const URL_IMAGENES = "https://raw.githubusercontent.com/AOlmosCabrelles/pruebaShopify/main/tienda/imagenes/productos-oscuro/";
 export const TIPOS_VALIDOS = ["Proteínas", "Rendimiento", "Recuperación", "Salud", "Snacks", "Accesorios"];
@@ -20,7 +21,7 @@ export function desdeCatalogo() {
       const v = p.variante(valores);
       return {
         opciones: valores, sku: v.sku, precio: v.precio, precioAnterior: "", gramos: v.gramos, stock: v.stock,
-        seguimiento: "shopify", politica: "deny", imagen: URL_IMAGENES + archivoImagen(p, valores) + ".jpg",
+        seguimiento: "shopify", politica: "deny", imagen: URL_IMAGENES + nombreFoto(p, valores) + ".jpg",
       };
     });
     return {

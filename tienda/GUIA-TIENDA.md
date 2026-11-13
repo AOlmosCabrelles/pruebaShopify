@@ -12,6 +12,7 @@ Archivos de esta carpeta:
 | `GUIA-TIENDA.md` | Esta guía, con los textos listos para copiar y pegar |
 | `imagenes/productos-oscuro/` | 41 fotos de producto con fondo oscuro, una por variante (ya enlazadas en el CSV) |
 | `productos-vigor-imagenes.csv` | CSV que **solo cambia las fotos** de los productos (no toca precios, textos ni stock) |
+| `imagenes/recortes/` | Aquí van las **fotos reales** de producto; el generador las pone sobre el fondo de estudio oscuro (instrucciones en su README) |
 | `imagenes/marca/` | Logo (oscuro y blanco), favicon, imagen de *Sobre nosotros* e imagen para redes sociales |
 | `imagenes/generar-imagenes.mjs` | Script que genera todas las imágenes (por si quieres cambiar colores o textos) |
 | `generar-csv.mjs` | Genera CSV de importación: el catálogo completo, solo algunos productos o sin stock |
@@ -91,6 +92,11 @@ importa `productos-vigor-imagenes.csv` con *Sobrescribir los productos que tenga
 identificador*. Prueba primero con un solo producto y comprueba que la foto nueva **sustituye**
 a la anterior; si en tu versión de Shopify se **añade** a las existentes, borra las antiguas desde
 *Medios* (selecciona varias a la vez → Eliminar).
+
+**Fotos reales:** deja las fotos en `tienda/imagenes/recortes/` (PNG transparente, o JPG sobre
+fondo blanco y el script quita el fondo), regenera imágenes y CSV, y reimporta el CSV de imágenes.
+Los productos sin foto real siguen con su ilustración, así que puedes cambiarlas poco a poco.
+Detalles en `tienda/imagenes/recortes/README.md`.
 
 **Imágenes:** son **ilustraciones de ejemplo** creadas para este simulacro. Cuando tengas fotos
 reales, cámbialas en cada producto (**Medios**). Formato cuadrado, 2048 × 2048 px.
