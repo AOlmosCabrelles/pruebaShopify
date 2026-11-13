@@ -66,6 +66,22 @@ README de la rama `tema-horizon`.
 - `tienda/herramientas/validar-ajustes-tema.py <carpeta-tema>`: valida ajustes del tema.
 - GitHub Actions: comprueba que los CSV están al día con el catálogo.
 
+## 5 bis. Próximo trabajo: app propia sin servidor (decidido el 13/11/2026)
+
+**Cambio de decisión:** se permiten **apps propias sin servidor** (Shopify Functions, extensiones y
+tareas con GitHub Actions usando la API de Shopify). Siguen fuera las apps de terceros y las apps con
+servidor propio. Servicios elegidos por el propietario:
+
+| Servicio | Diseño acordado | Valores por defecto (cambiables) |
+|---|---|---|
+| **Packs** | Sección "Packs" con botón "Añadir pack" (añade los productos sueltos al carrito) + **Function de descuento** que aplica el % solo si están todos. El stock se descuenta de cada producto | Volumen (Whey Isolate + Creatina + Barritas), Vegano (Proteína vegana + Creatina + Crema de cacahuete), Rendimiento (Pre-entreno + Creatina + Beta-alanina), Recuperación (BCAA + Glutamina + Magnesio), Salud (Multi + Omega-3 + D3+K2). **−10 %** |
+| **Regalo automático** | Descuento **nativo** "compra mínima → producto gratis" + el tema añade/quita el regalo del carrito y lo anuncia en la barra de envío gratis. **No necesita la app** | **Shaker gratis desde 70 €** |
+| **Caducidad** | **Solo para el vendedor** (el cliente no la ve). Metaobjeto "Lote" en el admin (variante, lote, unidades, caducidad). Se supone que se vende primero lo más antiguo; con el stock real y las ventas de 30 días calcula **si da tiempo a venderlo** y sugiere oferta/pack | Semáforo: caducado · no llega / < 30 días · < 60 · < 90 |
+| **Informe diario** | GitHub Actions cada mañana → aviso (issue) en GitHub → **email al propietario** sin servicio de correo | Stock bajo: **≤ 5 uds**; agotados; caducidades |
+
+Pasos: 1) el propietario crea la app en Shopify y guarda la clave como secreto de GitHub (Claude no la ve);
+2) informe diario + lotes; 3) packs; 4) regalo.
+
 ## 6. Pendiente (lo hace el propietario en Shopify)
 
 - [ ] **Idioma predeterminado de la tienda → Español** (*Configuración → Idiomas*). La tienda parece
