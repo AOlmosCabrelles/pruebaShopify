@@ -4,6 +4,11 @@ Esta rama (`tema-horizon`) contiene el **tema de la tienda**: el tema gratuito *
 de Shopify ([código original](https://github.com/Shopify/horizon), ver `README-HORIZON.md` y
 `LICENSE.md`) adaptado a una tienda de suplementación deportiva.
 
+> **Tipografía:** los títulos usan **Anton** (© The Anton Project Authors, licencia SIL Open Font
+> License 1.1), incluida en `assets/vigor-anton.woff2`. Se aplica sustituyendo las variables de
+> fuente de Horizon, así que la fuente que elijas en *Configuración del tema → Tipografía → Títulos*
+> no tendrá efecto mientras exista `snippets/vigor-variables.liquid`.
+
 ## Cómo conectarlo a tu tienda (una sola vez)
 
 1. Admin de Shopify → **Tienda online → Temas**.
@@ -20,8 +25,8 @@ Desde ese momento **funciona en las dos direcciones**:
 
 | Zona | Cambios |
 |---|---|
-| **Estilo global** (`config/settings_data.json`) | Paleta: fondo blanco, texto `#111111`, **acento naranja `#E4572E`** (botones), fondo suave `#F4F1EC`. Títulos en **Montserrat** en mayúsculas, texto en Inter de 16 px. Bordes redondeados y tarjetas que se elevan al pasar el ratón |
-| **Barra de anuncios** (`sections/header-group.json`) | Barra naranja con tres mensajes rotativos: envío gratis desde 50 €, envíos el mismo día y pago seguro |
+| **Estilo global** (`config/settings_data.json`, `snippets/vigor-variables.liquid`) | **Estilo agresivo de suplementación**: modo oscuro (fondo `#0B0B0B`, tarjetas `#161616`), acento **rojo fuego `#FF3D00`**, títulos en **Anton** (condensada, mayúsculas), esquinas rectas, botones con esquina cortada y brillo, cortes en diagonal y texturas de rayas |
+| **Barra de anuncios** (`sections/header-group.json`) | Barra rojo fuego con texto negro en mayúsculas y tres mensajes rotativos |
 | **Cabecera** (`sections/header-group.json`) | Dos filas: arriba, logo, buscador, cuenta y carrito (contador naranja) en blanco; abajo, barra negra con el menú centrado en mayúsculas y desplegables con imágenes de colección. En móvil, barra negra deslizable con las categorías bajo la cabecera. Se oculta al bajar y reaparece al subir. Sin selector de país/idioma
 | **Pie de página** (`sections/footer-group.json`) | Pie Vigor: franja naranja de beneficios, logo blanco, redes sociales, enlaces automáticos a las categorías, ayuda, contacto con suscripción, aviso legal de complementos, políticas y métodos de pago |
 | **Inicio** (`templates/index.json`) | Banner → franja de beneficios → categorías → *¿Cuál es tu objetivo?* (guía por objetivo con productos recomendados) → *Los más vendidos* (4 productos) → *Tu día con Vigor* (cuándo tomar cada suplemento) → *Hecho para quien entrena de verdad* → calculadora de proteína → preguntas frecuentes (7) → newsletter |
@@ -50,7 +55,8 @@ Todas se pueden añadir, mover y editar desde el editor de temas (**Añadir secc
 
 | Sección | Archivo |
 |---|---|
-| Vigor · Banner | `sections/vigor-hero.liquid` (banner principal con imagen de ejemplo) |
+| Vigor · Banner | `sections/vigor-hero.liquid` (banner principal con corte diagonal y 2ª línea del título en color) |
+| Vigor · Cinta | `sections/vigor-cinta.liquid` (cinta de frases en movimiento, inclinada) |
 | Vigor · Imagen y texto | `sections/vigor-imagen-texto.liquid` |
 | Vigor · Cabecera | `sections/vigor-cabecera-coleccion.liquid` (cabecera de las páginas de colección) |
 | Vigor · Todas categorías | `sections/vigor-lista-colecciones.liquid` (página `/collections`) |
