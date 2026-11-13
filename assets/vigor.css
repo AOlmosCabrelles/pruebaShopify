@@ -193,3 +193,28 @@
 .vigor-chips--sueltas { padding-inline: 0; flex-wrap: wrap; }
 .vigor-chip__n { margin-left: 6px; opacity: 0.6; font-size: 0.8em; }
 @media (prefers-reduced-motion: reduce) { .vigor-cat-card img, .vigor-cat-card__cta span { transition: none; } }
+
+/* --- ¿Cuál es tu objetivo? --- */
+.vigor-objetivos__grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.vigor-objetivo { display: flex; flex-direction: column; gap: 8px; padding: 24px; border-radius: 18px; background: #fff; border: 1px solid rgb(0 0 0 / 0.08); border-top: 6px solid var(--vigor-cat, var(--vigor-acento)); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.vigor-objetivo:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgb(0 0 0 / 0.08); }
+.vigor-objetivo__icono { display: inline-flex; width: 48px; height: 48px; align-items: center; justify-content: center; border-radius: 12px; background: var(--vigor-cat, var(--vigor-acento)); color: #fff; }
+.vigor-objetivo h3 { margin: 6px 0 0; font-size: 1.2rem; text-transform: uppercase; }
+.vigor-objetivo p { margin: 0; opacity: 0.85; }
+.vigor-objetivo__recomendado { font-size: 0.9rem; padding: 10px 12px; border-radius: 10px; background: var(--vigor-suave); }
+.vigor-objetivo__cta { margin-top: auto; padding-top: 8px; font-weight: 700; color: var(--vigor-cat, var(--vigor-acento)); text-decoration: none; }
+
+/* --- Tu día con Vigor --- */
+.vigor-rutina { background: var(--vigor-suave); }
+.vigor-rutina__linea { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: 1fr; counter-reset: paso; }
+@media (min-width: 990px) { .vigor-rutina__linea { grid-template-columns: repeat(4, 1fr); } }
+.vigor-rutina__paso { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 24px; border-radius: 18px; background: #fff; counter-increment: paso; }
+.vigor-rutina__paso::before { content: counter(paso, decimal-leading-zero); position: absolute; top: 16px; right: 20px; font-weight: 900; font-size: 2rem; color: var(--vigor-acento); opacity: 0.25; }
+.vigor-rutina__momento { align-self: flex-start; padding: 4px 12px; border-radius: 99px; background: #111; color: #fff; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.vigor-rutina__paso h3 { margin: 4px 0 0; font-size: 1.15rem; }
+.vigor-rutina__paso p { margin: 0; opacity: 0.85; }
+.vigor-rutina__producto { margin-top: auto; display: flex; gap: 12px; align-items: center; padding: 10px; border-radius: 12px; border: 1px solid rgb(0 0 0 / 0.1); text-decoration: none; color: inherit; transition: border-color 0.2s; }
+.vigor-rutina__producto:hover { border-color: var(--vigor-acento); }
+.vigor-rutina__producto img { width: 56px; height: 56px; border-radius: 8px; object-fit: cover; background: var(--vigor-suave); }
+.vigor-rutina__producto span { display: flex; flex-direction: column; font-size: 0.9rem; }
+.vigor-rutina__aviso { margin: 20px 0 0; text-align: center; font-size: 0.8rem; opacity: 0.65; }

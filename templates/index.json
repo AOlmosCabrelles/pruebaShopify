@@ -22,6 +22,54 @@
         "button2_link": "shopify://collections/proteinas"
       }
     },
+    "vigor_beneficios": {
+      "type": "vigor-beneficios",
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "padding": 32
+      },
+      "blocks": {
+        "b1": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "clipboard",
+            "title": "Fórmulas transparentes",
+            "text": "Sabes exactamente lo que tomas y en qué cantidad."
+          }
+        },
+        "b2": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "truck",
+            "title": "Envío en 48-72 h",
+            "text": "Gratis en pedidos de más de 50 €."
+          }
+        },
+        "b3": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "lock",
+            "title": "Pago seguro",
+            "text": "Tarjeta, Bizum, Apple Pay y Google Pay."
+          }
+        },
+        "b4": {
+          "type": "beneficio",
+          "settings": {
+            "icon": "chat_bubble",
+            "title": "Te asesoramos",
+            "text": "¿Dudas sobre qué tomar? Escríbenos y te ayudamos."
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
     "vigor_categorias": {
       "type": "vigor-categorias",
       "settings": {
@@ -88,6 +136,62 @@
         "cat_accesorios"
       ]
     },
+    "vigor_objetivos": {
+      "type": "vigor-objetivos",
+      "settings": {
+        "heading": "¿Cuál es tu objetivo?",
+        "subheading": "Te orientamos sobre qué suplementos encajan con lo que buscas.",
+        "padding": 56
+      },
+      "blocks": {
+        "o1": {
+          "type": "objetivo",
+          "settings": {
+            "icon": "fire",
+            "title": "Ganar músculo",
+            "text": "Para construir músculo necesitas entrenar fuerza y tomar suficiente proteína cada día. La creatina te ayuda a rendir más en cada serie.",
+            "productos": "Whey Protein, Creatina Monohidrato, Caseína",
+            "collection": "proteinas"
+          }
+        },
+        "o2": {
+          "type": "objetivo",
+          "settings": {
+            "icon": "lightning_bolt",
+            "title": "Rendir más",
+            "text": "Si buscas energía y rendimiento en sesiones intensas, los pre-entrenos y la beta-alanina son tus aliados. Para fondo, la isotónica.",
+            "productos": "Pre-Entreno, Beta-Alanina, Bebida Isotónica",
+            "collection": "rendimiento"
+          }
+        },
+        "o3": {
+          "type": "objetivo",
+          "settings": {
+            "icon": "stopwatch",
+            "title": "Recuperarte",
+            "text": "Entrenar es solo la mitad: descanso, alimentación y una buena recuperación marcan la diferencia en la siguiente sesión.",
+            "productos": "BCAA, L-Glutamina, Colágeno + Magnesio",
+            "collection": "recuperacion"
+          }
+        },
+        "o4": {
+          "type": "objetivo",
+          "settings": {
+            "icon": "heart",
+            "title": "Cuidar tu salud",
+            "text": "Cubre la base con vitaminas y minerales. Muy útil si entrenas mucho o tu alimentación no siempre es perfecta.",
+            "productos": "Multivitamínico, Omega-3, Vitamina D3 + K2",
+            "collection": "salud"
+          }
+        }
+      },
+      "block_order": [
+        "o1",
+        "o2",
+        "o3",
+        "o4"
+      ]
+    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -127,7 +231,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>Los imprescindibles</h3>",
+                "text": "<h3>Los más vendidos</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -259,240 +363,6 @@
         "collection": "all",
         "layout_type": "grid",
         "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      }
-    },
-    "vigor_beneficios": {
-      "type": "vigor-beneficios",
-      "settings": {
-        "heading": "¿Por qué Vigor?",
-        "subheading": "",
-        "padding": 48
-      },
-      "blocks": {
-        "b1": {
-          "type": "beneficio",
-          "settings": {
-            "icon": "clipboard",
-            "title": "Fórmulas transparentes",
-            "text": "Sabes exactamente lo que tomas y en qué cantidad."
-          }
-        },
-        "b2": {
-          "type": "beneficio",
-          "settings": {
-            "icon": "truck",
-            "title": "Envío en 48-72 h",
-            "text": "Gratis en pedidos de más de 50 €."
-          }
-        },
-        "b3": {
-          "type": "beneficio",
-          "settings": {
-            "icon": "lock",
-            "title": "Pago seguro",
-            "text": "Tarjeta, Bizum, Apple Pay y Google Pay."
-          }
-        },
-        "b4": {
-          "type": "beneficio",
-          "settings": {
-            "icon": "chat_bubble",
-            "title": "Te asesoramos",
-            "text": "¿Dudas sobre qué tomar? Escríbenos y te ayudamos."
-          }
-        }
-      },
-      "block_order": [
-        "b1",
-        "b2",
-        "b3",
-        "b4"
-      ]
-    },
-    "product_list_proteinas": {
-      "type": "product-list",
-      "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>Proteínas</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "Ver todas las proteínas",
-                "open_in_new_tab": false,
-                "style_class": "button-unstyled",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 4,
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
-        }
-      },
-      "name": "t:names.featured_collection",
-      "settings": {
-        "collection": "proteinas",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
         "max_products": 4,
         "columns": 4,
         "mobile_columns": "2",
@@ -508,6 +378,71 @@
         "padding-block-end": 48
       }
     },
+    "vigor_rutina": {
+      "type": "vigor-rutina",
+      "settings": {
+        "heading": "Tu día con Vigor",
+        "subheading": "Cuándo tomar cada suplemento para sacarle el máximo partido.",
+        "aviso": "Orientación general. Adapta las tomas a tu entrenamiento y consulta con un profesional si tienes dudas.",
+        "padding": 56
+      },
+      "blocks": {
+        "m1": {
+          "type": "momento",
+          "settings": {
+            "momento": "Mañana",
+            "title": "Empieza con la base",
+            "text": "Toma el multivitamínico y el omega-3 con el desayuno. La creatina puedes tomarla ahora o en cualquier momento: lo importante es ser constante.",
+            "product": "multivitaminico-sport"
+          }
+        },
+        "m2": {
+          "type": "momento",
+          "settings": {
+            "momento": "Antes de entrenar",
+            "title": "Activa el modo entreno",
+            "text": "20-30 minutos antes, el pre-entreno te da energía y concentración. Si entrenas por la tarde-noche, elige una opción sin cafeína.",
+            "product": "pre-entreno-explosive"
+          }
+        },
+        "m3": {
+          "type": "momento",
+          "settings": {
+            "momento": "Después de entrenar",
+            "title": "Recupera y construye",
+            "text": "Un batido de proteína en la hora siguiente al entrenamiento es la forma más cómoda de completar tu proteína del día.",
+            "product": "whey-protein-isolate"
+          }
+        },
+        "m4": {
+          "type": "momento",
+          "settings": {
+            "momento": "Antes de dormir",
+            "title": "Recuperación nocturna",
+            "text": "La caseína se digiere despacio y aporta proteína durante horas. El magnesio por la noche también es un clásico.",
+            "product": "caseina-micelar"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4"
+      ]
+    },
+    "vigor_imagen_texto": {
+      "type": "vigor-imagen-texto",
+      "settings": {
+        "fallback": "vigor-nosotros",
+        "image_right": false,
+        "heading": "Hecho para quien entrena de verdad",
+        "text": "<p>Seleccionamos fórmulas con ingredientes claros y dosis útiles. Sin rellenos ni promesas imposibles: solo lo que necesitas para entrenar y recuperarte mejor.</p><ul><li><strong>Etiquetado completo:</strong> tabla nutricional, alérgenos y modo de empleo en cada producto.</li><li><strong>Dosis que funcionan:</strong> por ejemplo, 3 g de creatina al día o 27 g de proteína por dosis.</li><li><strong>Asesoramiento real:</strong> escríbenos y te ayudamos a elegir sin compromiso.</li></ul>",
+        "button_label": "Conócenos",
+        "button_link": "shopify://pages/sobre-nosotros",
+        "padding": 48
+      }
+    },
     "vigor_calculadora": {
       "type": "vigor-calculadora",
       "settings": {
@@ -518,18 +453,6 @@
         "porcentaje": 30,
         "product_types": "Proteínas",
         "aviso": "Cálculo orientativo. No sustituye el consejo de un profesional sanitario.",
-        "padding": 48
-      }
-    },
-    "vigor_imagen_texto": {
-      "type": "vigor-imagen-texto",
-      "settings": {
-        "fallback": "vigor-nosotros",
-        "image_right": false,
-        "heading": "Hecho para quien entrena de verdad",
-        "text": "<p>Seleccionamos fórmulas con ingredientes claros y dosis útiles. Sin rellenos ni promesas imposibles: solo lo que necesitas para entrenar y recuperarte mejor.</p>",
-        "button_label": "Conócenos",
-        "button_link": "shopify://pages/sobre-nosotros",
         "padding": 48
       }
     },
@@ -575,9 +498,25 @@
             "question": "¿Los productos tienen alérgenos?",
             "answer": "<p>Cada ficha indica los alérgenos en negrita. Si tienes alguna alergia, revísala antes de comprar.</p>"
           }
+        },
+        "q6": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿Necesito suplementos si entreno?",
+            "answer": "<p>No son imprescindibles: la base es una alimentación variada. Los suplementos ayudan a llegar más fácil a tus necesidades, sobre todo de proteína, o a rendir un poco más.</p>"
+          }
+        },
+        "q7": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿Cuánta proteína necesito al día?",
+            "answer": "<p>Como orientación, entre 1,6 y 2 g por kg de peso si entrenas fuerza. Usa nuestra calculadora para hacerte una idea.</p>"
+          }
         }
       },
       "block_order": [
+        "q6",
+        "q7",
         "q1",
         "q2",
         "q3",
@@ -598,12 +537,13 @@
   },
   "order": [
     "vigor_hero",
-    "vigor_categorias",
-    "product_list_fa6P9H",
     "vigor_beneficios",
-    "product_list_proteinas",
-    "vigor_calculadora",
+    "vigor_categorias",
+    "vigor_objetivos",
+    "product_list_fa6P9H",
+    "vigor_rutina",
     "vigor_imagen_texto",
+    "vigor_calculadora",
     "vigor_faq",
     "vigor_newsletter"
   ]

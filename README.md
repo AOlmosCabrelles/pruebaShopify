@@ -24,7 +24,7 @@ Desde ese momento **funciona en las dos direcciones**:
 | **Barra de anuncios** (`sections/header-group.json`) | Barra naranja con tres mensajes rotativos: envío gratis desde 50 €, envíos el mismo día y pago seguro |
 | **Cabecera** (`sections/header-group.json`) | Dos filas: arriba, logo, buscador, cuenta y carrito (contador naranja) en blanco; abajo, barra negra con el menú centrado en mayúsculas y desplegables con imágenes de colección. En móvil, barra negra deslizable con las categorías bajo la cabecera. Se oculta al bajar y reaparece al subir. Sin selector de país/idioma
 | **Pie de página** (`sections/footer-group.json`) | Pie Vigor: franja naranja de beneficios, logo blanco, redes sociales, enlaces automáticos a las categorías, ayuda, contacto con suscripción, aviso legal de complementos, políticas y métodos de pago |
-| **Inicio** (`templates/index.json`) | Banner principal *"Rinde más. Recupera mejor."* → categorías → *Los imprescindibles* → *¿Por qué Vigor?* → Proteínas → calculadora de proteína → *Hecho para quien entrena de verdad* → preguntas frecuentes → newsletter |
+| **Inicio** (`templates/index.json`) | Banner → franja de beneficios → categorías → *¿Cuál es tu objetivo?* (guía por objetivo con productos recomendados) → *Los más vendidos* (4 productos) → *Tu día con Vigor* (cuándo tomar cada suplemento) → *Hecho para quien entrena de verdad* → calculadora de proteína → preguntas frecuentes (7) → newsletter |
 | **Ficha de producto** (`templates/product.json`) | Aviso de **pocas unidades** (por debajo de 10), desplegables de envío, devoluciones, pago y asesoramiento, **calculadora "¿Cuánto te dura este bote?"** (solo en Proteínas), *Combínalo con* y franja de beneficios |
 | **Páginas de colección** (`templates/collection.json`) | Cabecera visual por categoría: color propio, ilustración, ruta de navegación, contador de productos y accesos rápidos al resto de categorías. Debajo, franja de beneficios |
 | **Página de categorías** (`templates/list-collections.json`, ruta `/collections`) | Cabecera *Elige tu objetivo* y tarjetas grandes por categoría con su color, ilustración, número de productos, descripción y enlace; Proteínas destacada en doble alto; tarjeta *Todo el catálogo*; otras colecciones como botones. Debajo, *¿Por qué Vigor?* |
@@ -55,6 +55,8 @@ Todas se pueden añadir, mover y editar desde el editor de temas (**Añadir secc
 | Vigor · Cabecera | `sections/vigor-cabecera-coleccion.liquid` (cabecera de las páginas de colección) |
 | Vigor · Todas categorías | `sections/vigor-lista-colecciones.liquid` (página `/collections`) |
 | Vigor · Pie de página | `sections/vigor-footer.liquid` |
+| Vigor · Objetivos | `sections/vigor-objetivos.liquid` |
+| Vigor · Tu día | `sections/vigor-rutina.liquid` |
 | Vigor · Beneficios | `sections/vigor-beneficios.liquid` |
 | Vigor · Categorías | `sections/vigor-categorias.liquid` |
 | Vigor · Calculadora | `sections/vigor-calculadora.liquid` |
