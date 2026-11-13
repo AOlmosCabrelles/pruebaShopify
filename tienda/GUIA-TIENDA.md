@@ -43,7 +43,7 @@ Todo esto está en **Configuración** (abajo a la izquierda del admin):
 | **General** | Nombre, email de contacto, dirección. Moneda: **Euro (EUR)**. Zona horaria: **Madrid** |
 | **Idiomas** | Idioma principal: **Español** |
 | **Impuestos y aranceles** | España con **IVA incluido en los precios** (activa *"Incluir impuestos en los precios"*). Los suplementos suelen llevar el 10 % de IVA, pero confírmalo con tu gestor |
-| **Envío y entrega** | Zona *España*: tarifa **Estándar 4,95 €** (48-72 h) y tarifa **Gratis** para pedidos **de más de 50 €** |
+| **Envío y entrega** | Zona *España*: tarifa **Estándar 4,95 €** (48-72 h) y tarifa **Gratis** para pedidos **de más de 50 €**. Si cambias el importe, cámbialo también en *Personalizar → Configuración del tema → Vigor · Tienda* (barra de envío gratis del carrito) |
 | **Pagos** | En la tienda de desarrollo: activa el *proveedor de prueba* (Bogus Gateway). En una tienda real: **Shopify Payments** en modo prueba |
 | **Pantalla de pago (checkout)** | Pide nombre y apellidos, y activa la casilla de suscripción a novedades |
 
