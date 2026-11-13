@@ -1,5 +1,13 @@
 # Fotos reales de producto
 
+> 🧪 **Ahora mismo hay dos fotos de EJEMPLO** (no son fotos reales, las creó Claude para probar):
+> - `whey-protein-isolate-chocolate-2kg.jpg`: "foto" sobre fondo blanco, para probar el quitado de fondo automático.
+> - `creatina-monohidrato.png`: recorte transparente, aplicado a todas las variantes de la creatina.
+>
+> Para verlas en la tienda: importa `tienda/ejemplo-fotos-reales.csv` con *Sobrescribir*.
+> Para quitarlas: borra esos dos archivos, regenera imágenes y CSV, y reimporta el CSV de imágenes
+> (o vuelve a importar `tienda/ejemplo-fotos-reales.csv` generado de nuevo).
+
 Deja aquí las fotos reales. Al ejecutar el generador, cada producto que tenga foto la usa
 **sobre el mismo fondo de estudio oscuro** que las ilustraciones (halo del color del sabor,
 reflejo rojo y sombra). Los productos sin foto siguen con su ilustración.
