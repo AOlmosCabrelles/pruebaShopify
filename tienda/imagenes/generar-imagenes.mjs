@@ -160,8 +160,9 @@ const categoria = (items, color, palabra) => pagina(1000, 1250, `
   <div style="position:absolute;left:50%;bottom:120px;transform:translateX(-50%)">${grupo(items, items.length === 1 ? 760 : 980, items.length === 1 ? 912 : 588)}</div>`);
 
 const nosotros = pagina(1800, 1100, `
-  <div style="position:absolute;inset:0;background:linear-gradient(180deg,#F4F1EC,#E6DED0)"></div>
-  <div style="position:absolute;left:0;right:0;top:120px;text-align:center;font:900 220px/1 Inter;color:${ACENTO};opacity:.12;letter-spacing:20px">VIGOR</div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 85%, #3a1608 0%, #141414 45%, #0b0b0b 100%)"></div>
+  ${Array.from({ length: 14 }, (_, i) => `<div style="position:absolute;left:${i * 150 - 200}px;top:-100px;width:22px;height:1400px;background:#fff;opacity:.025;transform:rotate(20deg)"></div>`).join("")}
+  <div style="position:absolute;left:0;right:0;top:110px;text-align:center;font:900 240px/1 Inter;color:${ACENTO};opacity:.2;letter-spacing:20px">VIGOR</div>
   <div style="position:absolute;left:50%;bottom:90px;transform:translateX(-50%)">${grupo(["bcaa-2-1-1-mango", "creatina-monohidrato-300g", "whey-protein-isolate-vainilla-2kg", "pre-entreno-explosive-limon", "multivitaminico-sport-90-capsulas"].map(buscar), 1700, 816)}</div>`);
 
 const logoSvg = (fondo, texto) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 160">
