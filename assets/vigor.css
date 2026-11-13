@@ -334,3 +334,11 @@
 .vigor-quiz__reiniciar { background: none; border: 0; color: var(--vigor-texto); opacity: 0.75; font: inherit; text-decoration: underline; cursor: pointer; padding: 0; }
 @keyframes vigor-entrar { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .vigor-quiz__paso.is-activo, .vigor-quiz__resultado { animation: none; } }
+
+/* Franja del menú de la cabecera más grande (el tamaño de letra en ordenador se elige en el editor: bloque Menú) */
+@media screen and (min-width: 750px) {
+  .header .header__row--bottom .header__columns { --padding-block-start: 16px; --padding-block-end: 16px; }
+  .header .header__row--bottom .menu-list__link { letter-spacing: 0.04em; }
+}
+.header .menu-list--mobile li { padding-block: 14px; }
+.header .menu-list--mobile a { font-family: var(--menu-top-level-font-family, var(--font-heading--family)); font-size: 1.05rem; text-transform: var(--menu-top-level-font-case, uppercase); letter-spacing: 0.04em; }
