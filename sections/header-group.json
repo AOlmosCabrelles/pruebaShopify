@@ -20,8 +20,8 @@
             "text": "🚚 Envío GRATIS en pedidos de más de 50 €",
             "link": "shopify://collections/all",
             "font": "var(--font-subheading--family)",
-            "font_size": "0.8125rem",
-            "weight": "800",
+            "font_size": "0.75rem",
+            "weight": "700",
             "letter_spacing": "normal",
             "case": "uppercase",
             "text_color": "#0B0B0B"
@@ -34,8 +34,8 @@
             "text": "⚡ Pedidos antes de las 14:00 salen el mismo día",
             "link": "",
             "font": "var(--font-subheading--family)",
-            "font_size": "0.8125rem",
-            "weight": "800",
+            "font_size": "0.75rem",
+            "weight": "700",
             "letter_spacing": "normal",
             "case": "uppercase",
             "text_color": "#0B0B0B"
@@ -48,8 +48,8 @@
             "text": "🔒 Pago 100 % seguro con tarjeta y Bizum",
             "link": "",
             "font": "var(--font-subheading--family)",
-            "font_size": "0.8125rem",
-            "weight": "800",
+            "font_size": "0.75rem",
+            "weight": "700",
             "letter_spacing": "normal",
             "case": "uppercase",
             "text_color": "#0B0B0B"
