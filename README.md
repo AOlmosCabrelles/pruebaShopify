@@ -47,7 +47,7 @@ mientras no subas imágenes propias:
 | `assets/vigor-logo.png` | Logo de la cabecera, si no has subido uno en *Configuración del tema → Logo* |
 | `assets/vigor-favicon.png` | Icono de la pestaña del navegador, si no has subido uno |
 
-Las fotos de los productos están en la rama `main` (`tienda/imagenes/productos/`) y se cargan
+Las fotos de los productos están en la rama `main` (`tienda/imagenes/productos-oscuro/`, con fondo oscuro) y se cargan
 solas al importar `tienda/productos-vigor.csv`.
 
 ### Secciones nuevas
