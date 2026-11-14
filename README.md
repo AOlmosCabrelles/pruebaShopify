@@ -37,6 +37,7 @@ Desde ese momento **funciona en las dos direcciones**:
 | **Páginas de colección** (`templates/collection.json`) | Cabecera visual por categoría: color propio, ilustración, ruta de navegación, contador de productos y accesos rápidos al resto de categorías. Debajo, franja de beneficios |
 | **Carrito** (`snippets/cart-summary.liquid`, `snippets/vigor-envio-gratis.liquid`) | Barra de progreso \"Te faltan X € para el envío gratis\" en el carrito lateral y en la página del carrito. Importe en *Configuración del tema → Vigor · Tienda* |
 | **Página de categorías** (`templates/list-collections.json`, ruta `/collections`) | Cabecera *Elige tu objetivo* y tarjetas grandes por categoría con su color, ilustración, número de productos, descripción y enlace; Proteínas destacada en doble alto; tarjeta *Todo el catálogo*; otras colecciones como botones. Debajo, *¿Por qué Vigor?* |
+| **Página Herramientas** (`templates/page.herramientas.json`) | Cabecera con accesos directos → cuestionario → calculadoras de proteína, creatina, calorías y macros, hidratación y cafeína → *Tu día con Vigor* → dudas frecuentes de nutrición deportiva → newsletter. Hay que crear la página en Shopify (ver abajo) |
 | **Tabla nutricional** (`assets/vigor.css`) | Las tablas de la descripción se ven como una tabla nutricional |
 
 ### Imágenes incluidas en el tema
@@ -78,6 +79,21 @@ Todas se pueden añadir, mover y editar desde el editor de temas (**Añadir secc
 | Vigor · Categorías | `sections/vigor-categorias.liquid` |
 | Vigor · Calculadora | `sections/vigor-calculadora.liquid` |
 | Vigor · FAQ | `sections/vigor-faq.liquid` (incluye datos estructurados para Google) |
+| Vigor · Herramientas | `sections/vigor-herramientas.liquid` (cabecera de la página Herramientas con accesos directos a cada herramienta) |
+| Vigor · Más calculadoras | `sections/vigor-calculadoras.liquid` (una calculadora a elegir: creatina, calorías y macros, hidratación o cafeína) |
+
+### Página "Herramientas" (crearla una sola vez)
+
+1. Admin de Shopify → **Contenido → Páginas → Agregar página**.
+2. Título: **Herramientas** (el contenido puede quedar vacío).
+3. A la derecha, en *Plantilla de tema*, elige **herramientas** → **Guardar**.
+4. Comprueba que el identificador (en *Vista previa del motor de búsqueda → Editar*) es `herramientas`:
+   así la calculadora de proteína de la página de inicio enlaza sola a esta página.
+5. Añádela al menú principal: **Contenido → Menús → Menú principal → Agregar elemento de menú**.
+
+Cada acceso directo de la cabecera lleva a la sección cuyo campo **Ancla** coincide
+(`proteina`, `creatina`, `calorias`, `hidratacion`, `cafeina`, `tu-dia`; el cuestionario es
+`encuentra-tu-suplemento` y las dudas, `preguntas-frecuentes`).
 | Vigor · Newsletter | `sections/vigor-newsletter.liquid` |
 
 Los estilos están en `assets/vigor.css` y se cargan desde `snippets/vigor-variables.liquid`.

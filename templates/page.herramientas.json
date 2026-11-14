@@ -1,0 +1,329 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "vigor_herramientas": {
+      "type": "vigor-herramientas",
+      "settings": {
+        "heading": "",
+        "text": "Calculadoras y guías para sacar el máximo partido a tu entrenamiento y a tus suplementos. Elige una herramienta:",
+        "palabra": "ENTRENA"
+      },
+      "blocks": {
+        "a1": {
+          "type": "atajo",
+          "settings": {
+            "icono": "🎯",
+            "title": "Encuentra tu suplemento",
+            "text": "2 preguntas, 3 productos",
+            "ancla": "encuentra-tu-suplemento"
+          }
+        },
+        "a2": {
+          "type": "atajo",
+          "settings": {
+            "icono": "🥩",
+            "title": "Proteína",
+            "text": "Cuánta necesitas al día",
+            "ancla": "proteina"
+          }
+        },
+        "a3": {
+          "type": "atajo",
+          "settings": {
+            "icono": "💪",
+            "title": "Creatina",
+            "text": "Dosis y cuánto dura el bote",
+            "ancla": "creatina"
+          }
+        },
+        "a4": {
+          "type": "atajo",
+          "settings": {
+            "icono": "🔥",
+            "title": "Calorías y macros",
+            "text": "Lo que necesitas comer",
+            "ancla": "calorias"
+          }
+        },
+        "a5": {
+          "type": "atajo",
+          "settings": {
+            "icono": "💧",
+            "title": "Hidratación",
+            "text": "Agua antes y durante el entreno",
+            "ancla": "hidratacion"
+          }
+        },
+        "a6": {
+          "type": "atajo",
+          "settings": {
+            "icono": "⚡",
+            "title": "Cafeína",
+            "text": "Tu dosis sin pasarte",
+            "ancla": "cafeina"
+          }
+        },
+        "a7": {
+          "type": "atajo",
+          "settings": {
+            "icono": "🕒",
+            "title": "Tu día con Vigor",
+            "text": "Cuándo tomar cada cosa",
+            "ancla": "tu-dia"
+          }
+        },
+        "a8": {
+          "type": "atajo",
+          "settings": {
+            "icono": "❓",
+            "title": "Dudas frecuentes",
+            "text": "Respuestas claras",
+            "ancla": "preguntas-frecuentes"
+          }
+        }
+      },
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6",
+        "a7",
+        "a8"
+      ]
+    },
+    "vigor_cuestionario": {
+      "type": "vigor-cuestionario",
+      "settings": {
+        "heading": "Encuentra tu suplemento",
+        "subheading": "Dos preguntas y te decimos qué encaja contigo.",
+        "aviso": "Recomendación orientativa. Si tienes alguna patología, estás embarazada o tomas medicación, consulta antes con un profesional sanitario.",
+        "padding": 56
+      }
+    },
+    "vigor_calculadora": {
+      "type": "vigor-calculadora",
+      "settings": {
+        "heading": "¿Cuánta proteína necesitas?",
+        "text": "Calcula tu necesidad diaria orientativa según tu peso y tu objetivo.",
+        "proteina_por_dosis": 27,
+        "dosis_g": 30,
+        "porcentaje": 30,
+        "product_types": "Proteínas",
+        "aviso": "Cálculo orientativo. No sustituye el consejo de un profesional sanitario.",
+        "padding": 40,
+        "ancla": "proteina",
+        "enlace_herramientas": false
+      }
+    },
+    "vigor_creatina": {
+      "type": "vigor-calculadoras",
+      "settings": {
+        "tipo": "creatina",
+        "ancla": "creatina",
+        "etiqueta": "Calculadora",
+        "heading": "¿Cuánta creatina tomar?",
+        "text": "Tu dosis diaria, si te conviene la fase de carga y cuánto te dura cada bote.",
+        "producto": "creatina-monohidrato",
+        "cafeina_producto": 200,
+        "aviso": "Cálculo orientativo para adultos sanos. No sustituye el consejo de un profesional sanitario.",
+        "padding": 40
+      }
+    },
+    "vigor_calorias": {
+      "type": "vigor-calculadoras",
+      "settings": {
+        "tipo": "calorias",
+        "ancla": "calorias",
+        "etiqueta": "Calculadora",
+        "heading": "Calorías y macros",
+        "text": "Cuántas calorías necesitas al día según tu objetivo, y cómo repartirlas entre proteína, hidratos y grasas.",
+        "producto": "whey-protein-isolate",
+        "cafeina_producto": 200,
+        "aviso": "Cálculo orientativo para adultos sanos. No sustituye el consejo de un profesional sanitario.",
+        "padding": 40
+      }
+    },
+    "vigor_hidratacion": {
+      "type": "vigor-calculadoras",
+      "settings": {
+        "tipo": "hidratacion",
+        "ancla": "hidratacion",
+        "etiqueta": "Calculadora",
+        "heading": "¿Cuánta agua necesitas?",
+        "text": "Lo que deberías beber al día y alrededor del entreno, y cuándo compensa una bebida isotónica.",
+        "producto": "bebida-isotonica",
+        "cafeina_producto": 200,
+        "aviso": "Cálculo orientativo para adultos sanos. No sustituye el consejo de un profesional sanitario.",
+        "padding": 40
+      }
+    },
+    "vigor_cafeina": {
+      "type": "vigor-calculadoras",
+      "settings": {
+        "tipo": "cafeina",
+        "ancla": "cafeina",
+        "etiqueta": "Calculadora",
+        "heading": "Cafeína: tu dosis",
+        "text": "La cantidad que te ayuda a rendir sin pasarte, contando los cafés que ya tomas.",
+        "producto": "pre-entreno-explosive",
+        "cafeina_producto": 200,
+        "aviso": "Orientativo para adultos sanos. Si estás embarazada o en periodo de lactancia, no superes 200 mg al día y evita el pre-entreno. Consulta con un profesional si tienes problemas de corazón o tensión.",
+        "padding": 40
+      }
+    },
+    "vigor_rutina": {
+      "type": "vigor-rutina",
+      "settings": {
+        "heading": "Tu día con Vigor",
+        "subheading": "Cuándo tomar cada suplemento para sacarle el máximo partido.",
+        "aviso": "Orientación general. Adapta las tomas a tu entrenamiento y consulta con un profesional si tienes dudas.",
+        "padding": 56,
+        "ancla": "tu-dia"
+      },
+      "blocks": {
+        "m1": {
+          "type": "momento",
+          "settings": {
+            "momento": "Mañana",
+            "title": "Empieza con la base",
+            "text": "Toma el multivitamínico y el omega-3 con el desayuno. La creatina puedes tomarla ahora o en cualquier momento: lo importante es ser constante.",
+            "product": "multivitaminico-sport"
+          }
+        },
+        "m2": {
+          "type": "momento",
+          "settings": {
+            "momento": "Antes de entrenar",
+            "title": "Activa el modo entreno",
+            "text": "20-30 minutos antes, el pre-entreno te da energía y concentración. Si entrenas por la tarde-noche, elige una opción sin cafeína.",
+            "product": "pre-entreno-explosive"
+          }
+        },
+        "m3": {
+          "type": "momento",
+          "settings": {
+            "momento": "Después de entrenar",
+            "title": "Recupera y construye",
+            "text": "Un batido de proteína en la hora siguiente al entrenamiento es la forma más cómoda de completar tu proteína del día.",
+            "product": "whey-protein-isolate"
+          }
+        },
+        "m4": {
+          "type": "momento",
+          "settings": {
+            "momento": "Antes de dormir",
+            "title": "Recuperación nocturna",
+            "text": "La caseína se digiere despacio y aporta proteína durante horas. El magnesio por la noche también es un clásico.",
+            "product": "caseina-micelar"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4"
+      ]
+    },
+    "vigor_faq": {
+      "type": "vigor-faq",
+      "settings": {
+        "heading": "Dudas frecuentes sobre nutrición deportiva",
+        "open_first": false,
+        "padding": 48
+      },
+      "blocks": {
+        "p1": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿Necesito suplementos para ganar músculo?",
+            "answer": "<p>No son imprescindibles: lo que más cuenta es entrenar bien, comer suficiente y descansar. Los suplementos ayudan a llegar a lo que necesitas de forma cómoda, sobre todo a la proteína del día.</p>"
+          }
+        },
+        "p2": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿Cuándo tomo la proteína?",
+            "answer": "<p>Lo más importante es el total del día. Repártela en 3-5 tomas de 20-40 g (por ejemplo, un batido después de entrenar). Usa la calculadora de proteína para saber tu cantidad.</p>"
+          }
+        },
+        "p3": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿Hace falta la fase de carga de la creatina?",
+            "answer": "<p>No. Con 3 g al día los músculos se llenan de creatina en 3-4 semanas; con la carga (unos 20 g al día durante 5-7 días) tardan una semana. El resultado final es el mismo.</p>"
+          }
+        },
+        "p4": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿La creatina retiene líquidos?",
+            "answer": "<p>Puede subir algo el peso al principio porque el músculo guarda más agua, no grasa. A las dosis habituales es uno de los suplementos más estudiados. Si tienes algún problema de riñón, consulta antes con tu médico.</p>"
+          }
+        },
+        "p5": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿Cuánta cafeína es segura?",
+            "answer": "<p>Según la Autoridad Europea de Seguridad Alimentaria (EFSA), en adultos sanos hasta 400 mg al día y hasta 200 mg de una vez. En el embarazo y la lactancia, no más de 200 mg al día. Suma el café, los refrescos y el pre-entreno.</p>"
+          }
+        },
+        "p6": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿Agua o bebida isotónica?",
+            "answer": "<p>Para entrenos de menos de una hora, agua. A partir de una hora, o si hace calor y sudas mucho, la bebida isotónica repone sales y aporta energía.</p>"
+          }
+        },
+        "p7": {
+          "type": "pregunta",
+          "settings": {
+            "question": "¿Puedo tomar varios suplementos a la vez?",
+            "answer": "<p>Sí, por ejemplo proteína y creatina se combinan sin problema. Ten cuidado con sumar productos con cafeína (pre-entreno, cápsulas de cafeína, café) el mismo día.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6",
+        "p7"
+      ]
+    },
+    "vigor_newsletter": {
+      "type": "vigor-newsletter",
+      "settings": {
+        "heading": "Únete al equipo Vigor",
+        "text": "Consejos de entrenamiento, novedades y un 10 % de descuento en tu primer pedido.",
+        "button": "Me apunto",
+        "legal": "Al suscribirte aceptas nuestra política de privacidad. Puedes darte de baja cuando quieras.",
+        "padding": 48
+      }
+    }
+  },
+  "order": [
+    "vigor_herramientas",
+    "vigor_cuestionario",
+    "vigor_calculadora",
+    "vigor_creatina",
+    "vigor_calorias",
+    "vigor_hidratacion",
+    "vigor_cafeina",
+    "vigor_rutina",
+    "vigor_faq",
+    "vigor_newsletter"
+  ]
+}

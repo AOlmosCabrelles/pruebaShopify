@@ -22,7 +22,7 @@
 -%}
 
 {%- if mostrar or request.design_mode -%}
-  <div class="vigor-section" style="--vigor-pad: {{ section.settings.padding }}px;">
+  <div{% if section.settings.ancla != blank %} id="{{ section.settings.ancla | handleize }}"{% endif %} class="vigor-section vigor-ancla" style="--vigor-pad: {{ section.settings.padding }}px;">
     <div class="vigor-section__inner">
       <div
         class="vigor-calc"
@@ -52,10 +52,15 @@
         </div>
 
         <div class="vigor-calc__resultado" aria-live="polite">
-          <span class="vigor-calc__cifra"><span data-vigor-total>150</span> g</span>
+          <span class="vigor-calc__cifra"><span data-vigor-total>150</span> <small>g</small></span>
           <span>de proteína al día</span>
           <p class="vigor-calc__detalle" data-vigor-detalle></p>
           <p class="vigor-calc__aviso">{{ section.settings.aviso }}</p>
+          {%- comment -%} Enlace a la página de herramientas, solo si existe y no estamos ya en ella {%- endcomment -%}
+          {%- assign pag_herramientas = pages['herramientas'] -%}
+          {%- if section.settings.enlace_herramientas and pag_herramientas.url != blank and page.handle != 'herramientas' -%}
+            <a class="vigor-calc__mas" href="{{ pag_herramientas.url }}">Más calculadoras: creatina, calorías, hidratación… →</a>
+          {%- endif -%}
         </div>
 
         {%- if en_producto -%}
@@ -128,6 +133,8 @@
     { "type": "range", "id": "porcentaje", "label": "% de la proteína diaria que aporta el suplemento", "min": 10, "max": 60, "step": 5, "unit": "%", "default": 30 },
     { "type": "text", "id": "product_types", "label": "Tipos de producto donde se muestra", "default": "Proteínas", "info": "Solo en la ficha de producto. Separa varios tipos con comas." },
     { "type": "text", "id": "aviso", "label": "Aviso legal", "default": "Cálculo orientativo. No sustituye el consejo de un profesional sanitario." },
+    { "type": "checkbox", "id": "enlace_herramientas", "label": "Enlace a la página Herramientas", "default": true, "info": "Aparece solo cuando existe la página con el identificador \"herramientas\"." },
+    { "type": "text", "id": "ancla", "label": "Ancla", "info": "Para enlazar a esta calculadora (#ancla). En la página Herramientas: proteina." },
     { "type": "range", "id": "padding", "label": "Espaciado vertical", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 48 }
   ],
   "presets": [{ "name": "Vigor · Calculadora" }]

@@ -1,0 +1,306 @@
+{%- comment -%}
+  Vigor Sport Nutrition · calculadoras de la página "Herramientas".
+  Una sola sección con cuatro tipos (se elige en "Calculadora"):
+  - creatina: dosis diaria, fase de carga opcional y cuántos días dura cada bote del producto.
+  - calorias: calorías diarias (fórmula de Mifflin-St Jeor) y reparto de proteína, hidratos y grasas.
+  - hidratacion: agua al día, antes y durante el entreno; si conviene bebida isotónica.
+  - cafeina: dosis orientativa por peso y margen hasta el máximo diario de la EFSA (400 mg).
+  Todo se calcula en el navegador; no se guarda nada.
+{%- endcomment -%}
+{%- liquid
+  assign tipo = section.settings.tipo
+  assign p = section.settings.producto
+  assign ancla = section.settings.ancla | default: tipo | handleize
+-%}
+
+<div id="{{ ancla }}" class="vigor-section vigor-ancla" style="--vigor-pad: {{ section.settings.padding }}px;">
+  <div class="vigor-section__inner">
+    <div class="vigor-calc vigor-calc--{{ tipo }}" data-vigor-calc2="{{ tipo }}" data-cafeina-producto="{{ section.settings.cafeina_producto }}">
+      <div>
+        <span class="vigor-calc__etiqueta">{{ section.settings.etiqueta }}</span>
+        <h2 class="h3">{{ section.settings.heading }}</h2>
+        {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+
+        <div class="vigor-calc__campos">
+          {%- case tipo -%}
+            {%- when 'creatina' -%}
+              <label>Tu peso (kg)
+                <input type="number" inputmode="numeric" min="30" max="250" value="75" data-campo="peso">
+              </label>
+              <label>Fase de carga
+                <select data-campo="carga">
+                  <option value="no" selected>No (lo más sencillo)</option>
+                  <option value="si">Sí, quiero notarlo antes</option>
+                </select>
+              </label>
+
+            {%- when 'calorias' -%}
+              <label>Sexo
+                <select data-campo="sexo">
+                  <option value="h">Hombre</option>
+                  <option value="m">Mujer</option>
+                </select>
+              </label>
+              <label>Edad
+                <input type="number" inputmode="numeric" min="15" max="99" value="30" data-campo="edad">
+              </label>
+              <label>Peso (kg)
+                <input type="number" inputmode="numeric" min="30" max="250" value="75" data-campo="peso">
+              </label>
+              <label>Altura (cm)
+                <input type="number" inputmode="numeric" min="120" max="230" value="175" data-campo="altura">
+              </label>
+              <label class="vigor-calc__ancho">Actividad
+                <select data-campo="actividad">
+                  <option value="1.2">Poca (trabajo sentado, sin entrenar)</option>
+                  <option value="1.375">Ligera (1-2 entrenos a la semana)</option>
+                  <option value="1.55" selected>Moderada (3-4 entrenos a la semana)</option>
+                  <option value="1.725">Alta (5-6 entrenos a la semana)</option>
+                  <option value="1.9">Muy alta (2 sesiones al día o trabajo físico)</option>
+                </select>
+              </label>
+              <label class="vigor-calc__ancho">Objetivo
+                <select data-campo="objetivo">
+                  <option value="perder">Perder grasa</option>
+                  <option value="mantener">Mantenerme</option>
+                  <option value="ganar" selected>Ganar músculo</option>
+                </select>
+              </label>
+
+            {%- when 'hidratacion' -%}
+              <label>Tu peso (kg)
+                <input type="number" inputmode="numeric" min="30" max="250" value="75" data-campo="peso">
+              </label>
+              <label>Minutos de entreno
+                <input type="number" inputmode="numeric" min="0" max="600" step="5" value="60" data-campo="minutos">
+              </label>
+              <label>Intensidad
+                <select data-campo="intensidad">
+                  <option value="400">Suave (caminar, yoga)</option>
+                  <option value="600" selected>Moderada (pesas, rodaje)</option>
+                  <option value="800">Alta (series, partido, crossfit)</option>
+                </select>
+              </label>
+              <label>¿Hace calor?
+                <select data-campo="calor">
+                  <option value="no" selected>No</option>
+                  <option value="si">Sí, sudo mucho</option>
+                </select>
+              </label>
+
+            {%- when 'cafeina' -%}
+              <label>Tu peso (kg)
+                <input type="number" inputmode="numeric" min="30" max="250" value="75" data-campo="peso">
+              </label>
+              <label>Cafés al día
+                <input type="number" inputmode="numeric" min="0" max="10" value="1" data-campo="cafes">
+              </label>
+              <label class="vigor-calc__ancho">¿Cómo te sienta la cafeína?
+                <select data-campo="tolerancia">
+                  <option value="3" selected>Bien, la tomo a menudo</option>
+                  <option value="2">Soy sensible o casi no la tomo</option>
+                </select>
+              </label>
+          {%- endcase -%}
+        </div>
+      </div>
+
+      <div class="vigor-calc__resultado" aria-live="polite">
+        <span class="vigor-calc__cifra" data-cifra>—</span>
+        <span data-unidad></span>
+        <div class="vigor-calc__extra" data-extra></div>
+
+        {%- if p != blank -%}
+          <a class="vigor-rutina__producto vigor-calc__producto" href="{{ p.url }}">
+            {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: p.title, width: 56, height: 56 }}{%- endif -%}
+            <span><strong>{{ p.title }}</strong>{{ p.price | money }}</span>
+          </a>
+        {%- endif -%}
+        <p class="vigor-calc__aviso">{{ section.settings.aviso }}</p>
+      </div>
+
+      {%- if tipo == 'creatina' and p != blank -%}
+        {%- comment -%} Gramos de cada variante: el peso del producto o, si falta, el número del nombre ("300 g", "1 kg") {%- endcomment -%}
+        <script type="application/json" data-botes>
+          [
+            {%- for v in p.variants -%}
+              { "nombre": {{ v.title | json }}, "gramos": {{ v.weight | default: 0 }} }{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+          ]
+        </script>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const raiz = document.querySelector('#shopify-section-{{ section.id }} [data-vigor-calc2]');
+    if (!raiz) return;
+    const tipo = raiz.dataset.vigorCalc2;
+    const num = (n, dec = 0) => Number(n).toLocaleString('es-ES', { maximumFractionDigits: dec, minimumFractionDigits: dec });
+    const campo = (k) => {
+      const el = raiz.querySelector(`[data-campo="${k}"]`);
+      return el ? el.value : '';
+    };
+    const valor = (k) => Number(campo(k));
+    const cifra = raiz.querySelector('[data-cifra]');
+    const unidad = raiz.querySelector('[data-unidad]');
+    const extra = raiz.querySelector('[data-extra]');
+    // Lista "concepto → valor" debajo de la cifra grande
+    const lista = (filas) => '<dl class="vigor-calc__lista">' + filas.map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join('') + '</dl>';
+    const nota = (t) => `<p class="vigor-calc__detalle">${t}</p>`;
+
+    // Gramos de un bote: el peso de la variante o el número de su nombre
+    const gramosBote = (b) => {
+      if (b.gramos > 0) return b.gramos;
+      const m = String(b.nombre).replace(',', '.').match(/(\d+(?:\.\d+)?)\s*(kg|g)\b/i);
+      if (!m) return 0;
+      return Number(m[1]) * (m[2].toLowerCase() === 'kg' ? 1000 : 1);
+    };
+    const jsonBotes = raiz.querySelector('[data-botes]');
+    const botes = jsonBotes ? JSON.parse(jsonBotes.textContent) : [];
+
+    const calculos = {
+      creatina() {
+        const peso = valor('peso');
+        if (!(peso >= 30)) return;
+        // 3 g al día es la cantidad con efecto demostrado (EFSA); con más peso, hasta 5 g
+        const diaria = Math.min(5, Math.max(3, Math.round(peso * 0.04)));
+        const carga = campo('carga') === 'si';
+        const gCarga = Math.round(peso * 0.3);
+        cifra.innerHTML = `${diaria} <small>g</small>`;
+        unidad.textContent = 'de creatina al día';
+        let filas = [['Cuándo', 'A cualquier hora, todos los días (también los de descanso)']];
+        if (carga) filas.unshift(['Primeros 5-7 días', `${gCarga} g al día, en 4 tomas de ${Math.round(gCarga / 4)} g`], ['Después', `${diaria} g al día`]);
+        const conDias = botes
+          .map((b) => ({ nombre: b.nombre, g: gramosBote(b) }))
+          .filter((b) => b.g > 0)
+          .map((b) => {
+            const dias = Math.floor(carga ? 5 + Math.max(0, b.g - gCarga * 5) / diaria : b.g / diaria);
+            return [`Bote de ${b.nombre}`, `unos ${dias} días`];
+          });
+        filas = filas.concat(conDias);
+        extra.innerHTML = lista(filas) + nota(carga
+          ? 'Con la carga los músculos se llenan de creatina en una semana. Sin ella también se llenan, en 3-4 semanas.'
+          : 'Sin fase de carga, los músculos se llenan de creatina en 3-4 semanas. Lo importante es no saltarse días.');
+      },
+
+      calorias() {
+        const peso = valor('peso'), altura = valor('altura'), edad = valor('edad');
+        if (!(peso >= 30 && altura >= 120 && edad >= 15)) return;
+        // Mifflin-St Jeor: gasto en reposo; por el factor de actividad = gasto del día
+        const reposo = 10 * peso + 6.25 * altura - 5 * edad + (campo('sexo') === 'm' ? -161 : 5);
+        const gasto = reposo * valor('actividad');
+        const objetivo = campo('objetivo');
+        const ajuste = { perder: 0.85, mantener: 1, ganar: 1.1 }[objetivo];
+        const kcal = Math.round((gasto * ajuste) / 10) * 10;
+        const gProteina = Math.round(peso * { perder: 2.0, mantener: 1.6, ganar: 1.8 }[objetivo]);
+        const gGrasa = Math.round((kcal * 0.25) / 9);
+        const gHidratos = Math.max(0, Math.round((kcal - gProteina * 4 - gGrasa * 9) / 4));
+        cifra.textContent = num(kcal);
+        unidad.textContent = 'kcal al día';
+        const macros = [
+          ['Proteína', gProteina, gProteina * 4, 'p'],
+          ['Hidratos', gHidratos, gHidratos * 4, 'h'],
+          ['Grasas', gGrasa, gGrasa * 9, 'g'],
+        ];
+        const barra = '<div class="vigor-macros__barra" aria-hidden="true">' + macros.map(([, , k, c]) => `<span class="vigor-macros__${c}" style="width:${(k / kcal) * 100}%"></span>`).join('') + '</div>';
+        const leyenda = '<ul class="vigor-macros">' + macros.map(([n, g, k, c]) => `<li><i class="vigor-macros__${c}"></i><strong>${g} g</strong> ${n} <small>${Math.round((k / kcal) * 100)} %</small></li>`).join('') + '</ul>';
+        const texto = {
+          perder: 'Un 15 % menos de lo que gastas: se pierde grasa sin perder músculo. Mantén la proteína alta.',
+          mantener: 'Lo que gastas en un día. Te sirve de referencia para comparar con lo que comes.',
+          ganar: 'Un 10 % más de lo que gastas: suficiente para ganar músculo sin coger mucha grasa.',
+        }[objetivo];
+        extra.innerHTML = barra + leyenda + nota(`${texto} Tu gasto estimado es de ${num(Math.round(gasto / 10) * 10)} kcal.`);
+      },
+
+      hidratacion() {
+        const peso = valor('peso');
+        if (!(peso >= 30)) return;
+        const minutos = Math.max(0, valor('minutos'));
+        const calor = campo('calor') === 'si';
+        const porHora = valor('intensidad') * (calor ? 1.25 : 1);
+        const base = peso * 35;
+        const durante = Math.round(((porHora * minutos) / 60) / 50) * 50;
+        const antes = Math.round((peso * 6) / 50) * 50;
+        const total = (base + durante) / 1000;
+        cifra.innerHTML = `${num(total, 1)} <small>L</small>`;
+        unidad.textContent = 'de agua al día (contando la del entreno)';
+        const filas = [
+          ['2-4 h antes de entrenar', `${antes} ml`],
+          ['Durante el entreno', minutos ? `${durante} ml (unos ${Math.round(porHora / 4 / 10) * 10} ml cada 15 min)` : '—'],
+          ['Después', 'Bebe hasta que la orina vuelva a ser clara'],
+        ];
+        const isotonica = minutos >= 60 || (calor && minutos >= 45);
+        extra.innerHTML = lista(filas) + nota(isotonica
+          ? '👉 Con este entreno conviene una <strong>bebida isotónica</strong> durante la sesión: repone las sales que pierdes al sudar y aporta energía.'
+          : 'Con este entreno basta con agua. La bebida isotónica compensa a partir de una hora o si sudas mucho.');
+      },
+
+      cafeina() {
+        const peso = valor('peso');
+        if (!(peso >= 30)) return;
+        // 3 mg/kg es la dosis eficaz más baja estudiada; la EFSA considera seguras tomas de hasta 200 mg
+        const mgKg = valor('tolerancia');
+        const ideal = peso * mgKg;
+        const dosis = Math.min(200, Math.round(ideal / 25) * 25);
+        const cafes = Math.max(0, valor('cafes')) * 80;
+        const margen = 400 - cafes - dosis;
+        const producto = Number(raiz.dataset.cafeinaProducto) || 0;
+        cifra.innerHTML = `${dosis} <small>mg</small>`;
+        unidad.textContent = 'de cafeína antes de entrenar';
+        const filas = [
+          ['Cuándo', '30-60 min antes de entrenar'],
+          ['Con tus cafés', `${num(cafes + dosis)} mg en el día (máximo 400 mg)`],
+        ];
+        if (producto) {
+          const parte = dosis / producto;
+          const texto = parte >= 1 ? '1 dosis completa' : parte >= 0.75 ? '¾ de dosis' : parte >= 0.5 ? 'media dosis' : 'menos de media dosis';
+          filas.push([`Pre-entreno (${producto} mg por dosis)`, texto]);
+        }
+        let aviso = ideal > 200
+          ? 'Por tu peso podrías tolerar algo más, pero no se recomienda pasar de 200 mg de una vez.'
+          : 'Empieza con esta cantidad y sube poco a poco solo si la necesitas.';
+        if (margen < 0) aviso = `⚠️ Sumando tus cafés pasarías de 400 mg al día. Quita ${Math.ceil(-margen / 80)} café(s) los días que entrenes o toma menos cantidad.`;
+        extra.innerHTML = lista(filas) + nota(aviso + ' Evítala en las 6 horas antes de dormir.');
+      },
+    };
+
+    const pintar = () => calculos[tipo] && calculos[tipo]();
+    raiz.addEventListener('input', pintar);
+    raiz.addEventListener('change', pintar);
+    pintar();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Vigor · Más calculadoras",
+  "tag": "section",
+  "class": "vigor-calculadoras-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "tipo",
+      "label": "Calculadora",
+      "options": [
+        { "value": "creatina", "label": "Creatina" },
+        { "value": "calorias", "label": "Calorías y macros" },
+        { "value": "hidratacion", "label": "Hidratación" },
+        { "value": "cafeina", "label": "Cafeína" }
+      ],
+      "default": "creatina"
+    },
+    { "type": "text", "id": "ancla", "label": "Ancla", "info": "Para enlazar a esta calculadora desde la cabecera (#ancla). Vacío = el tipo de calculadora." },
+    { "type": "text", "id": "etiqueta", "label": "Etiqueta", "default": "Calculadora" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "¿Cuánta creatina tomar?" },
+    { "type": "textarea", "id": "text", "label": "Texto" },
+    { "type": "product", "id": "producto", "label": "Producto recomendado", "info": "En la de creatina, también calcula cuántos días dura cada tamaño del bote." },
+    { "type": "range", "id": "cafeina_producto", "label": "Cafeína por dosis del pre-entreno", "min": 0, "max": 400, "step": 25, "unit": "mg", "default": 200, "info": "Solo en la de cafeína. 0 = no comparar." },
+    { "type": "text", "id": "aviso", "label": "Aviso legal", "default": "Cálculo orientativo para adultos sanos. No sustituye el consejo de un profesional sanitario." },
+    { "type": "range", "id": "padding", "label": "Espaciado vertical", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 40 }
+  ],
+  "presets": [{ "name": "Vigor · Más calculadoras" }]
+}
+{% endschema %}
