@@ -93,6 +93,10 @@ Lo que se hace en **este** repositorio (rama `tema-horizon`): la sección "Packs
       que se rellenan)
 - [ ] Menú principal: el propietario lo creó; si la cabecera no lo muestra, elegirlo en el bloque
       *Menú* de la cabecera
+- [ ] **Revisar las traducciones automáticas de los nombres de producto** (visto el 14/11/2026 en
+      un albarán): el cliente ve, por ejemplo, *"Mezclador Vigor 700 ml"* en vez de *Shaker* y
+      *"Proteína de suero concentrada"* en vez de *Whey Protein Concentrada*. Se corrigen en
+      *Configuración → Idiomas → Español → Gestionar* (o en la app Translate & Adapt)
 - [ ] Ajustar el email de contacto del pie (ahora `hola@vigorsport.example`) y redes sociales
 
 ## 7. Lecciones aprendidas (¡importante!)
