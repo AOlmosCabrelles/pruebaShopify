@@ -46,7 +46,9 @@ Secciones propias `sections/vigor-*.liquid`, estilos en `assets/vigor.css`, vari
 `snippets/vigor-variables.liquid`:
 banner, cinta, beneficios, categorías, "¿Cuál es tu objetivo?", **cuestionario "Encuentra tu
 suplemento"**, "Tu día con Vigor", imagen y texto, calculadora de proteína, FAQ, newsletter,
-cabecera de colección (foto de fondo), página de categorías (`/collections`), pie propio con
+cabecera de colección (foto de fondo), página de categorías (`/collections`), **página Herramientas**
+(`templates/page.herramientas.json`, desde el 14/11/2026: cuestionario + calculadoras de proteína,
+creatina, calorías y macros, hidratación y cafeína + Tu día + dudas), pie propio con
 créditos, **barra de envío gratis en el carrito** (importe en *Configuración del tema → Vigor · Tienda*).
 
 Archivos **originales de Horizon modificados** (revisar si se actualiza Horizon): lista en el
@@ -101,6 +103,8 @@ Lo que se hace en **este** repositorio (rama `tema-horizon`): la sección "Packs
       un albarán): el cliente ve, por ejemplo, *"Mezclador Vigor 700 ml"* en vez de *Shaker* y
       *"Proteína de suero concentrada"* en vez de *Whey Protein Concentrada*. Se corrigen en
       *Configuración → Idiomas → Español → Gestionar* (o en la app Translate & Adapt)
+- [ ] **Crear la página "Herramientas"** (*Contenido → Páginas*, plantilla `herramientas`, identificador
+      `herramientas`) y añadirla al menú principal. Pasos en el README de `tema-horizon`
 - [ ] Ajustar el email de contacto del pie (ahora `hola@vigorsport.example`) y redes sociales
 
 ## 7. Lecciones aprendidas (¡importante!)
