@@ -3,7 +3,7 @@
 Resumen del estado, las decisiones tomadas y lo aprendido. Pensado para una sesión nueva de Claude
 o para otro mantenedor: **leer esto primero**, luego el `README.md` de cada rama.
 
-*Última actualización: 13/11/2026.*
+*Última actualización: 14/11/2026.*
 
 ---
 
@@ -75,6 +75,10 @@ toca credenciales o datos del negocio vive en el repositorio **privado**
 `AOlmosCabrelles/vigor-sport-gestion` (diseño, decisiones y estado en su `docs/CONTEXTO.md`):
 informe diario de stock, lotes y caducidad (solo para el vendedor), y la regla de descuento de los
 packs.
+
+Estado al 14/11/2026 (detalle en el `docs/CONTEXTO.md` privado): app propia, informe diario,
+lotes con fecha de consumo preferente, lote de cada pedido (sale en el albarán) y salidas manuales
+**funcionando en la tienda**. Siguiente: **packs**.
 
 Lo que se hace en **este** repositorio (rama `tema-horizon`): la sección "Packs" del tema y el
 **regalo automático** (shaker gratis desde 70 €: descuento nativo + el tema añade/quita el regalo).
